@@ -1,12 +1,39 @@
 import React, { useState } from 'react';
 
+import {
+  // createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from 'firebase/auth';
+
 import viteLogo from '../../public/vite.svg';
 import reactLogo from '../assets/react.svg';
-
 import './App.css';
+import { auth } from '../shared/firebase';
 
 const App: React.FC = () => {
   const [count, setCount] = useState(0);
+  const email = 'ladg@gmail.com';
+  const password = 'leso261981';
+
+  // createUserWithEmailAndPassword(auth, email, password)
+  //   .then((userCredential) => {
+  //     const { user } = userCredential;
+
+  //     console.log('user', user);
+  //   })
+  //   .catch((error) => {
+  //     console.log('errorMessage', error);
+  //   });
+
+  signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      const { user } = userCredential;
+
+      console.log(user);
+    })
+    .catch((error) => {
+      console.log('errorMessage', error);
+    });
 
   return (
     <>
@@ -24,7 +51,7 @@ const App: React.FC = () => {
           count is {count}
         </button>
         <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
+          user email <code>src/App.tsx</code> and save to test HMR
         </p>
       </div>
       <p className="read-the-docs">Click on the Vite and React logos to learn more</p>

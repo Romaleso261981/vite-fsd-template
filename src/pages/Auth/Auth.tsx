@@ -4,6 +4,7 @@ import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 // @ts-ignore
 import OtpInput from 'otp-input-react';
 import { toast, Toaster } from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 import { BsFillShieldLockFill, BsTelephoneFill } from 'react-icons/bs';
 import { CgSpinner } from 'react-icons/cg';
 import PhoneInput from 'react-phone-input-2';
@@ -18,6 +19,9 @@ const Auth = () => {
   const [loading, setLoading] = useState(false);
   const [showOTP, setShowOTP] = useState(false);
   const [user, setUser] = useState(null);
+
+  // Translation
+  const { t } = useTranslation();
 
   function onCaptchVerify() {
     if (!extendedWindow.recaptchaVerifier) {
@@ -81,7 +85,7 @@ const Auth = () => {
         ) : (
           <div className="w-80 flex flex-col gap-4 rounded-lg p-4">
             <h1 className="text-center leading-normal text-white font-medium text-3xl mb-6">
-              Welcome to <br /> CODE A PROGRAM
+              {t('Welcome to')} <br /> CODE A PROGRAM
             </h1>
             {showOTP ? (
               <>

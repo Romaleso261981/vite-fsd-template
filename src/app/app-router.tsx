@@ -1,10 +1,18 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import { routesLib } from '../shared/lib/index';
+import Main from '../pages/Main/Main';
+import Auth from '../pages/Auth/Auth';
 
-export const appRouter = createBrowserRouter([
+const AppRouter = createBrowserRouter([
   {
     path: routesLib.MAIN,
-    element: <h1>MainPage</h1>,
+    element: <Main />,
+  },
+  {
+    path: routesLib.AUTH,
+    element: <Auth />,
   },
 ]);
+
+export default AppRouter;

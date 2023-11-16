@@ -9,8 +9,9 @@ import { CgSpinner } from 'react-icons/cg';
 import PhoneInput from 'react-phone-input-2';
 
 import 'react-phone-input-2/lib/style.css';
-import { extendedWindow } from '../../shared/extendedWindow';
+// import { ExtendedWindow } from '../../../global.d';
 import { auth } from '../../shared/firebase';
+import { extendedWindow } from '../../shared/extendedWindow';
 
 const Auth = () => {
   const [otp, setOtp] = useState('');
@@ -29,7 +30,7 @@ const Auth = () => {
           callback: () => {
             onSignup();
           },
-          'expired-callback': () => {},
+          'expired-callback': () => { },
         },
       );
     }

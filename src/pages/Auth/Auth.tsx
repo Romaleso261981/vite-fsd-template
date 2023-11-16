@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { Button, Group } from '@mantine/core';
+import { notifications } from '@mantine/notifications';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 // @ts-ignore
 import OtpInput from 'otp-input-react';
@@ -62,6 +64,10 @@ const Auth = () => {
 
   function onOTPVerify() {
     setLoading(true);
+    notifications.show({
+      title: 'Default notification',
+      message: 'Hey there, your code is awesome! 🤥',
+    });
     extendedWindow.confirmationResult
       .confirm(otp)
       .then(async (res: any) => {
@@ -70,6 +76,10 @@ const Auth = () => {
         setLoading(false);
       })
       .catch((err: any) => {
+        notifications.show({
+          title: 'Default notification',
+          message: 'Hey there, your code is awesome! 🤥',
+        });
         console.log(err);
         setLoading(false);
       });
@@ -78,6 +88,31 @@ const Auth = () => {
   return (
     <section className="bg-emerald-500 flex items-center justify-center h-screen">
       <div>
+        <Group justify="center">
+          <Button
+            onClick={() =>
+              notifications.show({
+                title: 'Notification with custom styles',
+                message: 'It is default blue',
+              })
+            }
+          >
+            Default notification
+          </Button>
+
+          <Button
+            color="red"
+            onClick={() =>
+              notifications.show({
+                color: 'red',
+                title: 'Notification with custom styles',
+                message: 'It is red',
+              })
+            }
+          >
+            Error notification
+          </Button>
+        </Group>
         <Toaster toastOptions={{ duration: 4000 }} />
         <div id="recaptcha-container" />
         {user ? (

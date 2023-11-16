@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { MantineProvider } from '@mantine/core';
+import { Notifications } from '@mantine/notifications';
 import i18n from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import HttpApi from 'i18next-http-backend';
@@ -27,7 +29,10 @@ i18n
   });
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <MantineProvider>
+    <React.StrictMode>
+      <Notifications />
+      <App />
+    </React.StrictMode>
+  </MantineProvider>,
 );

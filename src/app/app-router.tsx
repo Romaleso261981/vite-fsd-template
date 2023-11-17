@@ -1,8 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom';
 
-import { routesLib } from '../shared/lib/index';
-import Main from '../pages/Main/Main';
 import Auth from '../pages/Auth/Auth';
+import Main from '../pages/Main/Main';
+import { routesLib } from '../shared/lib/index';
 
 const AppRouter = createBrowserRouter([
   {

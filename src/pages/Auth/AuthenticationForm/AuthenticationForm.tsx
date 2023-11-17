@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import {
   TextInput,
   PasswordInput,
@@ -13,11 +15,17 @@ import {
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useToggle, upperFirst } from '@mantine/hooks';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+
+import { auth } from '../../../shared/firebase';
 
 import { GoogleButton } from './GoogleButton';
 import { TwitterButton } from './TwitterButton';
 
 export const AuthenticationForm = (props: PaperProps) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  // const [name, setName] = useState('');
   const [type, toggle] = useToggle(['login', 'register']);
   const form = useForm({
     initialValues: {
@@ -34,6 +42,26 @@ export const AuthenticationForm = (props: PaperProps) => {
     },
   });
 
+  const onSubmit = async (e: any) => {
+    e.preventDefault();
+
+    await createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const { user } = userCredential;
+
+        console.log(user);
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+
+        console.log(errorCode, errorMessage);
+        // ..
+      });
+  };
+
   return (
     <Paper radius="md" p="xl" withBorder {...props}>
       <Text size="lg" fw={500}>
@@ -47,14 +75,14 @@ export const AuthenticationForm = (props: PaperProps) => {
 
       <Divider label="Or continue with email" labelPosition="center" my="lg" />
 
-      <form onSubmit={form.onSubmit(() => {})}>
+      <form onSubmit={onSubmit}>
         <Stack>
           {type === 'register' && (
             <TextInput
               label="Name"
               placeholder="Your name"
               value={form.values.name}
-              onChange={(event) => form.setFieldValue('name', event.currentTarget.value)}
+              onChange={(e) => setEmail(e.target.value)}
               radius="md"
             />
           )}
@@ -63,8 +91,8 @@ export const AuthenticationForm = (props: PaperProps) => {
             required
             label="Email"
             placeholder="hello@mantine.dev"
-            value={form.values.email}
-            onChange={(event) => form.setFieldValue('email', event.currentTarget.value)}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             error={form.errors.email && 'Invalid email'}
             radius="md"
           />
@@ -73,10 +101,8 @@ export const AuthenticationForm = (props: PaperProps) => {
             required
             label="Password"
             placeholder="Your password"
-            value={form.values.password}
-            onChange={(event) =>
-              form.setFieldValue('password', event.currentTarget.value)
-            }
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             error={
               form.errors.password && 'Password should include at least 6 characters'
             }
@@ -87,9 +113,7 @@ export const AuthenticationForm = (props: PaperProps) => {
             <Checkbox
               label="I accept terms and conditions"
               checked={form.values.terms}
-              onChange={(event) =>
-                form.setFieldValue('terms', event.currentTarget.checked)
-              }
+              onChange={(e) => setPassword(e.target.value)}
             />
           )}
         </Stack>

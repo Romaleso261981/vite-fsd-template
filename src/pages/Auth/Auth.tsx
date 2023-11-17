@@ -58,7 +58,7 @@ const Auth = () => {
       })
       .catch((err) => {
         notifications.show({
-          title: 'Default notification',
+          title: 'Помилка підтверження номеру',
           message: `${err.message}`,
         });
         setLoading(false);
@@ -71,11 +71,15 @@ const Auth = () => {
       .confirm(otp)
       .then(async (res: any) => {
         setUser(res.user);
+        notifications.show({
+          title: 'Вітаю',
+          message: 'Ви успішно увійшли',
+        });
         setLoading(false);
       })
       .catch((err: any) => {
         notifications.show({
-          title: 'Default notification',
+          title: 'Помилка верифікації номеру',
           message: `${err.message}`,
         });
         setLoading(false);
@@ -91,7 +95,7 @@ const Auth = () => {
             onClick={() =>
               notifications
                 .show({
-                  title: 'Default notification',
+                  title: 'Default',
                   message: 'Hey there, your code is awesome! 🤥',
                 })
                 .charAt(1)

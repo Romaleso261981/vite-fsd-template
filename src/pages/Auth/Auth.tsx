@@ -93,12 +93,10 @@ const Auth = () => {
           <Button
             variant="outline"
             onClick={() =>
-              notifications
-                .show({
-                  title: 'Default',
-                  message: 'Hey there, your code is awesome! 🤥',
-                })
-                .charAt(1)
+              notifications.show({
+                title: 'Перевірка чи працює повідомлення',
+                message: 'Hey there, your code is awesome! 🤥',
+              })
             }
           >
             Show notification

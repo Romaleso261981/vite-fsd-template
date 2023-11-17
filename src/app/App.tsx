@@ -1,10 +1,16 @@
 import React from 'react';
 
 import './App.css';
-import Auth from '../pages/Auth/Auth';
+import Header from '../features/components/Header/Header';
+// import Auth from '../pages/Auth/Auth';
 
 const App: React.FC = () => {
-  return <Auth />;
+  return (
+    <>
+      <Header />
+      {/* <Auth /> */}
+    </>
+  );
 };
 
 export default App;

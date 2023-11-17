@@ -64,10 +64,6 @@ const Auth = () => {
 
   function onOTPVerify() {
     setLoading(true);
-    notifications.show({
-      title: 'Default notification',
-      message: 'Hey there, your code is awesome! 🤥',
-    });
     extendedWindow.confirmationResult
       .confirm(otp)
       .then(async (res: any) => {
@@ -76,10 +72,6 @@ const Auth = () => {
         setLoading(false);
       })
       .catch((err: any) => {
-        notifications.show({
-          title: 'Default notification',
-          message: 'Hey there, your code is awesome! 🤥',
-        });
         console.log(err);
         setLoading(false);
       });
@@ -90,27 +82,15 @@ const Auth = () => {
       <div>
         <Group justify="center">
           <Button
+            variant="outline"
             onClick={() =>
               notifications.show({
-                title: 'Notification with custom styles',
-                message: 'It is default blue',
+                title: 'Default notification',
+                message: 'Hey there, your code is awesome! 🤥',
               })
             }
           >
-            Default notification
-          </Button>
-
-          <Button
-            color="red"
-            onClick={() =>
-              notifications.show({
-                color: 'red',
-                title: 'Notification with custom styles',
-                message: 'It is red',
-              })
-            }
-          >
-            Error notification
+            Show notification
           </Button>
         </Group>
         <Toaster toastOptions={{ duration: 4000 }} />

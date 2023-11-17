@@ -1,0 +1,15 @@
+.locale{
+	display: flex;
+	flex-direction: row;
+}
+
+.localeList{
+	text-decoration: none;
+}
+
+.button{
+	width: 6.25rem;
+	height: 2.5rem;
+	color: black;
+	margin-bottom: 10px;
+}

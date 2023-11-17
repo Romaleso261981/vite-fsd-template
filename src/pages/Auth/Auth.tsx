@@ -56,8 +56,11 @@ const Auth = () => {
         setShowOTP(true);
         toast.success('OTP sended successfully!');
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        notifications.show({
+          title: 'Default notification',
+          message: `${err.message}`,
+        });
         setLoading(false);
       });
   }
@@ -67,12 +70,18 @@ const Auth = () => {
     extendedWindow.confirmationResult
       .confirm(otp)
       .then(async (res: any) => {
-        console.log(res);
+        notifications.show({
+          title: 'Default notification',
+          message: `${res.message}`,
+        });
         setUser(res.user);
         setLoading(false);
       })
       .catch((err: any) => {
-        console.log(err);
+        notifications.show({
+          title: 'Default notification',
+          message: `${err.message}`,
+        });
         setLoading(false);
       });
   }

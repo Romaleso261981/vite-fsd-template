@@ -1,17 +1,20 @@
 import { createBrowserRouter } from 'react-router-dom';
 
-import Auth from '../pages/Auth/Auth';
+import AuthPage from '../pages/AuthPage';
 import Main from '../pages/Main/Main';
-import { routesLib } from '../shared/lib/index';
+
+// import Auth from '../pages/Auth/Auth';
+// import Main from '../pages/Main/Main';
+// import { routesLib } from '../shared/lib/index';
 
 const AppRouter = createBrowserRouter([
   {
-    path: routesLib.MAIN,
+    path: '/',
     element: <Main />,
   },
   {
-    path: routesLib.AUTH,
-    element: <Auth />,
+    path: '/login',
+    element: <AuthPage />,
   },
 ]);
 

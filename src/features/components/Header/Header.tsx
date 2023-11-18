@@ -29,7 +29,7 @@ import {
   IconChevronDown,
 } from '@tabler/icons-react';
 
-import classes from './Header.module.css';
+import classes from './HeaderMegaMenu.module.css';
 
 const mockdata = [
   {
@@ -64,7 +64,7 @@ const mockdata = [
   },
 ];
 
-const Header = () => {
+export const Header = () => {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
@@ -92,7 +92,7 @@ const Header = () => {
   ));
 
   return (
-    <Box pb={1200}>
+    <Box pb={120}>
       <header className={classes.header}>
         <Group justify="space-between" h="100%">
           <MantineLogo size={30} />
@@ -119,7 +119,7 @@ const Header = () => {
               <HoverCard.Dropdown style={{ overflow: 'hidden' }}>
                 <Group justify="space-between" px="md">
                   <Text fw={500}>Features</Text>
-                  <Anchor href="#" fz="xs">
+                  <Anchor href="/" fz="xs">
                     View all
                   </Anchor>
                 </Group>
@@ -207,5 +207,3 @@ const Header = () => {
     </Box>
   );
 };
-
-export default Header;

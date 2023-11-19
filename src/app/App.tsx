@@ -15,7 +15,7 @@ const App = createBrowserRouter([
     element: <AuthPage />,
   },
   {
-    path: routesLib.AUTH,
+    path: routesLib.NotFound,
     element: <NotFound />,
   },
 ]);

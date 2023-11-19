@@ -1,10 +1,15 @@
 import 'react-phone-input-2/lib/style.css';
+// import { FooterLinks } from '../../features/components/Footer/Footer';
+import { Header } from '../../features/components/Header/Header';
+// import { HeroBullets } from '../../features/components/Hero/Hero';
 
 const Main = () => {
   return (
-    <section className="bg-emerald-500 flex items-center justify-center h-screen">
-      <h1>Main</h1>
-    </section>
+    <>
+      <Header />
+      {/* <HeroBullets /> */}
+      {/* <FooterLinks /> */}
+    </>
   );
 };
 

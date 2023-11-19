@@ -9,7 +9,7 @@ import './index.css';
 import './i18n';
 import { RouterProvider } from 'react-router-dom';
 
-import AppRouter from './app/app-router';
+import App from './app/App';
 
 const theme = createTheme({
   /** Put your mantine theme override here */
@@ -19,7 +19,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <MantineProvider theme={theme}>
     <React.StrictMode>
       <Notifications position="bottom-center" />
-      <RouterProvider router={AppRouter} />
+      <RouterProvider router={App} />
     </React.StrictMode>
   </MantineProvider>,
 );

@@ -1,21 +1,18 @@
-// import React from 'react';
+import { createBrowserRouter } from 'react-router-dom';
 
-// import './App.css';
-// // import Header from '../features/components/Header/Header';
-// // import Auth from '../pages/Auth/Auth';
-// import AuthPage from '../pages/AuthPage';
+import AuthPage from '../pages/AuthPage';
+import Main from '../pages/Main/Main';
+import { routesLib } from '../shared/lib/index';
 
-// import AppRouter from './app-router';
+const App = createBrowserRouter([
+  {
+    path: routesLib.MAIN,
+    element: <Main />,
+  },
+  {
+    path: routesLib.AUTH,
+    element: <AuthPage />,
+  },
+]);
 
-// const App: React.FC = () => {
-//   return (
-//     <>
-//       <AppRouter />
-//       {/* <Header /> */}
-//       {/* <Auth /> */}
-//       <AuthPage />
-//     </>
-//   );
-// };
-
-// export default App;
+export default App;

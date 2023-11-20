@@ -47,9 +47,8 @@ export const signUp = createAsyncThunk<void, UserCredentials, { rejectValue: Aut
         .auth()
         .createUserWithEmailAndPassword(email, password);
 
+      // eslint-disable-next-line no-console
       console.log(response);
-
-      return response;
     } catch (err: any) {
       // eslint-disable-next-line
       return rejectWithValue(err);
@@ -77,6 +76,7 @@ export const authSlice = createSlice({
       state.error = undefined;
     });
     builder.addCase(signUp.rejected, (state, { payload }) => {
+      // eslint-disable-next-line no-console
       console.log('rejected');
       state.loading = false;
       state.error = payload;

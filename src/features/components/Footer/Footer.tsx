@@ -39,7 +39,7 @@ const data = [
   },
 ];
 
-export const FooterLinks = () => {
+export const Footer = () => {
   const groups = data.map((group) => {
     const links = group.links.map((link, index) => (
       <Text<'a'>

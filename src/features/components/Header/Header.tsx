@@ -70,6 +70,8 @@ export const Header = () => {
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
   const theme = useMantineTheme();
 
+  const setIsshow = () => {};
+
   const links = mockdata.map((item) => (
     <UnstyledButton className={classes.subLink} key={item.title}>
       <Group wrap="nowrap" align="flex-start">
@@ -92,7 +94,7 @@ export const Header = () => {
   ));
 
   return (
-    <Box pb={120}>
+    <Box pb={5}>
       <header className={classes.header}>
         <Group justify="space-between" h="100%">
           <MantineLogo size={30} />
@@ -103,7 +105,7 @@ export const Header = () => {
             </a>
             <HoverCard width={600} position="bottom" radius="md" shadow="md" withinPortal>
               <HoverCard.Target>
-                <a href="/" className={classes.link}>
+                <a href="/auth" className={classes.link}>
                   <Center inline>
                     <Box component="span" mr={5}>
                       Features
@@ -154,7 +156,14 @@ export const Header = () => {
           </Group>
 
           <Group visibleFrom="sm">
-            <Button variant="default">Log in</Button>
+            <Button
+              variant="default"
+              onClick={() => {
+                setIsshow();
+              }}
+            >
+              Log in
+            </Button>
             <Button>Sign up</Button>
           </Group>
 

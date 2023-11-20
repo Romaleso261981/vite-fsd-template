@@ -30,9 +30,10 @@ import {
   IconCoin,
   IconChevronDown,
 } from '@tabler/icons-react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-import { selectAuth, signUp } from '../../auth/authSlice';
+import { AppDispatch } from '../../../app/store';
+import { signUp } from '../../auth/authSlice';
 
 import classes from './HeaderMegaMenu.module.css';
 
@@ -76,18 +77,16 @@ export const Header = () => {
   // const [user, setUser] = useState(null);
   const [isAuth, setIsAuth] = useState(false);
   const theme = useMantineTheme();
-  const auth = useSelector(selectAuth);
 
   // eslint-disable-next-line no-console
-  console.log(auth);
-  const dispath = useDispatch();
-  // const NewUser = {
-  //   firstName: '',
-  //   lastName: '',
-  //   email: '',
-  //   password: '',
-  //   initials: '',
-  // };
+  const dispath: AppDispatch = useDispatch();
+  const NewUser = {
+    firstName: '',
+    lastName: '',
+    email: 'ladclimat@gmail.com',
+    password: '123456',
+    initials: '',
+  };
 
   const links = mockdata.map((item) => (
     <UnstyledButton<'a'> className={classes.subLink} key={item.title}>
@@ -178,7 +177,7 @@ export const Header = () => {
                 variant="default"
                 onClick={() => {
                   setIsAuth(!isAuth);
-                  dispath(signUp());
+                  dispath(signUp(NewUser));
                 }}
               >
                 Log in

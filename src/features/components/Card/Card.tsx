@@ -36,8 +36,19 @@ const mockdata = [
 export const ActionsGrid = () => {
   const theme = useMantineTheme();
 
+  function hendleClick(data: any) {
+    // eslint-disable-next-line no-console
+    console.log(data);
+  }
+
   const items = mockdata.map((item) => (
-    <UnstyledButton key={item.title} className={classes.item}>
+    <UnstyledButton
+      key={item.title}
+      className={classes.item}
+      onClick={() => {
+        hendleClick(item.title);
+      }}
+    >
       <item.icon color={theme.colors[item.color][6]} size="2rem" />
       <Text size="xs" mt={7}>
         {item.title}

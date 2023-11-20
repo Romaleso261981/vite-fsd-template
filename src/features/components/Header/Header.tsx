@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import {
   HoverCard,
   Group,
@@ -28,9 +30,9 @@ import {
   IconCoin,
   IconChevronDown,
 } from '@tabler/icons-react';
-// import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-// import { signUp } from '../../auth/authSlice';
+import { selectAuth, signUp } from '../../auth/authSlice';
 
 import classes from './HeaderMegaMenu.module.css';
 
@@ -71,19 +73,23 @@ export const Header = () => {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
+  // const [user, setUser] = useState(null);
+  const [isAuth, setIsAuth] = useState(false);
   const theme = useMantineTheme();
-  const setIsshow = () => {};
-  // const dispath = useDispatch();
-  // const NewUser = {
-  //   firstName: '',
-  //   lastName: '',
-  //   email: '',
-  //   password: '',
-  //   initials: '',
-  // };
+  const auth = useSelector(selectAuth);
+
+  console.log(auth);
+  const dispath = useDispatch();
+  const NewUser = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    initials: '',
+  };
 
   const links = mockdata.map((item) => (
-    <UnstyledButton className={classes.subLink} key={item.title}>
+    <UnstyledButton<'a'> className={classes.subLink} key={item.title}>
       <Group wrap="nowrap" align="flex-start">
         <ThemeIcon size={34} variant="default" radius="md">
           <item.icon
@@ -166,16 +172,28 @@ export const Header = () => {
           </Group>
 
           <Group visibleFrom="sm">
-            <Button
-              variant="default"
-              onClick={() => {
-                setIsshow();
-                // dispath(signUp(NewUser) as any);
-              }}
-            >
-              Log in
-            </Button>
-            <Button>Sign up</Button>
+            {!isAuth && (
+              <Button
+                variant="default"
+                onClick={() => {
+                  setIsAuth(!isAuth);
+                  dispath(signUp('kdfvomno'));
+                }}
+              >
+                Log in
+              </Button>
+            )}
+            {isAuth && (
+              <Button
+                variant="default"
+                onClick={() => {
+                  setIsAuth(!isAuth);
+                  // dispath(signUp(NewUser));
+                }}
+              >
+                Log out
+              </Button>
+            )}
           </Group>
 
           <Burger opened={drawerOpened} onClick={toggleDrawer} hiddenFrom="sm" />

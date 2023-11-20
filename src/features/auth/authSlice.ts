@@ -1,9 +1,14 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getFirebase } from 'react-redux-firebase';
+// import { getFirebase } from 'react-redux-firebase';
+
+import { RootState } from '../../app/rootReducer';
 
 export type UserCredentials = {
   email: string;
   password: string;
+};
+export type IresData = {
+  str: string;
 };
 
 export type User = {
@@ -22,40 +27,45 @@ export type AuthError = {
 
 export type AuthState = {
   loading: false | true;
-  currentRequestId: undefined;
-  error: AuthError | undefined;
+  Id: undefined | '';
+  error: AuthError | undefined | any;
 };
 
-export const signUp = createAsyncThunk<any, NewUser, { rejectValue: AuthError }>(
+export const signUp = createAsyncThunk<any, string, { rejectValue: AuthError }>(
   'auth/signUp',
-  async (newUser) => {
-    const firebase = getFirebase();
-    const firestore = firebase.firestore();
-    const { firstName, lastName, email, password } = newUser;
+  async (str, { rejectWithValue }) => {
+    console.log(str);
+    // const firebase = getFirebase();
+    // const firestore = firebase.firestore();
+    // const { firstName, lastName, email, password } = newUser;
 
     try {
-      const response = await firebase
-        .auth()
-        .createUserWithEmailAndPassword(email, password);
+      const data: IresData = {
+        str,
+      };
 
-      await firestore
-        .collection('users')
-        .doc(response.user?.uid)
-        .set({
-          firstName,
-          lastName,
-          initials: firstName[0] + lastName[0],
-        });
-    } catch (err) {
-      // const { code, message } = err;
-      // return rejectWithValue({ code, message, id: '12' });
+      // const response = await firebase
+      //   .auth()
+      //   .createUserWithEmailAndPassword(email, password);
+      // await firestore
+      //   .collection('users')
+      //   .doc(response.user?.uid)
+      //   .set({
+      //     firstName,
+      //     lastName,
+      //     initials: firstName[0] + lastName[0],
+      //   });
+      return data;
+    } catch (err: any) {
+      // eslint-disable-next-line
+      return rejectWithValue(err);
     }
   },
 );
 
 const initialState: AuthState = {
   loading: false,
-  currentRequestId: undefined,
+  Id: undefined,
   error: undefined,
 };
 
@@ -64,9 +74,9 @@ export const authSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(signUp.pending, () => {
+    builder.addCase(signUp.pending, (_, payload) => {
       // eslint-disable-next-line no-console
-      console.log('signUp.pending');
+      console.log('signUp.pending', payload);
     });
     builder.addCase(signUp.fulfilled, (state) => {
       state.loading = false;
@@ -80,7 +90,7 @@ export const authSlice = createSlice({
 });
 
 // Auth selector
-// export const selectAuth = (state: RootState) => state.firebase.auth;
-// export const selectProfile = (state: RootState) => state.firebase.profile;
+export const selectAuth = (state: RootState) => state.auth;
+export const selectProfile = (state: RootState) => state.auth;
 
 export default authSlice.reducer;

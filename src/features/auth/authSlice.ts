@@ -31,19 +31,16 @@ export type AuthState = {
   error: AuthError | undefined | any;
 };
 
-export const signUp = createAsyncThunk<any, string, { rejectValue: AuthError }>(
+export const signUp = createAsyncThunk<any, User, { rejectValue: AuthError }>(
   'auth/signUp',
   async (str, { rejectWithValue }) => {
+    // eslint-disable-next-line no-console
     console.log(str);
     // const firebase = getFirebase();
     // const firestore = firebase.firestore();
     // const { firstName, lastName, email, password } = newUser;
 
     try {
-      const data: IresData = {
-        str,
-      };
-
       // const response = await firebase
       //   .auth()
       //   .createUserWithEmailAndPassword(email, password);
@@ -55,7 +52,6 @@ export const signUp = createAsyncThunk<any, string, { rejectValue: AuthError }>(
       //     lastName,
       //     initials: firstName[0] + lastName[0],
       //   });
-      return data;
     } catch (err: any) {
       // eslint-disable-next-line
       return rejectWithValue(err);

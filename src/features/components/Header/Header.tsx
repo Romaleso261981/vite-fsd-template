@@ -78,15 +78,16 @@ export const Header = () => {
   const theme = useMantineTheme();
   const auth = useSelector(selectAuth);
 
+  // eslint-disable-next-line no-console
   console.log(auth);
   const dispath = useDispatch();
-  const NewUser = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    initials: '',
-  };
+  // const NewUser = {
+  //   firstName: '',
+  //   lastName: '',
+  //   email: '',
+  //   password: '',
+  //   initials: '',
+  // };
 
   const links = mockdata.map((item) => (
     <UnstyledButton<'a'> className={classes.subLink} key={item.title}>
@@ -177,7 +178,7 @@ export const Header = () => {
                 variant="default"
                 onClick={() => {
                   setIsAuth(!isAuth);
-                  dispath(signUp('kdfvomno'));
+                  dispath(signUp());
                 }}
               >
                 Log in

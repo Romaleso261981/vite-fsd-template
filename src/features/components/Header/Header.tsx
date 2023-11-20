@@ -28,6 +28,9 @@ import {
   IconCoin,
   IconChevronDown,
 } from '@tabler/icons-react';
+// import { useDispatch } from 'react-redux';
+
+// import { signUp } from '../../auth/authSlice';
 
 import classes from './HeaderMegaMenu.module.css';
 
@@ -69,8 +72,15 @@ export const Header = () => {
     useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
   const theme = useMantineTheme();
-
   const setIsshow = () => {};
+  // const dispath = useDispatch();
+  // const NewUser = {
+  //   firstName: '',
+  //   lastName: '',
+  //   email: '',
+  //   password: '',
+  //   initials: '',
+  // };
 
   const links = mockdata.map((item) => (
     <UnstyledButton className={classes.subLink} key={item.title}>
@@ -160,6 +170,7 @@ export const Header = () => {
               variant="default"
               onClick={() => {
                 setIsshow();
+                // dispath(signUp(NewUser) as any);
               }}
             >
               Log in

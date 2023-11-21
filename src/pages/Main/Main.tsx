@@ -2,6 +2,7 @@ import 'react-phone-input-2/lib/style.css';
 // import { useState } from 'react';
 
 import { FeaturesCard } from '../../features/components/Card/FeaturesCard/FeaturesCard';
+import { CommentHtml } from '../../features/components/CommentHtml/CommentHtml';
 import { Footer } from '../../features/components/Footer/Footer';
 import { Header } from '../../features/components/Header/Header';
 // import { Hero } from '../../features/components/Hero/Hero';
@@ -25,6 +26,9 @@ const Main = () => {
         <FeaturesCard />
         <FeaturesCard />
       </div>
+      <section className={classes.commentWrapper}>
+        <CommentHtml />
+      </section>
       <Footer />
       {false && <AuthenticationForm />}
     </section>

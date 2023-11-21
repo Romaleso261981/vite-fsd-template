@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getFirebase } from 'react-redux-firebase';
 
 import { RootState } from '../../app/rootReducer';
 
@@ -34,21 +33,9 @@ export type AuthState = {
 export const signUp = createAsyncThunk<void, UserCredentials, { rejectValue: AuthError }>(
   'auth/signUp',
   async (newUser, { rejectWithValue }) => {
-    // eslint-disable-next-line no-console
-    console.log(newUser);
-    const firebase = getFirebase();
-
-    // eslint-disable-next-line no-console
-    console.log(firebase);
-    const { email, password } = newUser;
-
     try {
-      const response = await firebase
-        .auth()
-        .createUserWithEmailAndPassword(email, password);
-
       // eslint-disable-next-line no-console
-      console.log(response);
+      console.log(newUser);
     } catch (err: any) {
       // eslint-disable-next-line
       return rejectWithValue(err);

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import i18next from './i18n';
 
 console.log(i18next.t('ns1:title'));

@@ -1,4 +1,3 @@
-/* eslint-disable react/no-array-index-key */
 import { Text, Container, ActionIcon, Group, rem } from '@mantine/core';
 import { MantineLogo } from '@mantine/ds';
 import {
@@ -39,10 +38,11 @@ const data = [
   },
 ];
 
-export const FooterLinks = () => {
+export const Footer = () => {
   const groups = data.map((group) => {
     const links = group.links.map((link, index) => (
       <Text<'a'>
+        // eslint-disable-next-line react/no-array-index-key
         key={index}
         className={classes.link}
         component="a"
@@ -74,7 +74,7 @@ export const FooterLinks = () => {
       </Container>
       <Container className={classes.afterFooter}>
         <Text c="dimmed" size="sm">
-          © 2020 mantine.dev. All rights reserved.
+          © 2023 mantine.dev. All rights reserved.
         </Text>
 
         <Group gap={0} className={classes.social} justify="flex-end" wrap="nowrap">

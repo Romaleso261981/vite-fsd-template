@@ -1,15 +1,31 @@
 import 'react-phone-input-2/lib/style.css';
-// import { FooterLinks } from '../../features/components/Footer/Footer';
+
+import { FeaturesCard } from '../../features/components/Card/FeaturesCard/FeaturesCard';
+import { Footer } from '../../features/components/Footer/Footer';
 import { Header } from '../../features/components/Header/Header';
-// import { HeroBullets } from '../../features/components/Hero/Hero';
+import { AuthenticationForm } from '../Auth/AuthenticationForm/AuthenticationForm';
+
+import classes from './Main.module.css';
 
 const Main = () => {
+  // const [isShow, setIsShow] = useState(false);
+
   return (
-    <>
+    <section className={classes.container}>
       <Header />
-      {/* <HeroBullets /> */}
-      {/* <FooterLinks /> */}
-    </>
+      <div className={classes.cardWrapper}>
+        <FeaturesCard />
+        <FeaturesCard />
+        <FeaturesCard />
+      </div>
+      <section className={classes.commentWrapper}>{/* <CommentHtml /> */}</section>
+      <Footer />
+      {false && (
+        <div className={classes.AuthenticationFormWrapper}>
+          <AuthenticationForm />
+        </div>
+      )}
+    </section>
   );
 };
 

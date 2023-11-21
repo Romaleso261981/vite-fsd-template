@@ -13,7 +13,7 @@ import { IconCheck } from '@tabler/icons-react';
 
 import classes from './HeroBullets.module.css';
 
-export const HeroBullets = () => {
+export const Hero = () => {
   return (
     <Container size="md">
       <div className={classes.inner}>

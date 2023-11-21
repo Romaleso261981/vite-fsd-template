@@ -13,7 +13,7 @@ export const NotFound = () => {
       </Text>
       <Group justify="center">
         <Button variant="subtle" size="md">
-          Take me back to home page
+          <a href="/">Take me back to home page</a>
         </Button>
       </Group>
     </Container>

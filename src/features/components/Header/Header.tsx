@@ -30,7 +30,6 @@ import {
   IconCoin,
   IconChevronDown,
 } from '@tabler/icons-react';
-import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 
 import { AppDispatch } from '../../../app/store';
@@ -79,9 +78,6 @@ export const Header = () => {
   const [isAuth, setIsAuth] = useState(false);
   const theme = useMantineTheme();
 
-  // Translation
-  const { t } = useTranslation();
-
   // eslint-disable-next-line no-console
   const dispath: AppDispatch = useDispatch();
   const NewUser = {
@@ -121,14 +117,14 @@ export const Header = () => {
 
           <Group h="100%" gap={0} visibleFrom="sm">
             <a href="/" className={classes.link}>
-              {t('Home')}
+              Home
             </a>
             <HoverCard width={600} position="bottom" radius="md" shadow="md" withinPortal>
               <HoverCard.Target>
                 <a href="/auth" className={classes.link}>
                   <Center inline>
                     <Box component="span" mr={5}>
-                      Features
+                      Home
                     </Box>
                     <IconChevronDown
                       style={{ width: rem(16), height: rem(16) }}

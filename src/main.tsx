@@ -21,7 +21,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <Provider store={store}>
     <MantineProvider theme={theme}>
       <React.StrictMode>
-        <Notifications position="bottom-center" />
+        <Notifications position="top-left" />
         <RouterProvider router={App} />
       </React.StrictMode>
     </MantineProvider>

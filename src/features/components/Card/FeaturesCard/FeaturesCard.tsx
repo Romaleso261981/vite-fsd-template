@@ -1,4 +1,5 @@
 import { Card, Image, Text, Group, Badge, Center, Button } from '@mantine/core';
+import { notifications } from '@mantine/notifications';
 import {
   IconGasStation,
   IconGauge,
@@ -60,7 +61,16 @@ export const FeaturesCard = () => {
             </Text>
           </div>
 
-          <Button radius="xl" style={{ flex: 1 }}>
+          <Button
+            onClick={() => {
+              notifications.show({
+                title: 'Ви натиснули на кнопку',
+                message: `Ви вибрали модель машини`,
+              });
+            }}
+            radius="xl"
+            style={{ flex: 1 }}
+          >
             Rent now
           </Button>
         </Group>

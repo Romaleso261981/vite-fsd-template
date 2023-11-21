@@ -14,6 +14,15 @@ const mockdata = [
   { label: 'Automatic gearbox', icon: IconManualGearbox },
   { label: 'Electric', icon: IconGasStation },
 ];
+// const mockdata2 = [
+//   {
+//     src: 'https://cdn1.riastatic.com/photosnew/auto/photo/tesla_model-x__518952411hd.webp',
+//     icon: IconUsers,
+//   },
+//   { src: '100 km/h in 4 seconds', icon: IconGauge },
+//   { src: 'Automatic gearbox', icon: IconManualGearbox },
+//   { src: 'Electric', icon: IconGasStation },
+// ];
 
 export const FeaturesCard = () => {
   const features = mockdata.map((feature) => (
@@ -26,12 +35,15 @@ export const FeaturesCard = () => {
   return (
     <Card withBorder radius="md" className={classes.card}>
       <Card.Section className={classes.imageSection}>
-        <Image src="https://i.imgur.com/ZL52Q2D.png" alt="Tesla Model S" />
+        <Image
+          src="https://cdn1.riastatic.com/photosnew/auto/photo/tesla_model-x__518952411hd.webp"
+          alt="Tesla Model S"
+        />
       </Card.Section>
 
       <Group justify="space-between" mt="md">
         <div>
-          <Text fw={500}>Tesla Model S</Text>
+          <Text fw={500}>Tesla</Text>
           <Text fz="xs" c="dimmed">
             Free recharge at any station
           </Text>

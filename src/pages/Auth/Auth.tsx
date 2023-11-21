@@ -58,7 +58,7 @@ const Auth = () => {
       })
       .catch((err) => {
         notifications.show({
-          title: 'Помилка підтверження номеру',
+          title: '',
           message: `${err.message}`,
         });
         setLoading(false);
@@ -106,12 +106,12 @@ const Auth = () => {
         <div id="recaptcha-container" />
         {user ? (
           <h2 className="text-center text-white font-medium text-2xl">
-            {t('👍Login Success')}
+            {t('LoginSuccess')}
           </h2>
         ) : (
           <div className="w-80 flex flex-col gap-4 rounded-lg p-4">
             <h1 className="text-center leading-normal text-white font-medium text-3xl mb-6">
-              {t('Welcome to')} <br /> {t('CODE A PROGRAM')}
+              {t('WelcomeTo')} <br /> {t('CodeAProgram')}
             </h1>
             {showOTP ? (
               <>
@@ -119,7 +119,7 @@ const Auth = () => {
                   <BsFillShieldLockFill size={30} />
                 </div>
                 <label htmlFor="otp" className="font-bold text-xl text-white text-center">
-                  {t('Enter your OTP')}
+                  {t('OTP')}
                 </label>
                 <OtpInput
                   value={otp}
@@ -136,7 +136,7 @@ const Auth = () => {
                   className="bg-emerald-600 w-full flex gap-1 items-center justify-center py-2.5 text-white rounded"
                 >
                   {loading && <CgSpinner size={20} className="mt-1 animate-spin" />}
-                  <span>{t('Verify OTP')}</span>
+                  <span>{t('VOTP')}</span>
                 </button>
               </>
             ) : (
@@ -148,7 +148,7 @@ const Auth = () => {
                   htmlFor="domId"
                   className="font-bold text-xl text-white text-center"
                 >
-                  {t('Verify your phone number')}
+                  {t('VerifyNumber')}
                 </label>
                 <PhoneInput country="in" value={ph} onChange={setPh} />
                 <button
@@ -157,7 +157,7 @@ const Auth = () => {
                   className="bg-emerald-600 w-full flex gap-1 items-center justify-center py-2.5 text-white rounded"
                 >
                   {loading && <CgSpinner size={20} className="mt-1 animate-spin" />}
-                  <span>{t('Send code via SMS')}</span>
+                  <span>{t('SendSMS')}</span>
                 </button>
               </>
             )}

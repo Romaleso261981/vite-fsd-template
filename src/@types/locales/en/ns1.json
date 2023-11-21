@@ -11,5 +11,6 @@
 	"OTP":"Enter your OTP",
 	"VOTP":"Verify OTP",
 	"VerifyNumber":"Verify your phone number",
-	"SendSMS":"Send code via SMS"
+	"SendSMS":"Send code via SMS",
+	"Home":"Home"
  }

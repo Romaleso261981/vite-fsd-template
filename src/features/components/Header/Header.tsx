@@ -122,14 +122,14 @@ export const Header = () => {
 
           <Group h="100%" gap={0} visibleFrom="sm">
             <a href="/" className={classes.link}>
-              {t('header:home')}
+              {t('header.home')}
             </a>
             <HoverCard width={600} position="bottom" radius="md" shadow="md" withinPortal>
               <HoverCard.Target>
                 <a href="/auth" className={classes.link}>
                   <Center inline>
                     <Box component="span" mr={5}>
-                      {t('header:contact')}
+                      {t('header.contact')}
                     </Box>
                     <IconChevronDown
                       style={{ width: rem(16), height: rem(16) }}
@@ -141,7 +141,7 @@ export const Header = () => {
 
               <HoverCard.Dropdown style={{ overflow: 'hidden' }}>
                 <Group justify="space-between" px="md">
-                  <Text fw={500}>{t('header:features')}</Text>
+                  <Text fw={500}>{t('header.features')}</Text>
                   <Anchor href="/" fz="xs">
                     View all
                   </Anchor>
@@ -169,7 +169,7 @@ export const Header = () => {
               </HoverCard.Dropdown>
             </HoverCard>
             <a href="/" className={classes.link}>
-              {t('header:learn')}
+              {t('header.learn')}
             </a>
             <a href="/" className={classes.link}>
               Academy
@@ -185,7 +185,7 @@ export const Header = () => {
                   dispath(signUp(NewUser));
                 }}
               >
-                {t('header:Login')}
+                {t('header.Login')}
               </Button>
             )}
             {isAuth && (

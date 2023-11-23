@@ -37,7 +37,7 @@ import { AppDispatch } from '../../../app/store';
 import { signUp } from '../../auth/authSlice';
 
 import classes from './HeaderMegaMenu.module.css';
-import LanSwitcher from './ui/components/LanguageSwitcher2/LanguageSwitcher';
+import ChangeLanguage from './ui/components/ChangeLanguage/ChangeLanguage';
 
 const mockdata = [
   {
@@ -200,7 +200,7 @@ export const Header = () => {
               </Button>
             )}
           </Group>
-          <LanSwitcher />
+          <ChangeLanguage />
 
           <Burger opened={drawerOpened} onClick={toggleDrawer} hiddenFrom="sm" />
         </Group>

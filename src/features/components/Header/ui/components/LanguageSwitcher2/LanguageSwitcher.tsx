@@ -1,4 +1,4 @@
-import { Button, ButtonGroup } from '@mui/material';
+import { Button, ButtonGroup } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
 
 const LanSwitcher = () => {
@@ -10,7 +10,7 @@ const LanSwitcher = () => {
 
   return (
     <div>
-      <ButtonGroup variant="text" color="inherit">
+      <ButtonGroup variant="text">
         <Button onClick={() => onChangeLanguage('en')}>🇺🇸</Button>
         <Button onClick={() => onChangeLanguage('ua')}>ua</Button>
       </ButtonGroup>

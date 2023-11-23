@@ -22,6 +22,7 @@
     "@mantine/hooks": "^7.2.2",
     "@mantine/modals": "^7.2.2",
     "@mantine/notifications": "^7.2.2",
+    "@mui/material": "^5.14.18",
     "@reduxjs/toolkit": "^1.9.7",
     "@tabler/icons-react": "^2.41.0",
     "embla-carousel-react": "^7.1.0",

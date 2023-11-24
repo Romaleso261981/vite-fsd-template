@@ -1,6 +1,6 @@
 import { ActionsGrid } from '../../features/components/Card/Card';
 import { Footer } from '../../features/components/Footer/Footer';
-import { Header } from '../../features/components/Header/Header';
+import { Header } from '../../features/components/Header';
 
 // import Auth from './Auth';
 // import { AuthenticationForm } from './AuthenticationForm/AuthenticationForm';

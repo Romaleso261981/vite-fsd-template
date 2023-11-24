@@ -5,6 +5,9 @@
     "features": "Features",
     "learn": "Learn",
     "auth": "auth",
-    "Login": "Login"
+    "Login": "Login",
+    "LogOut": "Log out",
+    "Auth": "Auth",
+    "Contacts": "Contacts"
   }
 }

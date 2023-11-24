@@ -37,7 +37,7 @@ import { AppDispatch } from '../../../app/store';
 import { signUp } from '../../auth/authSlice';
 
 import classes from './HeaderMegaMenu.module.css';
-import ChangeLanguage from './ui/components/ChangeLanguage/ChangeLanguage';
+import { LanguagePicker } from './ui/components/LanguageSwitcher2/LanguageSwitcher';
 
 const mockdata = [
   {
@@ -200,7 +200,7 @@ export const Header = () => {
               </Button>
             )}
           </Group>
-          <ChangeLanguage />
+          <LanguagePicker />
 
           <Burger opened={drawerOpened} onClick={toggleDrawer} hiddenFrom="sm" />
         </Group>
@@ -233,8 +233,8 @@ export const Header = () => {
             </Center>
           </UnstyledButton>
           <Collapse in={linksOpened}>{links}</Collapse>
-          <a href="/" className={classes.link}>
-            Learn
+          <a href="/auth" className={classes.link}>
+            {t('header.auth')}
           </a>
           <a href="/" className={classes.link}>
             Academy

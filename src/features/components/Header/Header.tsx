@@ -37,6 +37,7 @@ import { AppDispatch } from '../../../app/store';
 import { signUp } from '../../auth/authSlice';
 
 import classes from './HeaderMegaMenu.module.css';
+import { LanguagePicker } from './ui/components/LanguageSwitcher2/LanguageSwitcher';
 
 const mockdata = [
   {
@@ -121,14 +122,14 @@ export const Header = () => {
 
           <Group h="100%" gap={0} visibleFrom="sm">
             <a href="/" className={classes.link}>
-              {t('Home')}
+              {t('header.home')}
             </a>
             <HoverCard width={600} position="bottom" radius="md" shadow="md" withinPortal>
               <HoverCard.Target>
                 <a href="/auth" className={classes.link}>
                   <Center inline>
                     <Box component="span" mr={5}>
-                      Features
+                      {t('header.contact')}
                     </Box>
                     <IconChevronDown
                       style={{ width: rem(16), height: rem(16) }}
@@ -140,7 +141,7 @@ export const Header = () => {
 
               <HoverCard.Dropdown style={{ overflow: 'hidden' }}>
                 <Group justify="space-between" px="md">
-                  <Text fw={500}>Features</Text>
+                  <Text fw={500}>{t('header.features')}</Text>
                   <Anchor href="/" fz="xs">
                     View all
                   </Anchor>
@@ -168,7 +169,7 @@ export const Header = () => {
               </HoverCard.Dropdown>
             </HoverCard>
             <a href="/" className={classes.link}>
-              Learn
+              {t('header.learn')}
             </a>
             <a href="/" className={classes.link}>
               Academy
@@ -184,7 +185,7 @@ export const Header = () => {
                   dispath(signUp(NewUser));
                 }}
               >
-                Log in
+                {t('header.Login')}
               </Button>
             )}
             {isAuth && (
@@ -199,6 +200,7 @@ export const Header = () => {
               </Button>
             )}
           </Group>
+          <LanguagePicker />
 
           <Burger opened={drawerOpened} onClick={toggleDrawer} hiddenFrom="sm" />
         </Group>
@@ -231,8 +233,8 @@ export const Header = () => {
             </Center>
           </UnstyledButton>
           <Collapse in={linksOpened}>{links}</Collapse>
-          <a href="/" className={classes.link}>
-            Learn
+          <a href="/auth" className={classes.link}>
+            {t('header.auth')}
           </a>
           <a href="/" className={classes.link}>
             Academy

@@ -7,5 +7,10 @@
     "Login": "Вхід",
     "LogOut": "Вихід",
     "Contacts": "Контакти"
+  },
+  "authForm":{
+    "SendSMS":"Відправити SMS",
+    "VerifyNumber":"Верифікація номеру",
+    "CreateAccount":"Створити акаунт"
   }
 }

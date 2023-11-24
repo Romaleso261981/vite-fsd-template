@@ -9,5 +9,10 @@
     "LogOut": "Log out",
     "Auth": "Auth",
     "Contacts": "Contacts"
+  },
+  "authForm":{
+    "SendSMS":"SendSMS",
+    "VerifyNumber":"Verify Number!",
+    "CreateAccount":"Create account"
   }
 }

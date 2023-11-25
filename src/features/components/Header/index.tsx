@@ -37,6 +37,7 @@ import { AppDispatch } from '../../../app/store';
 import { signUp } from '../../auth/authSlice';
 
 import classes from './HeaderMegaMenu.module.css';
+import ColorThemeToggler from './ui/components/ColorThemeToggler';
 import { LanguagePicker } from './ui/components/LanguageSwitcher2/LanguageSwitcher';
 
 const mockdata = [
@@ -169,10 +170,10 @@ export const Header = () => {
               </HoverCard.Dropdown>
             </HoverCard>
             <a href="/" className={classes.link}>
-              {t('header.learn')}
+              {t('header.Contacts')}
             </a>
-            <a href="/" className={classes.link}>
-              Academy
+            <a href="/auth" className={classes.link}>
+              {t('header.Auth')}
             </a>
           </Group>
 
@@ -196,11 +197,14 @@ export const Header = () => {
                   // dispath(signUp(NewUser));
                 }}
               >
-                Log out
+                {t('header.LogOut')}
               </Button>
             )}
           </Group>
-          <LanguagePicker />
+          <Group align="flex-start" justify="center">
+            <ColorThemeToggler />
+            <LanguagePicker />
+          </Group>
 
           <Burger opened={drawerOpened} onClick={toggleDrawer} hiddenFrom="sm" />
         </Group>

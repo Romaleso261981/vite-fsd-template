@@ -12,10 +12,10 @@ import { CgSpinner } from 'react-icons/cg';
 import PhoneInput from 'react-phone-input-2';
 
 import 'react-phone-input-2/lib/style.css';
-import { extendedWindow } from '../../shared/extendedWindow';
-import { auth } from '../../shared/firebase';
+import { extendedWindow } from '../../../../../shared/extendedWindow';
+import { auth } from '../../../../../shared/firebase';
 
-const Auth = () => {
+const FirebaseAuth = () => {
   const [otp, setOtp] = useState('');
   const [ph, setPh] = useState('');
   const [loading, setLoading] = useState(false);
@@ -168,4 +168,4 @@ const Auth = () => {
   );
 };
 
-export default Auth;
+export default FirebaseAuth;

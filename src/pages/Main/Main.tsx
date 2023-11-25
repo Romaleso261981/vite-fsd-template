@@ -2,8 +2,7 @@ import 'react-phone-input-2/lib/style.css';
 
 import { FeaturesCard } from '../../features/components/Card/FeaturesCard/FeaturesCard';
 import { Footer } from '../../features/components/Footer/Footer';
-import { Header } from '../../features/components/Header/Header';
-import { AuthenticationForm } from '../Auth/AuthenticationForm/AuthenticationForm';
+import { Header } from '../../features/components/Header';
 
 import classes from './Main.module.css';
 
@@ -20,11 +19,6 @@ const Main = () => {
       </div>
       <section className={classes.commentWrapper}>{/* <CommentHtml /> */}</section>
       <Footer />
-      {false && (
-        <div className={classes.AuthenticationFormWrapper}>
-          <AuthenticationForm />
-        </div>
-      )}
     </section>
   );
 };

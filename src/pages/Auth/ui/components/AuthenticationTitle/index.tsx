@@ -21,6 +21,7 @@ import { useTranslation } from 'react-i18next';
 import { CgSpinner } from 'react-icons/cg';
 import PhoneInput from 'react-phone-input-2';
 
+// import { setAppUser } from '../../../../../features/user/userSlice';
 import { extendedWindow } from '../../../../../shared/extendedWindow';
 import { auth } from '../../../../../shared/firebase';
 import { GoogleButton } from '../GoogleButton';
@@ -83,9 +84,10 @@ export const AuthenticationTitle = () => {
       .confirm(otp)
       .then(async (res: any) => {
         setUser(res.user);
+        // setAppUser(auth.currentUser?.phoneNumber);
         notifications.show({
           title: 'Вітаю',
-          message: 'Ви успішно увійшли',
+          message: `Ви успішно увійшли за номером ${auth.currentUser?.phoneNumber}`,
         });
         setLoading(false);
       })

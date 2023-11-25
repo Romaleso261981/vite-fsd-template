@@ -1,0 +1,18 @@
+{
+  "header": {
+    "home": "Home",
+    "contact": "Contact",
+    "features": "Features",
+    "learn": "Learn",
+    "auth": "auth",
+    "Login": "Login",
+    "LogOut": "Log out",
+    "Auth": "Auth",
+    "Contacts": "Contacts"
+  },
+  "authForm":{
+    "SendSMS":"SendSMS",
+    "VerifyNumber":"Verify Number!",
+    "CreateAccount":"Create account"
+  }
+}

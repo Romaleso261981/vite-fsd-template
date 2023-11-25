@@ -1,0 +1,16 @@
+{
+  "header": {
+    "home": "До дому",
+    "contact": "Контакти",
+    "features": "Особливості",
+    "learn": "Вчитися",
+    "Login": "Вхід",
+    "LogOut": "Вихід",
+    "Contacts": "Контакти"
+  },
+  "authForm":{
+    "SendSMS":"Відправити SMS",
+    "VerifyNumber":"Верифікація номеру",
+    "CreateAccount":"Створити акаунт"
+  }
+}

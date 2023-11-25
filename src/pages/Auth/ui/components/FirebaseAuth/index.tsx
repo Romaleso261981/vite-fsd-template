@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { Button, Group } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 // @ts-ignore
@@ -88,6 +89,19 @@ const FirebaseAuth = () => {
   return (
     <section className="bg-emerald-500 flex items-center justify-center h-screen">
       <div>
+        <Group justify="center">
+          <Button
+            variant="outline"
+            onClick={() =>
+              notifications.show({
+                title: 'Перевірка чи працює повідомлення',
+                message: 'Hey there, your code is awesome! 🤥',
+              })
+            }
+          >
+            Show notification
+          </Button>
+        </Group>
         <Toaster toastOptions={{ duration: 4000 }} />
         <div id="recaptcha-container" />
         {user ? (

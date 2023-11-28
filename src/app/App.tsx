@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import AuthPage from '../pages/Auth';
-import Main from '../pages/Main/Main';
+import Main from '../pages/Main';
 import { NotFound } from '../pages/NoFound/NoFound';
 import { routesLib } from '../shared/lib/index';
 

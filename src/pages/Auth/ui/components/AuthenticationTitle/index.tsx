@@ -1,7 +1,18 @@
 import { useState } from 'react';
 
-import { Anchor, Paper, Title, Text, Container, Group, Button } from '@mantine/core';
+import {
+  Paper,
+  Title,
+  Container,
+  Group,
+  Button,
+  Box,
+  Center,
+  Anchor,
+  rem,
+} from '@mantine/core';
 import { notifications } from '@mantine/notifications';
+import { IconArrowLeft } from '@tabler/icons-react';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 // @ts-ignore
 import OtpInput from 'otp-input-react';
@@ -12,6 +23,8 @@ import PhoneInput from 'react-phone-input-2';
 
 import { extendedWindow } from '../../../../../shared/extendedWindow';
 import { auth } from '../../../../../shared/firebase';
+import { GoogleButton } from '../GoogleButton';
+import { TwitterButton } from '../TwitterButton';
 
 import classes from './AuthenticationTitle.module.css';
 
@@ -70,9 +83,12 @@ export const AuthenticationTitle = () => {
       .confirm(otp)
       .then(async (res: any) => {
         setUser(res.user);
+        // eslint-disable-next-line no-console
+        console.log(auth.currentUser?.phoneNumber);
+        // setAppUser(auth.currentUser?.phoneNumber);
         notifications.show({
           title: 'Вітаю',
-          message: 'Ви успішно увійшли',
+          message: `Ви успішно увійшли за номером ${auth.currentUser?.phoneNumber}`,
         });
         setLoading(false);
       })
@@ -86,7 +102,7 @@ export const AuthenticationTitle = () => {
   }
 
   return (
-    <Container size={420} my={40}>
+    <Container size={820} my={40}>
       <div id="recaptcha-container" />
       {user ? (
         <h2 className="text-center text-white font-medium text-2xl">
@@ -108,28 +124,47 @@ export const AuthenticationTitle = () => {
                 autoFocus
                 className="opt-container "
               />
-              {loading && <CgSpinner size={20} className="mt-1 animate-spin" />}
-              <Button type="submit" onClick={() => onOTPVerify()} fullWidth mt="xl">
+              {loading && <h1>Loading......</h1>}
+              <Anchor c="dimmed" size="sm" className={classes.control}>
+                <Center inline>
+                  <IconArrowLeft
+                    style={{ width: rem(12), height: rem(12) }}
+                    stroke={1.5}
+                  />
+                  <Box ml={5}>Back to the login page</Box>
+                </Center>
+              </Anchor>
+              <Button type="submit" onClick={() => onOTPVerify()} mt="xl">
                 {t('VOTP')}
               </Button>
             </>
           ) : (
             <>
               <Title ta="center" className={classes.title}>
-                {t('VerifyNumber')}
+                {t('authForm.VerifyNumber')}
               </Title>
-              <Text c="dimmed" size="sm" ta="center" mt={5}>
-                Do not have an account yet?
-                <Anchor size="sm" component="button">
-                  {t('CreateAccount')}
-                </Anchor>
-              </Text>
               <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-                <PhoneInput placeholder="066 666 66 66" value={ph} onChange={setPh} />
-                <Group justify="space-between" mt="lg" />
-                <Button type="submit" onClick={() => onSignup()} fullWidth mt="xl">
-                  {t('SendSMS')}
+                <PhoneInput
+                  containerStyle={{ border: '' }}
+                  country="ua"
+                  placeholder="066 666 66 66"
+                  value={ph}
+                  onChange={setPh}
+                />
+                <Button
+                  fullWidth
+                  type="submit"
+                  onClick={() => onSignup()}
+                  mt="xl"
+                  radius="sm"
+                >
+                  {t('authForm.SendSMS')}
                 </Button>
+                <Group />
+                <Group grow mb="md" mt="xl">
+                  <GoogleButton radius="sm">Google</GoogleButton>
+                  <TwitterButton radius="sm">Twitter</TwitterButton>
+                </Group>
               </Paper>
               {loading && <CgSpinner size={20} className="mt-1 animate-spin" />}
             </>

@@ -2,11 +2,14 @@
   "header": {
     "home": "До дому",
     "contact": "Контакти",
+    "auth": "Авторизаця",
     "features": "Особливості",
     "learn": "Вчитися",
     "Login": "Вхід",
     "LogOut": "Вихід",
-    "Contacts": "Контакти"
+    "Contacts": "Контакти",
+    "ViewAll": "Показати все",
+    "ourWorks": "Наші роботи"
   },
   "authForm":{
     "SendSMS":"Відправити SMS",

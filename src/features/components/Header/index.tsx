@@ -1,4 +1,4 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 
 import {
   HoverCard,
@@ -31,10 +31,9 @@ import {
   IconChevronDown,
 } from '@tabler/icons-react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
 
-import { AppDispatch } from '../../../app/store';
-import { signUp } from '../../auth/authSlice';
+// import { AppDispatch } from '../../../app/store';
+// import { signUp } from '../../auth/authSlice';
 
 import classes from './HeaderMegaMenu.module.css';
 import ColorThemeToggler from './ui/components/ColorThemeToggler';
@@ -78,21 +77,13 @@ export const Header = () => {
     useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
   // const [user, setUser] = useState(null);
-  const [isAuth, setIsAuth] = useState(false);
+  // const [isAuth, setIsAuth] = useState(false);
   const theme = useMantineTheme();
 
   // Translation
   const { t } = useTranslation();
 
-  // eslint-disable-next-line no-console
-  const dispath: AppDispatch = useDispatch();
-  const NewUser = {
-    firstName: '',
-    lastName: '',
-    email: 'ladclimat@gmail.com',
-    password: '123456',
-    initials: '',
-  };
+  // const dispath: AppDispatch = useDispatch();
 
   const links = mockdata.map((item) => (
     <UnstyledButton<'a'> className={classes.subLink} key={item.title}>
@@ -130,7 +121,7 @@ export const Header = () => {
                 <a href="/auth" className={classes.link}>
                   <Center inline>
                     <Box component="span" mr={5}>
-                      {t('header.contact')}
+                      {t('header.ourWorks')}
                     </Box>
                     <IconChevronDown
                       style={{ width: rem(16), height: rem(16) }}
@@ -144,7 +135,7 @@ export const Header = () => {
                 <Group justify="space-between" px="md">
                   <Text fw={500}>{t('header.features')}</Text>
                   <Anchor href="/" fz="xs">
-                    View all
+                    {t('header.ViewAll')}
                   </Anchor>
                 </Group>
 
@@ -173,11 +164,11 @@ export const Header = () => {
               {t('header.Contacts')}
             </a>
             <a href="/auth" className={classes.link}>
-              {t('header.Auth')}
+              {t('header.auth')}
             </a>
           </Group>
 
-          <Group visibleFrom="sm">
+          {/* <Group visibleFrom="sm">
             {!isAuth && (
               <Button
                 variant="default"
@@ -200,7 +191,7 @@ export const Header = () => {
                 {t('header.LogOut')}
               </Button>
             )}
-          </Group>
+          </Group> */}
           <Group align="flex-start" justify="center">
             <ColorThemeToggler />
             <LanguagePicker />
@@ -243,9 +234,7 @@ export const Header = () => {
           <a href="/" className={classes.link}>
             Academy
           </a>
-
           <Divider my="sm" />
-
           <Group justify="center" grow pb="xl" px="md">
             <Button variant="default">Log in</Button>
             <Button>Sign up</Button>

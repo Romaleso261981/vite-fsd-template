@@ -2,13 +2,15 @@
   "header": {
     "home": "Home",
     "contact": "Contact",
+    "auth": "Auth",
     "features": "Features",
     "learn": "Learn",
-    "auth": "auth",
     "Login": "Login",
     "LogOut": "Log out",
     "Auth": "Auth",
-    "Contacts": "Contacts"
+    "Contacts": "Contacts",
+    "ViewAll": "View all",
+    "ourWorks": "Our Works"
   },
   "authForm":{
     "SendSMS":"SendSMS",

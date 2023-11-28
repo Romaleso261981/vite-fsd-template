@@ -21,7 +21,6 @@ import { useTranslation } from 'react-i18next';
 import { CgSpinner } from 'react-icons/cg';
 import PhoneInput from 'react-phone-input-2';
 
-// import { setAppUser } from '../../../../../features/user/userSlice';
 import { extendedWindow } from '../../../../../shared/extendedWindow';
 import { auth } from '../../../../../shared/firebase';
 import { GoogleButton } from '../GoogleButton';
@@ -84,6 +83,8 @@ export const AuthenticationTitle = () => {
       .confirm(otp)
       .then(async (res: any) => {
         setUser(res.user);
+        // eslint-disable-next-line no-console
+        console.log(auth.currentUser?.phoneNumber);
         // setAppUser(auth.currentUser?.phoneNumber);
         notifications.show({
           title: 'Вітаю',
@@ -123,7 +124,7 @@ export const AuthenticationTitle = () => {
                 autoFocus
                 className="opt-container "
               />
-              {loading && <CgSpinner size={20} className="mt-1 animate-spin" />}
+              {loading && <h1>Loading......</h1>}
               <Anchor c="dimmed" size="sm" className={classes.control}>
                 <Center inline>
                   <IconArrowLeft

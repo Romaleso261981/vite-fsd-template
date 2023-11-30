@@ -1,16 +1,6 @@
 import { useState } from 'react';
 
-import {
-  Paper,
-  Title,
-  Container,
-  Group,
-  Button,
-  Box,
-  Center,
-  Anchor,
-  rem,
-} from '@mantine/core';
+import { Paper, Title, Container, Group, Button, rem } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { IconArrowLeft } from '@tabler/icons-react';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
@@ -110,10 +100,10 @@ export const AuthenticationTitle = () => {
         </h2>
       ) : (
         <div className="w-80 flex flex-col gap-4 rounded-lg p-4">
-          {showOTP ? (
+          {true ? (
             <>
-              <Paper p={5} mb={10} radius="md">
-                {t('OTP')}
+              <Paper p={rem(5)} ml={rem(100)} mb={rem(10)} radius="md">
+                {t('authForm.Enter')}
               </Paper>
               <OtpInput
                 value={otp}
@@ -125,18 +115,29 @@ export const AuthenticationTitle = () => {
                 className="opt-container "
               />
               {loading && <h1>Loading......</h1>}
-              <Anchor c="dimmed" size="sm" className={classes.control}>
+
+              <Button
+                type="submit"
+                size="sm"
+                radius="xl"
+                mr="xl"
+                onClick={() => onOTPVerify()}
+                mt="xl"
+              >
+                <IconArrowLeft size={rem(20)} stroke={2} color="currentColor" />
+              </Button>
+              <Button type="submit" radius="xl" size="sm" bg="gray" mr="xl" mt="xl">
+                {t('authForm.SendSMSAgain')}
+              </Button>
+              {/* <Anchor c="dimmed" size="sm" className={classes.control}>
                 <Center inline>
                   <IconArrowLeft
                     style={{ width: rem(12), height: rem(12) }}
                     stroke={1.5}
                   />
-                  <Box ml={5}>Back to the login page</Box>
+                  <Box ml={5}>{t('authForm.SendSMSAgain')}</Box>
                 </Center>
-              </Anchor>
-              <Button type="submit" onClick={() => onOTPVerify()} mt="xl">
-                {t('VOTP')}
-              </Button>
+              </Anchor> */}
             </>
           ) : (
             <>

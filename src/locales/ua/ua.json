@@ -14,6 +14,8 @@
   "authForm":{
     "SendSMS":"Відправити SMS",
     "VerifyNumber":"Верифікація номеру",
-    "CreateAccount":"Створити акаунт"
+    "CreateAccount":"Створити акаунт",
+    "SendSMSAgain":"56 Відправити СМС знову",
+    "Enter":"Увійти"
   }
 }

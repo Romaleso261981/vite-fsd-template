@@ -100,7 +100,7 @@ export const AuthenticationTitle = () => {
         </h2>
       ) : (
         <div className="w-80 flex flex-col gap-4 rounded-lg p-4">
-          {true ? (
+          {showOTP ? (
             <>
               <Paper p={rem(5)} ml={rem(100)} mb={rem(10)} radius="md">
                 {t('authForm.Enter')}

@@ -1,6 +1,16 @@
 import { useState } from 'react';
 
-import { Paper, Title, Container, Group, Button, rem } from '@mantine/core';
+import {
+  Paper,
+  Title,
+  Container,
+  Group,
+  Button,
+  rem,
+  MantineProvider,
+  Center,
+  Box,
+} from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { IconArrowLeft } from '@tabler/icons-react';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
@@ -92,86 +102,88 @@ export const AuthenticationTitle = () => {
   }
 
   return (
-    <Container size={820} my={40}>
-      <div id="recaptcha-container" />
-      {user ? (
-        <h2 className="text-center text-white font-medium text-2xl">
-          {t('LoginSuccess')}
-        </h2>
-      ) : (
-        <div className="w-80 flex flex-col gap-4 rounded-lg p-4">
-          {showOTP ? (
-            <>
-              <Paper p={rem(5)} ml={rem(100)} mb={rem(10)} radius="md">
-                {t('authForm.Enter')}
-              </Paper>
-              <OtpInput
-                value={otp}
-                onChange={setOtp}
-                OTPLength={6}
-                otpType="number"
-                disabled={false}
-                autoFocus
-                className="opt-container "
-              />
-              {loading && <h1>Loading......</h1>}
-
-              <Button
-                type="submit"
-                size="sm"
-                radius="xl"
-                mr="xl"
-                onClick={() => onOTPVerify()}
-                mt="xl"
-              >
-                <IconArrowLeft size={rem(20)} stroke={2} color="currentColor" />
-              </Button>
-              <Button type="submit" radius="xl" size="sm" bg="gray" mr="xl" mt="xl">
-                {t('authForm.SendSMSAgain')}
-              </Button>
-              {/* <Anchor c="dimmed" size="sm" className={classes.control}>
-                <Center inline>
-                  <IconArrowLeft
-                    style={{ width: rem(12), height: rem(12) }}
-                    stroke={1.5}
-                  />
-                  <Box ml={5}>{t('authForm.SendSMSAgain')}</Box>
-                </Center>
-              </Anchor> */}
-            </>
-          ) : (
-            <>
-              <Title ta="center" className={classes.title}>
-                {t('authForm.VerifyNumber')}
-              </Title>
-              <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-                <PhoneInput
-                  containerStyle={{ border: '' }}
-                  country="ua"
-                  placeholder="066 666 66 66"
-                  value={ph}
-                  onChange={setPh}
+    <MantineProvider
+      theme={{
+        fontFamily: 'Open Sans',
+        fontSizes: { md: '60' },
+      }}
+    >
+      <Container size={820} my={40}>
+        <div id="recaptcha-container" />
+        {user ? (
+          <h2 className="text-center text-white font-medium text-2xl">
+            {t(`LoginSuccess ${auth.currentUser?.phoneNumber}`)}
+          </h2>
+        ) : (
+          <div className="w-80 flex flex-col gap-4 rounded-lg p-4">
+            {showOTP ? (
+              <>
+                <Paper p={rem(5)} ml={rem(100)} mb={rem(10)} radius="md">
+                  {t('authForm.Enter')}
+                </Paper>
+                <OtpInput
+                  value={otp}
+                  onChange={setOtp}
+                  OTPLength={6}
+                  otpType="number"
+                  disabled={false}
+                  autoFocus
+                  className="opt-container "
                 />
-                <Button
-                  fullWidth
-                  type="submit"
-                  onClick={() => onSignup()}
-                  mt="xl"
-                  radius="sm"
-                >
-                  {t('authForm.SendSMS')}
-                </Button>
-                <Group />
-                <Group grow mb="md" mt="xl">
-                  <GoogleButton radius="sm">Google</GoogleButton>
-                  <TwitterButton radius="sm">Twitter</TwitterButton>
-                </Group>
-              </Paper>
-              {loading && <CgSpinner size={20} className="mt-1 animate-spin" />}
-            </>
-          )}
-        </div>
-      )}
-    </Container>
+                <Center maw={400} h={50}>
+                  <Button
+                    type="submit"
+                    size="sm"
+                    radius="xl"
+                    onClick={() => onOTPVerify()}
+                    className={classes.buttonArow}
+                  >
+                    <IconArrowLeft size={rem(20)} stroke={2} color="currentColor" />
+                  </Button>
+                  <Box
+                    className={classes.buttonText}
+                    onClick={() => {
+                      alert('SendSMSAgain');
+                    }}
+                  >
+                    {t('authForm.SendSMSAgain')}
+                  </Box>
+                </Center>
+              </>
+            ) : (
+              <>
+                <Title ta="center" className={classes.title}>
+                  {t('authForm.VerifyNumber')}
+                </Title>
+                <Paper withBorder shadow="md" p={30} mt={30} radius="md">
+                  <PhoneInput
+                    containerStyle={{ border: '' }}
+                    country="ua"
+                    placeholder="066 666 66 66"
+                    value={ph}
+                    onChange={setPh}
+                  />
+                  <Button
+                    fullWidth
+                    type="submit"
+                    onClick={() => onSignup()}
+                    mt="xl"
+                    radius="sm"
+                  >
+                    {t('authForm.SendSMS')}
+                  </Button>
+                  <Group />
+                  <Group grow mb="md" mt="xl">
+                    <GoogleButton radius="sm">Google</GoogleButton>
+                    <TwitterButton radius="sm">Twitter</TwitterButton>
+                  </Group>
+                </Paper>
+                {loading && <CgSpinner size={20} className="mt-1 animate-spin" />}
+              </>
+            )}
+          </div>
+        )}
+      </Container>
+    </MantineProvider>
   );
 };

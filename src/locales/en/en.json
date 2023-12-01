@@ -17,6 +17,7 @@
     "VerifyNumber":"Verify Number!",
     "CreateAccount":"Create account",
     "SendSMSAgain":"56 Send SMS again",
-    "Enter":"Enter"
+    "Enter":"Enter",
+    "enterNikName":"Enter your nik Name"
   }
 }

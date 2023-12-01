@@ -1,6 +1,7 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { RootState } from '../../app/rootReducer';
+import { AuthState } from '../user/types';
 
 export type UserCredentials = {
   email: string;
@@ -24,12 +25,6 @@ export type AuthError = {
   id: string;
 };
 
-export type AuthState = {
-  loading: false | true;
-  Id: undefined | '';
-  error: AuthError | undefined | any;
-};
-
 export const signUp = createAsyncThunk<void, UserCredentials, { rejectValue: AuthError }>(
   'auth/signUp',
   async (newUser, { rejectWithValue }) => {
@@ -44,15 +39,20 @@ export const signUp = createAsyncThunk<void, UserCredentials, { rejectValue: Aut
 );
 
 const initialState: AuthState = {
+  nickName: '',
   loading: false,
-  Id: undefined,
-  error: undefined,
+  error: { message: '', code: '', id: '' },
 };
 
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+    setUserNickName(state, action: PayloadAction<string>) {
+      console.log(action.payload);
+      state.nickName = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(signUp.pending, (_, payload) => {
       // eslint-disable-next-line no-console
@@ -60,13 +60,13 @@ export const authSlice = createSlice({
     });
     builder.addCase(signUp.fulfilled, (state) => {
       state.loading = false;
-      state.error = undefined;
+      state.error.message = '';
     });
-    builder.addCase(signUp.rejected, (state, { payload }) => {
+    builder.addCase(signUp.rejected, (state) => {
       // eslint-disable-next-line no-console
       console.log('rejected');
       state.loading = false;
-      state.error = payload;
+      state.error.message = '';
     });
   },
 });
@@ -74,5 +74,7 @@ export const authSlice = createSlice({
 // Auth selector
 export const selectAuth = (state: RootState) => state.auth;
 export const selectProfile = (state: RootState) => state.auth;
+
+export const { setUserNickName } = authSlice.actions;
 
 export default authSlice.reducer;

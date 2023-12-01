@@ -20,7 +20,10 @@ import { toast } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { CgSpinner } from 'react-icons/cg';
 import PhoneInput from 'react-phone-input-2';
+import { useDispatch } from 'react-redux';
 
+import { AppDispatch } from '../../../../../app/store';
+import { setAppUser } from '../../../../../features/user/userSlice';
 import { extendedWindow } from '../../../../../shared/extendedWindow';
 import { auth } from '../../../../../shared/firebase';
 import { GoogleButton } from '../GoogleButton';
@@ -36,6 +39,8 @@ export const AuthenticationTitle = () => {
   const [user, setUser] = useState(null);
   // Translation
   const { t } = useTranslation();
+
+  const dispach: AppDispatch = useDispatch();
 
   function onCaptchVerify() {
     if (!extendedWindow.recaptchaVerifier) {
@@ -85,7 +90,7 @@ export const AuthenticationTitle = () => {
         setUser(res.user);
         // eslint-disable-next-line no-console
         console.log(auth.currentUser?.phoneNumber);
-        // setAppUser(auth.currentUser?.phoneNumber);
+        dispach(setAppUser('roma'));
         notifications.show({
           title: 'Вітаю',
           message: `Ви успішно увійшли за номером ${auth.currentUser?.phoneNumber}`,
@@ -111,16 +116,22 @@ export const AuthenticationTitle = () => {
       <Container size={820} my={40}>
         <div id="recaptcha-container" />
         {user ? (
-          <h2 className="text-center text-white font-medium text-2xl">
-            {t(`LoginSuccess ${auth.currentUser?.phoneNumber}`)}
-          </h2>
+          <div className={classes.nickNameWrapper}>
+            <Paper className={classes.nickNameTitle}>{t('authForm.enterNikName')}</Paper>
+            <input
+              type="text"
+              className={classes.nickNameInput}
+              placeholder="Your nikeName"
+            />
+            <Button type="submit" className={classes.nickNameButton}>
+              <IconArrowLeft size={rem(10)} stroke={2} color="currentColor" />
+            </Button>
+          </div>
         ) : (
           <div className="w-80 flex flex-col gap-4 rounded-lg p-4">
             {showOTP ? (
-              <>
-                <Paper p={rem(5)} ml={rem(100)} mb={rem(10)} radius="md">
-                  {t('authForm.Enter')}
-                </Paper>
+              <section className={classes.modalWrapper}>
+                <Paper className={classes.OTPTitle}>{t('authForm.Enter')}</Paper>
                 <OtpInput
                   value={otp}
                   onChange={setOtp}
@@ -128,7 +139,7 @@ export const AuthenticationTitle = () => {
                   otpType="number"
                   disabled={false}
                   autoFocus
-                  className="opt-container "
+                  className={classes.OTPWrapper}
                 />
                 <Center maw={400} h={50}>
                   <Button
@@ -138,7 +149,7 @@ export const AuthenticationTitle = () => {
                     onClick={() => onOTPVerify()}
                     className={classes.buttonArow}
                   >
-                    <IconArrowLeft size={rem(20)} stroke={2} color="currentColor" />
+                    <IconArrowLeft size={rem(10)} stroke={2} color="currentColor" />
                   </Button>
                   <Box
                     className={classes.buttonText}
@@ -149,7 +160,7 @@ export const AuthenticationTitle = () => {
                     {t('authForm.SendSMSAgain')}
                   </Box>
                 </Center>
-              </>
+              </section>
             ) : (
               <>
                 <Title ta="center" className={classes.title}>

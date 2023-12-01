@@ -16,6 +16,7 @@
     "VerifyNumber":"Верифікація номеру",
     "CreateAccount":"Створити акаунт",
     "SendSMSAgain":"56 Відправити СМС знову",
-    "Enter":"Увійти"
+    "Enter":"Увійти",
+    "enterNikName":"Введіть свій нікнейм"
   }
 }

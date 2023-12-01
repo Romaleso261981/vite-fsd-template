@@ -29,3 +29,8 @@ export type AuthError = {
 export type UserState = {
   user: null | {} | undefined;
 };
+export type AuthState = {
+  nickName: string;
+  loading: boolean;
+  error: AuthError;
+};

@@ -4,8 +4,9 @@ import { RootState } from '../../app/rootReducer';
 import { AuthState } from '../user/types';
 
 export type UserCredentials = {
-  email: string;
-  password: string;
+  email?: string;
+  password?: string;
+  nickName?: string;
 };
 export type IresData = {
   str: string;
@@ -25,12 +26,30 @@ export type AuthError = {
   id: string;
 };
 
-export const signUp = createAsyncThunk<void, UserCredentials, { rejectValue: AuthError }>(
-  'auth/signUp',
+// export const signUp = createAsyncThunk<void, UserCredentials, { rejectValue: AuthError }>(
+//   'auth/signUp',
+//   async (newUser, { rejectWithValue }) => {
+//     try {
+//       // eslint-disable-next-line no-console
+//       console.log(newUser);
+//     } catch (err: any) {
+//       // eslint-disable-next-line
+//       return rejectWithValue(err);
+//     }
+//   },
+// );
+
+export const logIn = createAsyncThunk<any, UserCredentials, { rejectValue: AuthError }>(
+  'auth/logIn',
   async (newUser, { rejectWithValue }) => {
     try {
-      // eslint-disable-next-line no-console
-      console.log(newUser);
+      const data = {
+        name: 'Roma',
+      };
+
+      console.log(data);
+
+      return data;
     } catch (err: any) {
       // eslint-disable-next-line
       return rejectWithValue(err);
@@ -54,15 +73,16 @@ export const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(signUp.pending, (_, payload) => {
+    builder.addCase(logIn.pending, (_, payload) => {
       // eslint-disable-next-line no-console
       console.log('signUp.pending', payload);
     });
-    builder.addCase(signUp.fulfilled, (state) => {
+    builder.addCase(logIn.fulfilled, (state, { payload }) => {
+      console.log('logIn.fulfilled', payload);
       state.loading = false;
       state.error.message = '';
     });
-    builder.addCase(signUp.rejected, (state) => {
+    builder.addCase(logIn.rejected, (state) => {
       // eslint-disable-next-line no-console
       console.log('rejected');
       state.loading = false;

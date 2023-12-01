@@ -10,6 +10,8 @@ import {
   MantineProvider,
   Center,
   Box,
+  Autocomplete,
+  Loader,
 } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { IconArrowLeft } from '@tabler/icons-react';
@@ -23,6 +25,7 @@ import PhoneInput from 'react-phone-input-2';
 import { useDispatch } from 'react-redux';
 
 import { AppDispatch } from '../../../../../app/store';
+import { logIn, setUserNickName } from '../../../../../features/auth/authSlice';
 import { setAppUser } from '../../../../../features/user/userSlice';
 import { extendedWindow } from '../../../../../shared/extendedWindow';
 import { auth } from '../../../../../shared/firebase';
@@ -37,10 +40,28 @@ export const AuthenticationTitle = () => {
   const [loading, setLoading] = useState(false);
   const [showOTP, setShowOTP] = useState(false);
   const [user, setUser] = useState(null);
+  const [value, setValue] = useState('');
+  const [inputLoading, setInputLoading] = useState(false);
+
   // Translation
   const { t } = useTranslation();
-
   const dispach: AppDispatch = useDispatch();
+
+  function handleSubmit(value: string) {
+    dispach(setUserNickName(value));
+    dispach(logIn({ nickName: value }));
+    setValue('');
+    setInputLoading(false);
+  }
+  const handleChange = (val: string) => {
+    setValue(val);
+    setInputLoading(true);
+    if (val.trim().length === 0 || val.includes('@')) {
+      setInputLoading(false);
+    } else {
+      setInputLoading(true);
+    }
+  };
 
   function onCaptchVerify() {
     if (!extendedWindow.recaptchaVerifier) {
@@ -118,12 +139,24 @@ export const AuthenticationTitle = () => {
         {user ? (
           <div className={classes.nickNameWrapper}>
             <Paper className={classes.nickNameTitle}>{t('authForm.enterNikName')}</Paper>
-            <input
+            <Autocomplete
+              value={value}
+              onChange={handleChange}
+              rightSection={inputLoading ? <Loader size="1rem" /> : null}
+              placeholder="Your nick Name"
+            />
+            {/* <input
               type="text"
               className={classes.nickNameInput}
               placeholder="Your nikeName"
-            />
-            <Button type="submit" className={classes.nickNameButton}>
+            /> */}
+            <Button
+              type="submit"
+              onClick={() => {
+                handleSubmit(value);
+              }}
+              className={classes.nickNameButton}
+            >
               <IconArrowLeft size={rem(10)} stroke={2} color="currentColor" />
             </Button>
           </div>

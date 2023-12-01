@@ -48,6 +48,7 @@ export const logIn = createAsyncThunk<any, UserCredentials, { rejectValue: AuthE
       };
 
       console.log(data);
+      console.log(newUser);
 
       return data;
     } catch (err: any) {

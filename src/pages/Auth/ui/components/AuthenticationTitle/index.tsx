@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-bind */
 import { useState } from 'react';
 
 import { Container, MantineProvider } from '@mantine/core';
@@ -132,6 +133,8 @@ export const AuthenticationTitle = () => {
   };
 
   const CurrentStepComponent = getCurrentStep(currentStep);
+
+  console.log(CurrentStepComponent);
 
   return (
     <MantineProvider

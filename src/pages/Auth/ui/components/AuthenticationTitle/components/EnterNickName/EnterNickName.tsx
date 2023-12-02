@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import classes from './EnterNickName.module.css';
 
 interface EnterNickNameProps {
-  handleChange: () => void;
+  handleChange: (value: string) => void;
   handleSubmit: (value: string) => void;
   value: string;
   inputLoading: boolean;
@@ -27,7 +27,9 @@ const EnterNickName: FC<EnterNickNameProps> = ({
       <Paper className={classes.nickNameTitle}>{t('authForm.enterNikName')}</Paper>
       <Autocomplete
         value={value}
-        onChange={handleChange}
+        onChange={(value) => {
+          handleChange(value);
+        }}
         rightSection={inputLoading ? <Loader size="1rem" /> : null}
         placeholder="Your nick Name"
       />

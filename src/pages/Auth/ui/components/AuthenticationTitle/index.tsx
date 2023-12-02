@@ -1,27 +1,9 @@
 import { useState } from 'react';
 
-import {
-  Paper,
-  Title,
-  Container,
-  Group,
-  Button,
-  rem,
-  MantineProvider,
-  Center,
-  Box,
-  Autocomplete,
-  Loader,
-} from '@mantine/core';
+import { Container, MantineProvider } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
-import { IconArrowLeft } from '@tabler/icons-react';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
-// @ts-ignore
-import OtpInput from 'otp-input-react';
 import { toast } from 'react-hot-toast';
-import { useTranslation } from 'react-i18next';
-import { CgSpinner } from 'react-icons/cg';
-import PhoneInput from 'react-phone-input-2';
 import { useDispatch } from 'react-redux';
 
 import { AppDispatch } from '../../../../../app/store';
@@ -29,22 +11,27 @@ import { logIn, setUserNickName } from '../../../../../features/auth/authSlice';
 import { setAppUser } from '../../../../../features/user/userSlice';
 import { extendedWindow } from '../../../../../shared/extendedWindow';
 import { auth } from '../../../../../shared/firebase';
-import { GoogleButton } from '../GoogleButton';
-import { TwitterButton } from '../TwitterButton';
+import { NotFound } from '../../../../NoFound/NoFound';
 
-import classes from './AuthenticationTitle.module.css';
+import EnterNickName from './components/EnterNickName/EnterNickName';
+import EnterOTP from './components/EnterOTP/EnterOTP';
+import EnterPhone from './components/EnterPhone/EnterPhone';
+
+// Об'єкт з початковими значеннями для кожного етапу логіну
+enum LoginSteps {
+  EnterPhone = 'EnterPhone',
+  EnterNickName = 'EnterNickName',
+  EnterOTP = 'EnterOTP',
+}
 
 export const AuthenticationTitle = () => {
   const [otp, setOtp] = useState('');
   const [ph, setPh] = useState('');
   const [loading, setLoading] = useState(false);
-  const [showOTP, setShowOTP] = useState(false);
-  const [user, setUser] = useState(null);
   const [value, setValue] = useState('');
   const [inputLoading, setInputLoading] = useState(false);
+  const [currentStep, setCurrentStep] = useState(LoginSteps.EnterPhone);
 
-  // Translation
-  const { t } = useTranslation();
   const dispach: AppDispatch = useDispatch();
 
   function handleSubmit(value: string) {
@@ -91,7 +78,7 @@ export const AuthenticationTitle = () => {
       .then((confirmationResult) => {
         extendedWindow.confirmationResult = confirmationResult;
         setLoading(false);
-        setShowOTP(true);
+        setCurrentStep(LoginSteps.EnterOTP);
         toast.success('OTP sended successfully!');
       })
       .catch((err) => {
@@ -107,10 +94,7 @@ export const AuthenticationTitle = () => {
     setLoading(true);
     extendedWindow.confirmationResult
       .confirm(otp)
-      .then(async (res: any) => {
-        setUser(res.user);
-        // eslint-disable-next-line no-console
-        console.log(auth.currentUser?.phoneNumber);
+      .then(async () => {
         dispach(setAppUser('roma'));
         notifications.show({
           title: 'Вітаю',
@@ -127,6 +111,28 @@ export const AuthenticationTitle = () => {
       });
   }
 
+  const getCurrentStep = (currentStep: keyof typeof LoginSteps) => {
+    switch (currentStep) {
+      case 'EnterPhone':
+        return (
+          <EnterNickName
+            handleChange={handleChange}
+            value={value}
+            inputLoading={inputLoading}
+            handleSubmit={handleSubmit}
+          />
+        );
+      case 'EnterOTP':
+        return <EnterOTP setOtp={setOtp} onOTPVerify={onOTPVerify} otp={otp} />;
+      case 'EnterNickName':
+        return <EnterPhone loading={loading} setPh={setPh} ph={ph} onSignup={onSignup} />;
+      default:
+        return <NotFound />;
+    }
+  };
+
+  const CurrentStepComponent = getCurrentStep(currentStep);
+
   return (
     <MantineProvider
       theme={{
@@ -136,97 +142,7 @@ export const AuthenticationTitle = () => {
     >
       <Container size={820} my={40}>
         <div id="recaptcha-container" />
-        {user ? (
-          <div className={classes.nickNameWrapper}>
-            <Paper className={classes.nickNameTitle}>{t('authForm.enterNikName')}</Paper>
-            <Autocomplete
-              value={value}
-              onChange={handleChange}
-              rightSection={inputLoading ? <Loader size="1rem" /> : null}
-              placeholder="Your nick Name"
-            />
-            {/* <input
-              type="text"
-              className={classes.nickNameInput}
-              placeholder="Your nikeName"
-            /> */}
-            <Button
-              type="submit"
-              onClick={() => {
-                handleSubmit(value);
-              }}
-              className={classes.nickNameButton}
-            >
-              <IconArrowLeft size={rem(10)} stroke={2} color="currentColor" />
-            </Button>
-          </div>
-        ) : (
-          <div className="w-80 flex flex-col gap-4 rounded-lg p-4">
-            {showOTP ? (
-              <section className={classes.modalWrapper}>
-                <Paper className={classes.OTPTitle}>{t('authForm.Enter')}</Paper>
-                <OtpInput
-                  value={otp}
-                  onChange={setOtp}
-                  OTPLength={6}
-                  otpType="number"
-                  disabled={false}
-                  autoFocus
-                  className={classes.OTPWrapper}
-                />
-                <Center maw={400} h={50}>
-                  <Button
-                    type="submit"
-                    size="sm"
-                    radius="xl"
-                    onClick={() => onOTPVerify()}
-                    className={classes.buttonArow}
-                  >
-                    <IconArrowLeft size={rem(10)} stroke={2} color="currentColor" />
-                  </Button>
-                  <Box
-                    className={classes.buttonText}
-                    onClick={() => {
-                      alert('SendSMSAgain');
-                    }}
-                  >
-                    {t('authForm.SendSMSAgain')}
-                  </Box>
-                </Center>
-              </section>
-            ) : (
-              <>
-                <Title ta="center" className={classes.title}>
-                  {t('authForm.VerifyNumber')}
-                </Title>
-                <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-                  <PhoneInput
-                    containerStyle={{ border: '' }}
-                    country="ua"
-                    placeholder="066 666 66 66"
-                    value={ph}
-                    onChange={setPh}
-                  />
-                  <Button
-                    fullWidth
-                    type="submit"
-                    onClick={() => onSignup()}
-                    mt="xl"
-                    radius="sm"
-                  >
-                    {t('authForm.SendSMS')}
-                  </Button>
-                  <Group />
-                  <Group grow mb="md" mt="xl">
-                    <GoogleButton radius="sm">Google</GoogleButton>
-                    <TwitterButton radius="sm">Twitter</TwitterButton>
-                  </Group>
-                </Paper>
-                {loading && <CgSpinner size={20} className="mt-1 animate-spin" />}
-              </>
-            )}
-          </div>
-        )}
+        <CurrentStepComponent />
       </Container>
     </MantineProvider>
   );

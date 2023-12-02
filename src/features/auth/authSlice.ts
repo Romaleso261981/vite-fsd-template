@@ -8,9 +8,6 @@ export type UserCredentials = {
   password?: string;
   nickName?: string;
 };
-export type IresData = {
-  str: string;
-};
 
 export type User = {
   firstName: string;

@@ -40,12 +40,7 @@ const EnterOTP: FC<EnterOTPProps> = ({ onOTPVerify, otp, setOtp }) => {
         >
           <IconArrowLeft size={rem(10)} stroke={2} color="currentColor" />
         </Button>
-        <Box
-          className={classes.buttonText}
-          onClick={() => {
-            alert('SendSMSAgain');
-          }}
-        >
+        <Box className={classes.buttonText} onClick={() => {}}>
           {t('authForm.SendSMSAgain')}
         </Box>
       </Center>

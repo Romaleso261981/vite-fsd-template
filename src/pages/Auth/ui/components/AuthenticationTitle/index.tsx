@@ -6,12 +6,14 @@ import { notifications } from '@mantine/notifications';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { toast } from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import { AppDispatch } from '../../../../../app/store';
 import { logIn, setUserNickName } from '../../../../../features/auth/authSlice';
 import { setAppUser } from '../../../../../features/user/userSlice';
 import { extendedWindow } from '../../../../../shared/extendedWindow';
 import { auth } from '../../../../../shared/firebase';
+import Main from '../../../../Main';
 import { NotFound } from '../../../../NoFound/NoFound';
 
 import EnterNickName from './components/EnterNickName/EnterNickName';
@@ -23,6 +25,7 @@ enum LoginSteps {
   EnterPhone = 'EnterPhone',
   EnterNickName = 'EnterNickName',
   EnterOTP = 'EnterOTP',
+  main = 'main',
 }
 
 export const AuthenticationTitle = () => {
@@ -34,12 +37,15 @@ export const AuthenticationTitle = () => {
   const [currentStep, setCurrentStep] = useState(LoginSteps.EnterPhone);
 
   const dispach: AppDispatch = useDispatch();
+  const navigate = useNavigate();
 
   function handleSubmit(value: string) {
     dispach(setUserNickName(value));
     dispach(logIn({ nickName: value }));
     setValue('');
     setInputLoading(false);
+    navigate('/');
+    console.log('navigate()');
   }
   const handleChange = (val: string) => {
     setValue(val);
@@ -101,6 +107,7 @@ export const AuthenticationTitle = () => {
           title: 'Вітаю',
           message: `Ви успішно увійшли за номером ${auth.currentUser?.phoneNumber}`,
         });
+        setCurrentStep(LoginSteps.EnterNickName);
         setLoading(false);
       })
       .catch((err: any) => {
@@ -115,6 +122,10 @@ export const AuthenticationTitle = () => {
   const getCurrentStep = (currentStep: keyof typeof LoginSteps) => {
     switch (currentStep) {
       case 'EnterPhone':
+        return <EnterPhone loading={loading} setPh={setPh} ph={ph} onSignup={onSignup} />;
+      case 'EnterOTP':
+        return <EnterOTP setOtp={setOtp} onOTPVerify={onOTPVerify} otp={otp} />;
+      case 'EnterNickName':
         return (
           <EnterNickName
             handleChange={handleChange}
@@ -123,18 +134,12 @@ export const AuthenticationTitle = () => {
             handleSubmit={handleSubmit}
           />
         );
-      case 'EnterOTP':
-        return <EnterOTP setOtp={setOtp} onOTPVerify={onOTPVerify} otp={otp} />;
-      case 'EnterNickName':
-        return <EnterPhone loading={loading} setPh={setPh} ph={ph} onSignup={onSignup} />;
+      case 'main':
+        return <Main />;
       default:
         return <NotFound />;
     }
   };
-
-  const CurrentStepComponent = getCurrentStep(currentStep);
-
-  console.log(CurrentStepComponent);
 
   return (
     <MantineProvider
@@ -143,9 +148,9 @@ export const AuthenticationTitle = () => {
         fontSizes: { md: '60' },
       }}
     >
-      <Container size={820} my={40}>
+      <Container>
         <div id="recaptcha-container" />
-        <CurrentStepComponent />
+        {getCurrentStep(currentStep)}
       </Container>
     </MantineProvider>
   );

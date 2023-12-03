@@ -32,5 +32,6 @@ export type UserState = {
 export type AuthState = {
   nickName: string;
   loading: boolean;
+  setIsRegistered: boolean;
   error: AuthError;
 };

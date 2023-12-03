@@ -58,6 +58,7 @@ export const logIn = createAsyncThunk<any, UserCredentials, { rejectValue: AuthE
 const initialState: AuthState = {
   nickName: '',
   loading: false,
+  setIsRegistered: false,
   error: { message: '', code: '', id: '' },
 };
 
@@ -68,6 +69,7 @@ export const authSlice = createSlice({
     setUserNickName(state, action: PayloadAction<string>) {
       console.log(action.payload);
       state.nickName = action.payload;
+      state.setIsRegistered = true;
     },
   },
   extraReducers: (builder) => {

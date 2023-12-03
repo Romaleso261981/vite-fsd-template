@@ -33,11 +33,6 @@ const EnterNickName: FC<EnterNickNameProps> = ({
         rightSection={inputLoading ? <Loader size="1rem" /> : null}
         placeholder="Your nick Name"
       />
-      {/* <input
-	 type="text"
-	 className={classes.nickNameInput}
-	 placeholder="Your nikeName"
-  /> */}
       <Button
         type="submit"
         onClick={() => {

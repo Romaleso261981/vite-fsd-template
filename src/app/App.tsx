@@ -9,8 +9,6 @@ import { useAppSelector } from './store';
 const App: React.FC = () => {
   const { setIsRegistered } = useAppSelector((state) => state.auth);
 
-  console.log(setIsRegistered);
-
   if (!setIsRegistered) return <AuthPage />;
 
   return (

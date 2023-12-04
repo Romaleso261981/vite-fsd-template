@@ -13,9 +13,6 @@ export const logIn = createAsyncThunk<any, UserCredentials, { rejectValue: AuthE
         name: 'Roma',
       };
 
-      console.log(data);
-      console.log(newUser);
-
       return data;
     } catch (err: any) {
       return rejectWithValue(err);

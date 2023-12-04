@@ -6,7 +6,7 @@ import { notifications } from '@mantine/notifications';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { toast } from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 import { AppDispatch } from '../../../../../app/store';
 import { logIn, setUserNickName } from '../../../../../features/auth/authSlice';
@@ -20,7 +20,6 @@ import EnterNickName from './components/EnterNickName/EnterNickName';
 import EnterOTP from './components/EnterOTP/EnterOTP';
 import EnterPhone from './components/EnterPhone/EnterPhone';
 
-// Об'єкт з початковими значеннями для кожного етапу логіну
 enum LoginSteps {
   EnterPhone = 'EnterPhone',
   EnterNickName = 'EnterNickName',
@@ -37,16 +36,15 @@ export const AuthenticationTitle = () => {
   const [currentStep, setCurrentStep] = useState(LoginSteps.EnterPhone);
 
   const dispach: AppDispatch = useDispatch();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   function handleSubmit(value: string) {
     dispach(setUserNickName(value));
     dispach(logIn({ nickName: value }));
     setValue('');
     setInputLoading(false);
-    navigate('/');
-    console.log('navigate()');
   }
+
   const handleChange = (val: string) => {
     setValue(val);
     setInputLoading(true);

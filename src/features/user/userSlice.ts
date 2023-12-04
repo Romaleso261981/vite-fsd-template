@@ -11,7 +11,6 @@ export const signUp = createAsyncThunk<void, UserCredentials, { rejectValue: Aut
       // eslint-disable-next-line no-console
       console.log(newUser);
     } catch (err: any) {
-      // eslint-disable-next-line
       return rejectWithValue(err);
     }
   },

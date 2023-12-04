@@ -11,16 +11,12 @@ export const logIn = createAsyncThunk<any, UserCredentials, { rejectValue: AuthE
   'auth/logIn',
   async ({ nickName }, { rejectWithValue }) => {
     try {
-      console.log(nickName);
       const docRef = await addDoc(collection(db, 'users'), {
-        first: 'Alan',
+        first: nickName,
         middle: 'Mathison',
         last: 'Turing',
         born: 1912,
       });
-
-      console.log('docRef', docRef);
-      console.log('Document written with ID: ', docRef.id);
 
       return docRef;
     } catch (err: any) {
@@ -46,17 +42,14 @@ export const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(logIn.pending, (state) => {
-      console.log('logIn.pending');
       state.loading = true;
     });
     builder.addCase(logIn.fulfilled, (state, { payload }) => {
-      console.log('logIn.fulfilled');
       state.nickName = payload;
       state.setIsRegistered = true;
       state.loading = false;
     });
     builder.addCase(logIn.rejected, (state) => {
-      console.log('logIn.rejected');
       state.loading = false;
     });
   },

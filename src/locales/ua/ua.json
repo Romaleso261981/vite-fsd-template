@@ -18,5 +18,8 @@
     "SendSMSAgain":"56 Відправити СМС знову",
     "Enter":"Увійти",
     "enterNikName":"Введіть свій нікнейм"
+  },
+  "footer":{
+    "AllReserved":"© 2023 mantine.dev. Всі права захищені."
   }
 }

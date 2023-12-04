@@ -23,7 +23,6 @@ export type NewUser = User & UserCredentials;
 export type AuthError = {
   code: string;
   message: string;
-  id: string;
 };
 
 export type UserState = {
@@ -33,5 +32,4 @@ export type AuthState = {
   nickName: string;
   loading: boolean;
   setIsRegistered: boolean;
-  error: AuthError;
 };

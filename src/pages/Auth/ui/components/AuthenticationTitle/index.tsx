@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux';
 // import { useNavigate } from 'react-router-dom';
 
 import { AppDispatch } from '../../../../../app/store';
-import { logIn, setUserNickName } from '../../../../../features/auth/authSlice';
+import { logIn } from '../../../../../features/auth/authSlice';
 import { setAppUser } from '../../../../../features/user/userSlice';
 import { extendedWindow } from '../../../../../shared/extendedWindow';
 import { auth } from '../../../../../shared/firebase';
@@ -33,13 +33,12 @@ export const AuthenticationTitle = () => {
   const [loading, setLoading] = useState(false);
   const [value, setValue] = useState('');
   const [inputLoading, setInputLoading] = useState(false);
-  const [currentStep, setCurrentStep] = useState(LoginSteps.EnterPhone);
+  const [currentStep, setCurrentStep] = useState(LoginSteps.EnterNickName);
 
   const dispach: AppDispatch = useDispatch();
   // const navigate = useNavigate();
 
   function handleSubmit(value: string) {
-    dispach(setUserNickName(value));
     dispach(logIn({ nickName: value }));
     setValue('');
     setInputLoading(false);

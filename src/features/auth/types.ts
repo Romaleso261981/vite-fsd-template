@@ -15,5 +15,10 @@ export type NewUser = User & UserCredentials;
 export type AuthError = {
   code: string;
   message: string;
-  id: string;
+  errors: AuthErrors[];
+};
+export type AuthErrors = {
+  domain: string;
+  message: string;
+  reason: string;
 };

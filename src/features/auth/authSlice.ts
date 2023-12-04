@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { collection, addDoc } from 'firebase/firestore';
+import { ref, set } from 'firebase/database';
 
 import { RootState } from '../../app/rootReducer';
-import { db } from '../../shared/firebase';
+import { database } from '../../shared/firebase';
 import { AuthState } from '../user/types';
 
 import { AuthError, UserCredentials } from './types';
@@ -11,15 +11,16 @@ export const logIn = createAsyncThunk<any, UserCredentials, { rejectValue: AuthE
   'auth/logIn',
   async ({ nickName }, { rejectWithValue }) => {
     try {
-      const docRef = await addDoc(collection(db, 'users'), {
-        first: nickName,
-        middle: 'Mathison',
-        last: 'Turing',
-        born: 1912,
+      set(ref(database, 'users/asx1a561sx155a1s51x5'), {
+        username: nickName,
       });
 
-      return docRef;
+      console.log('After addDoc');
+
+      // return docRef;
     } catch (err: any) {
+      console.error('Error in logIn:', err);
+
       return rejectWithValue(err);
     }
   },

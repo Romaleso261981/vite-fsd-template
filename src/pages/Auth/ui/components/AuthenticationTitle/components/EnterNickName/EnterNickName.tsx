@@ -40,7 +40,13 @@ const EnterNickName: FC<EnterNickNameProps> = ({
         }}
         className={classes.nickNameButton}
       >
-        <IconArrowLeft size={rem(10)} stroke={2} color="currentColor" />
+        <IconArrowLeft
+          width={rem(50)}
+          height={rem(20)}
+          size={rem(10)}
+          stroke={rem(2)}
+          color="currentColor"
+        />
       </Button>
     </div>
   );

@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import AuthPage from '../pages/Auth';
-import Main from '../pages/Main';
+import AuthPage from '../pages/Auth/Auth';
+import Main from '../pages/Main/Main';
 import { NotFound } from '../pages/NoFound/NoFound';
 
 import { useAppSelector } from './store';

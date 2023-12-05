@@ -13,7 +13,7 @@ import { logIn } from '../../../../../features/auth/authSlice';
 import { setAppUser } from '../../../../../features/user/userSlice';
 import { extendedWindow } from '../../../../../shared/extendedWindow';
 import { auth } from '../../../../../shared/firebase';
-import Main from '../../../../Main';
+import Main from '../../../../Main/Main';
 import { NotFound } from '../../../../NoFound/NoFound';
 
 import EnterNickName from './components/EnterNickName/EnterNickName';

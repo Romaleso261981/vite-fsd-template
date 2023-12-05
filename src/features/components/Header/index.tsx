@@ -20,6 +20,7 @@ import {
   useMantineTheme,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import { MantineLogo } from '@mantinex/mantine-logo';
 import {
   IconNotification,
   IconCode,
@@ -109,7 +110,7 @@ export const Header = () => {
     <Box pb={5}>
       <header className={classes.header}>
         <Group justify="space-between" h="100%">
-          {/* <MantineLogo size={30} /> */}
+          <MantineLogo size={30} />
 
           <Group h="100%" gap={0} visibleFrom="sm">
             <a href="/" className={classes.link}>

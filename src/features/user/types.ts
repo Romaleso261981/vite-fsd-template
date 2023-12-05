@@ -23,9 +23,13 @@ export type NewUser = User & UserCredentials;
 export type AuthError = {
   code: string;
   message: string;
-  id: string;
 };
 
 export type UserState = {
   user: null | {} | undefined;
+};
+export type AuthState = {
+  nickName: string;
+  loading: boolean;
+  setIsRegistered: boolean;
 };

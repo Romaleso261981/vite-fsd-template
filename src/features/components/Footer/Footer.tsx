@@ -5,6 +5,7 @@ import {
   IconBrandYoutube,
   IconBrandInstagram,
 } from '@tabler/icons-react';
+import { useTranslation } from 'react-i18next';
 
 import classes from './FooterLinks.module.css';
 
@@ -39,6 +40,9 @@ const data = [
 ];
 
 export const Footer = () => {
+  // Translation
+  const { t } = useTranslation();
+
   const groups = data.map((group) => {
     const links = group.links.map((link, index) => (
       <Text<'a'>
@@ -74,7 +78,7 @@ export const Footer = () => {
       </Container>
       <Container className={classes.afterFooter}>
         <Text c="dimmed" size="sm">
-          © 2023 mantine.dev. All rights reserved.
+          {t('footer.AllReserved')}
         </Text>
 
         <Group gap={0} className={classes.social} justify="flex-end" wrap="nowrap">

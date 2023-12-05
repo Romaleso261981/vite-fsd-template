@@ -15,6 +15,12 @@
   "authForm":{
     "SendSMS":"SendSMS",
     "VerifyNumber":"Verify Number!",
-    "CreateAccount":"Create account"
+    "CreateAccount":"Create account",
+    "SendSMSAgain":"56 Send SMS again",
+    "Enter":"Enter",
+    "enterNikName":"Enter your nik Name"
+  },
+  "footer":{
+    "AllReserved":"© 2023 mantine.dev. All rights reserved."
   }
 }

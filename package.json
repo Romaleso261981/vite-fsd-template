@@ -16,7 +16,6 @@
   "dependencies": {
     "@mantine/code-highlight": "^7.3.0",
     "@mantine/core": "^7.3.0",
-    "@mantine/ds": "^7.2.2",
     "@mantine/form": "^7.3.0",
     "@mantine/hooks": "^7.3.0",
     "@mantine/modals": "^7.3.0",

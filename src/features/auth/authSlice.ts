@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { collection, getDocs } from 'firebase/firestore';
+import { addDoc, collection, getDocs } from 'firebase/firestore';
 
 import { RootState } from '../../app/rootReducer';
 import { db } from '../../shared/firebase';
@@ -27,11 +27,9 @@ export const logIn = createAsyncThunk<any, UserCredentials, { rejectValue: AuthE
         nickName,
       };
 
-      console.log(user);
+      const data = await addDoc(usersCollection, user);
 
-      // const data = await addDoc(usersCollection, user);
-
-      // return data;
+      return data;
     } catch ({ request }: any) {
       const { message } = JSON.parse(request.response);
 

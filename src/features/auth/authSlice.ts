@@ -13,21 +13,24 @@ export const logIn = createAsyncThunk<any, UserCredentials, { rejectValue: any }
     try {
       const usersCollection = collection(db, 'user');
 
-      await getDocs(usersCollection)
-        .then(({ docs }) => {
-          console.log(docs);
-        })
-        .catch((error) => rejectWithValue(error));
-
       const user = {
         nickName,
       };
 
-      const data = await addDoc(usersCollection, user);
+      await getDocs(usersCollection).then((d) => {
+        d.forEach((d) => {
+          console.log(d.get('nickName') !== nickName);
+          if (d.get('nickName') === nickName) {
+            return alert('nickName must be unique');
+          }
 
-      return { data };
-    } catch (request) {
-      return rejectWithValue(request);
+          return addDoc(usersCollection, user);
+        });
+      });
+
+      return nickName;
+    } catch (error) {
+      rejectWithValue(error);
     }
   },
 );

@@ -1,24 +1,33 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { addDoc, collection, getDocs } from 'firebase/firestore';
 
-import { API } from '../../API';
 import { RootState } from '../../app/rootReducer';
+import { db } from '../../shared/firebase';
 import { AuthState } from '../user/types';
 
-import { AuthError, UserCredentials } from './types';
+import { UserCredentials } from './types';
 
-export const logIn = createAsyncThunk<any, UserCredentials, { rejectValue: AuthError }>(
+export const logIn = createAsyncThunk<any, UserCredentials, { rejectValue: any }>(
   'auth/logIn',
   async ({ nickName }, { rejectWithValue }) => {
     try {
-      const { data } = await API.post('/auth/login', { nickName });
+      const usersCollection = collection(db, 'user');
 
-      return data;
-    } catch ({ request }: any) {
-      const { message } = JSON.parse(request.response);
+      await getDocs(usersCollection)
+        .then(({ docs }) => {
+          console.log(docs);
+        })
+        .catch((error) => rejectWithValue(error));
 
-      alert(message);
+      const user = {
+        nickName,
+      };
 
-      return rejectWithValue(message);
+      const data = await addDoc(usersCollection, user);
+
+      return { data };
+    } catch (request) {
+      return rejectWithValue(request);
     }
   },
 );
@@ -42,9 +51,8 @@ export const authSlice = createSlice({
     builder.addCase(logIn.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(logIn.fulfilled, (state, { payload }) => {
-      console.log(payload);
-      state.nickName = payload;
+    builder.addCase(logIn.fulfilled, (state) => {
+      // state.nickName = payload;
       state.setIsRegistered = true;
       state.loading = false;
     });

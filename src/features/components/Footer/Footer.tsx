@@ -1,5 +1,5 @@
 import { Text, Container, ActionIcon, Group, rem } from '@mantine/core';
-import { MantineLogo } from '@mantine/ds';
+import { MantineLogo } from '@mantinex/mantine-logo';
 import {
   IconBrandTwitter,
   IconBrandYoutube,

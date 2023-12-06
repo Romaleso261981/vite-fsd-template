@@ -5,9 +5,9 @@ import { RootState } from '../../app/rootReducer';
 import { db } from '../../shared/firebase';
 import { AuthState } from '../user/types';
 
-import { AuthError, UserCredentials } from './types';
+import { UserCredentials } from './types';
 
-export const logIn = createAsyncThunk<any, UserCredentials, { rejectValue: AuthError }>(
+export const logIn = createAsyncThunk<any, UserCredentials, { rejectValue: any }>(
   'auth/logIn',
   async ({ nickName }, { rejectWithValue }) => {
     try {
@@ -15,13 +15,9 @@ export const logIn = createAsyncThunk<any, UserCredentials, { rejectValue: AuthE
 
       await getDocs(usersCollection)
         .then(({ docs }) => {
-          docs.forEach((data) => {
-            const res = data.get('nickName');
-
-            console.log(res);
-          });
+          console.log(docs);
         })
-        .catch((e) => console.log(e));
+        .catch((error) => rejectWithValue(error));
 
       const user = {
         nickName,
@@ -29,11 +25,9 @@ export const logIn = createAsyncThunk<any, UserCredentials, { rejectValue: AuthE
 
       const data = await addDoc(usersCollection, user);
 
-      return data;
-    } catch ({ request }: any) {
-      const { message } = JSON.parse(request.response);
-
-      return rejectWithValue(message);
+      return { data };
+    } catch (request) {
+      return rejectWithValue(request);
     }
   },
 );

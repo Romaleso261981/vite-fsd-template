@@ -167,31 +167,6 @@ export const Header = () => {
               {t('header.auth')}
             </a>
           </Group>
-
-          {/* <Group visibleFrom="sm">
-            {!isAuth && (
-              <Button
-                variant="default"
-                onClick={() => {
-                  setIsAuth(!isAuth);
-                  dispath(signUp(NewUser));
-                }}
-              >
-                {t('header.Login')}
-              </Button>
-            )}
-            {isAuth && (
-              <Button
-                variant="default"
-                onClick={() => {
-                  setIsAuth(!isAuth);
-                  // dispath(signUp(NewUser));
-                }}
-              >
-                {t('header.LogOut')}
-              </Button>
-            )}
-          </Group> */}
           <Group align="flex-start" justify="center">
             <ColorThemeToggler />
             <LanguagePicker />

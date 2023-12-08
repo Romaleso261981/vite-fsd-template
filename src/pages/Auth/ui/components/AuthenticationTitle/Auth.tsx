@@ -10,8 +10,8 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../../../../app/store';
 import { logIn } from '../../../../../features/auth/authSlice';
 import { setAppUser } from '../../../../../features/user/userSlice';
+import { auth } from '../../../../../integations/firebase';
 import { extendedWindow } from '../../../../../shared/extendedWindow';
-import { auth } from '../../../../../shared/firebase';
 import Main from '../../../../Main/Main';
 import { NotFound } from '../../../../NoFound/NoFound';
 
@@ -32,12 +32,13 @@ export const AuthenticationTitle = () => {
   const [loading, setLoading] = useState(false);
   const [value, setValue] = useState('');
   const [inputLoading, setInputLoading] = useState(false);
-  const [currentStep, setCurrentStep] = useState(LoginSteps.EnterNickName);
+  const [currentStep, setCurrentStep] = useState(LoginSteps.EnterPhone);
 
   const dispach: AppDispatch = useDispatch();
 
   function handleSubmit(value: string) {
-    dispach(logIn({ nickName: value }));
+    logIn({ nickName: value });
+    // dispach(logIn({ nickName: value }));
     setValue('');
     setInputLoading(false);
   }

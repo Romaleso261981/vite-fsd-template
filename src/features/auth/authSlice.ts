@@ -21,8 +21,10 @@ export const logIn = async <T extends { nickName: string }>({ nickName }: User) 
 
   const isNickNameExists = data.some((obj) => obj.nickName === nickName);
 
-  if (isNickNameExists) return;
+  if (isNickNameExists) return alert('nickName must be unique');
   addDoc(collectionRef, { nickName });
+
+  console.log(data);
 
   return data;
 };

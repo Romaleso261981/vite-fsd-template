@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { notifications } from '@mantine/notifications';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { collection, getDocs, query, addDoc, limit } from 'firebase/firestore';
 
 import { RootState } from '../../app/rootReducer';
@@ -7,27 +8,39 @@ import { AuthState } from '../user/types';
 
 import { User } from './types';
 
-export const logIn = async <T extends { nickName: string }>({ nickName }: User) => {
-  const collectionRef = collection(db, 'users');
+export const logIn = createAsyncThunk(
+  'auth/signUp',
+  async (nickName: string, { rejectWithValue }) => {
+    try {
+      const collectionRef = collection(db, 'users');
 
-  const q = query(collectionRef, limit(20));
+      const q = query(collectionRef, limit(20));
 
-  const querySnapshot = await getDocs(q);
-  const data: User[] = [];
+      const querySnapshot = await getDocs(q);
+      const data: User[] = [];
 
-  querySnapshot.forEach((doc) => {
-    data.push(doc.data() as T);
-  });
+      querySnapshot.forEach((doc) => {
+        data.push(doc.data() as User);
+      });
 
-  const isNickNameExists = data.some((obj) => obj.nickName === nickName);
+      const isNickNameExists = data.some((obj) => obj.nickName === nickName);
 
-  if (isNickNameExists) return alert('nickName must be unique');
-  addDoc(collectionRef, { nickName });
+      if (!isNickNameExists) {
+        addDoc(collectionRef, { nickName });
 
-  console.log(data);
-
-  return data;
-};
+        return nickName;
+      }
+      notifications.show({
+        bg: 'cyan',
+        w: '450',
+        h: '80',
+        message: 'You must enter a unique nickName',
+      });
+    } catch (err: any) {
+      return rejectWithValue(err);
+    }
+  },
+);
 
 const initialState: AuthState = {
   nickName: '',
@@ -38,30 +51,23 @@ const initialState: AuthState = {
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {
-    setUserNickName(state, action: PayloadAction<string>) {
-      state.nickName = action.payload;
-      state.setIsRegistered = true;
-    },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(logIn.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(logIn.fulfilled, (state, { payload }) => {
+      if (typeof payload === 'string') state.nickName = payload;
+      state.setIsRegistered = payload !== undefined;
+      state.loading = false;
+    });
+    builder.addCase(logIn.rejected, (state) => {
+      state.loading = false;
+    });
   },
-  // extraReducers: (builder) => {
-  //   builder.addCase(logIn.pending, (state) => {
-  //     state.loading = true;
-  //   });
-  //   builder.addCase(logIn.fulfilled, (state) => {
-  //     // state.nickName = payload;
-  //     state.setIsRegistered = true;
-  //     state.loading = false;
-  //   });
-  //   builder.addCase(logIn.rejected, (state) => {
-  //     state.loading = false;
-  //   });
-  // },
 });
 
 export const selectAuth = (state: RootState) => state.auth;
 export const selectProfile = (state: RootState) => state.auth;
-
-export const { setUserNickName } = authSlice.actions;
 
 export default authSlice.reducer;

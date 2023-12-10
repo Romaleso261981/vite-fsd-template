@@ -32,13 +32,12 @@ export const AuthenticationTitle = () => {
   const [loading, setLoading] = useState(false);
   const [value, setValue] = useState('');
   const [inputLoading, setInputLoading] = useState(false);
-  const [currentStep, setCurrentStep] = useState(LoginSteps.EnterPhone);
+  const [currentStep, setCurrentStep] = useState(LoginSteps.EnterNickName);
 
   const dispach: AppDispatch = useDispatch();
 
   function handleSubmit(value: string) {
-    logIn({ nickName: value });
-    // dispach(logIn({ nickName: value }));
+    dispach(logIn(value));
     setValue('');
     setInputLoading(false);
   }

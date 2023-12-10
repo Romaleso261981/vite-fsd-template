@@ -1,5 +1,3 @@
-// import { useState } from 'react';
-
 import {
   HoverCard,
   Group,
@@ -21,69 +19,21 @@ import {
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { MantineLogo } from '@mantinex/mantine-logo';
-import {
-  IconNotification,
-  IconCode,
-  IconBook,
-  IconChartPie3,
-  IconFingerprint,
-  IconCoin,
-  IconChevronDown,
-} from '@tabler/icons-react';
+import { IconChevronDown } from '@tabler/icons-react';
 import { useTranslation } from 'react-i18next';
 
-// import { AppDispatch } from '../../../app/store';
-// import { signUp } from '../../auth/authSlice';
-
+import { mockdata } from './data/mockdata';
 import classes from './HeaderMegaMenu.module.css';
 import ColorThemeToggler from './ui/components/ColorThemeToggler';
 import { LanguagePicker } from './ui/components/LanguageSwitcher2/LanguageSwitcher';
-
-const mockdata = [
-  {
-    icon: IconCode,
-    title: 'Open source',
-    description: 'This Pokémon’s cry is very loud and distracting',
-  },
-  {
-    icon: IconCoin,
-    title: 'Free for everyone',
-    description: 'The fluid of Smeargle’s tail secretions changes',
-  },
-  {
-    icon: IconBook,
-    title: 'Documentation',
-    description: 'Yanma is capable of seeing 360 degrees without',
-  },
-  {
-    icon: IconFingerprint,
-    title: 'Security',
-    description: 'The shell’s rounded shape and the grooves on its.',
-  },
-  {
-    icon: IconChartPie3,
-    title: 'Analytics',
-    description: 'This Pokémon uses its flying ability to quickly chase',
-  },
-  {
-    icon: IconNotification,
-    title: 'Notifications',
-    description: 'Combusken battles with the intensely hot flames it spews',
-  },
-];
 
 export const Header = () => {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
-  // const [user, setUser] = useState(null);
-  // const [isAuth, setIsAuth] = useState(false);
   const theme = useMantineTheme();
 
-  // Translation
   const { t } = useTranslation();
-
-  // const dispath: AppDispatch = useDispatch();
 
   const links = mockdata.map((item) => (
     <UnstyledButton<'a'> className={classes.subLink} key={item.title}>

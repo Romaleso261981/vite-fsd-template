@@ -14,15 +14,6 @@ const mockdata = [
   { label: 'Automatic gearbox', icon: IconManualGearbox },
   { label: 'Electric', icon: IconGasStation },
 ];
-// const mockdata2 = [
-//   {
-//     src: 'https://cdn1.riastatic.com/photosnew/auto/photo/tesla_model-x__518952411hd.webp',
-//     icon: IconUsers,
-//   },
-//   { src: '100 km/h in 4 seconds', icon: IconGauge },
-//   { src: 'Automatic gearbox', icon: IconManualGearbox },
-//   { src: 'Electric', icon: IconGasStation },
-// ];
 
 export const FeaturesCard = () => {
   const features = mockdata.map((feature) => (

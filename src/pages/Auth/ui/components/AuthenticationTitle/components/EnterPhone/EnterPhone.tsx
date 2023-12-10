@@ -17,7 +17,6 @@ interface EnterPhoneProps {
 }
 
 const EnterPhone: FC<EnterPhoneProps> = ({ loading, setPh, ph, onSignup }) => {
-  // Translation
   const { t } = useTranslation();
 
   return (

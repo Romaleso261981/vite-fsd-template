@@ -40,7 +40,6 @@ const data = [
 ];
 
 export const Footer = () => {
-  // Translation
   const { t } = useTranslation();
 
   const groups = data.map((group) => {

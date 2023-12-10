@@ -15,7 +15,6 @@ interface EnterOTPProps {
 }
 
 const EnterOTP: FC<EnterOTPProps> = ({ onOTPVerify, otp, setOtp }) => {
-  // Translation
   const { t } = useTranslation();
 
   return (

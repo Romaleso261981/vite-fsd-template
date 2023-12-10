@@ -1,33 +1,43 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { addDoc, collection, getDocs } from 'firebase/firestore';
+import { notifications } from '@mantine/notifications';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { collection, getDocs, query, addDoc, limit } from 'firebase/firestore';
 
 import { RootState } from '../../app/rootReducer';
-import { db } from '../../shared/firebase';
+import { db } from '../../integations/firebase';
 import { AuthState } from '../user/types';
 
-import { UserCredentials } from './types';
+import { User } from './types';
 
-export const logIn = createAsyncThunk<any, UserCredentials, { rejectValue: any }>(
-  'auth/logIn',
-  async ({ nickName }, { rejectWithValue }) => {
+export const logIn = createAsyncThunk(
+  'auth/signUp',
+  async (nickName: string, { rejectWithValue }) => {
     try {
-      const usersCollection = collection(db, 'user');
+      const collectionRef = collection(db, 'users');
 
-      await getDocs(usersCollection)
-        .then(({ docs }) => {
-          console.log(docs);
-        })
-        .catch((error) => rejectWithValue(error));
+      const q = query(collectionRef, limit(20));
 
-      const user = {
-        nickName,
-      };
+      const querySnapshot = await getDocs(q);
+      const data: User[] = [];
 
-      const data = await addDoc(usersCollection, user);
+      querySnapshot.forEach((doc) => {
+        data.push(doc.data() as User);
+      });
 
-      return { data };
-    } catch (request) {
-      return rejectWithValue(request);
+      const isNickNameExists = data.some((obj) => obj.nickName === nickName);
+
+      if (!isNickNameExists) {
+        addDoc(collectionRef, { nickName });
+
+        return nickName;
+      }
+      notifications.show({
+        bg: 'cyan',
+        w: '450',
+        h: '80',
+        message: 'You must enter a unique nickName',
+      });
+    } catch (err: any) {
+      return rejectWithValue(err);
     }
   },
 );
@@ -41,19 +51,14 @@ const initialState: AuthState = {
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {
-    setUserNickName(state, action: PayloadAction<string>) {
-      state.nickName = action.payload;
-      state.setIsRegistered = true;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(logIn.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(logIn.fulfilled, (state) => {
-      // state.nickName = payload;
-      state.setIsRegistered = true;
+    builder.addCase(logIn.fulfilled, (state, { payload }) => {
+      if (typeof payload === 'string') state.nickName = payload;
+      state.setIsRegistered = payload !== undefined;
       state.loading = false;
     });
     builder.addCase(logIn.rejected, (state) => {
@@ -64,7 +69,5 @@ export const authSlice = createSlice({
 
 export const selectAuth = (state: RootState) => state.auth;
 export const selectProfile = (state: RootState) => state.auth;
-
-export const { setUserNickName } = authSlice.actions;
 
 export default authSlice.reducer;

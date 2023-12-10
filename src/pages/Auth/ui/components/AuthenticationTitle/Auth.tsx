@@ -12,7 +12,6 @@ import { logIn } from '../../../../../features/auth/authSlice';
 import { setAppUser } from '../../../../../features/user/userSlice';
 import { auth } from '../../../../../integations/firebase';
 import { extendedWindow } from '../../../../../shared/extendedWindow';
-import Main from '../../../../Main/Main';
 import { NotFound } from '../../../../NoFound/NoFound';
 
 import EnterNickName from './components/EnterNickName/EnterNickName';
@@ -23,7 +22,6 @@ enum LoginSteps {
   EnterPhone = 'EnterPhone',
   EnterNickName = 'EnterNickName',
   EnterOTP = 'EnterOTP',
-  main = 'main',
 }
 
 export const AuthenticationTitle = () => {
@@ -129,8 +127,6 @@ export const AuthenticationTitle = () => {
             handleSubmit={handleSubmit}
           />
         );
-      case 'main':
-        return <Main />;
       default:
         return <NotFound />;
     }

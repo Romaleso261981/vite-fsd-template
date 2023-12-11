@@ -2,19 +2,19 @@ import { notifications } from '@mantine/notifications';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { RootState } from '../../app/rootReducer';
-import { addDock } from '../../shared/helpers/addDoc';
-import { getUserData } from '../../shared/helpers/getData';
+import { setFirestoreData } from '../../shared/helpers/addDoc';
+import { getFirestoreData } from '../../shared/helpers/getData';
 import { AuthState } from '../user/types';
 
 export const logIn = createAsyncThunk(
   'auth/signUp',
   async (nickName: string, { rejectWithValue }) => {
     try {
-      const data = await getUserData('user');
+      const data = await getFirestoreData('user');
       const isNickNameExists = data.some((obj) => obj.nickName === nickName);
 
       if (!isNickNameExists) {
-        addDock(nickName, 'user');
+        setFirestoreData(nickName, 'user');
 
         return nickName;
       }
@@ -24,7 +24,7 @@ export const logIn = createAsyncThunk(
         h: '80',
         message: 'You must enter a unique nickName',
       });
-    } catch (err: any) {
+    } catch (err) {
       return rejectWithValue(err);
     }
   },

@@ -5,7 +5,7 @@ import { db } from '../../integations/firebase';
 
 type DatabasePaths = string;
 
-export const getUserData = async (path: DatabasePaths) => {
+export const getFirestoreData = async (path: DatabasePaths) => {
   const collectionRef = collection(db, path);
 
   const q = query(collectionRef, limit(20));

@@ -3,10 +3,15 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { collection, getDocs, query, addDoc, limit } from 'firebase/firestore';
 
 import { RootState } from '../../app/rootReducer';
+import { getData } from '../../helpers/getData';
 import { db } from '../../integations/firebase';
 import { AuthState } from '../user/types';
 
-import { User } from './types';
+import { User, UserReq } from './types';
+
+type Key = keyof UserReq;
+
+const arr: Key = 'code';
 
 export const logIn = createAsyncThunk(
   'auth/signUp',
@@ -19,8 +24,12 @@ export const logIn = createAsyncThunk(
       const querySnapshot = await getDocs(q);
       const data: User[] = [];
 
+      console.log(arr.includes('c'));
+
       querySnapshot.forEach((doc) => {
-        data.push(doc.data() as User);
+        const d = getData(doc);
+
+        data.push(d);
       });
 
       const isNickNameExists = data.some((obj) => obj.nickName === nickName);

@@ -7,11 +7,7 @@ import { getData } from '../../helpers/getData';
 import { db } from '../../integations/firebase';
 import { AuthState } from '../user/types';
 
-import { User, UserReq } from './types';
-
-type Key = keyof UserReq;
-
-const arr: Key = 'code';
+import { User } from './types';
 
 export const logIn = createAsyncThunk(
   'auth/signUp',
@@ -23,8 +19,6 @@ export const logIn = createAsyncThunk(
 
       const querySnapshot = await getDocs(q);
       const data: User[] = [];
-
-      console.log(arr.includes('c'));
 
       querySnapshot.forEach((doc) => {
         const d = getData(doc);

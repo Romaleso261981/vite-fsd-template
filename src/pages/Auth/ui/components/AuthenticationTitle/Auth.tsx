@@ -29,8 +29,9 @@ export const AuthenticationTitle = () => {
   const [ph, setPh] = useState('');
   const [loading, setLoading] = useState(false);
   const [value, setValue] = useState('');
+  // const [userData, setUserData] = useState<UserData>({ nickName: value });
   const [inputLoading, setInputLoading] = useState(false);
-  const [currentStep, setCurrentStep] = useState(LoginSteps.EnterPhone);
+  const [currentStep, setCurrentStep] = useState(LoginSteps.EnterNickName);
 
   const dispach: AppDispatch = useDispatch();
 

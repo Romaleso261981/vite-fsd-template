@@ -16,6 +16,7 @@ const App: React.FC = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Main />} />
+        <Route path="/auth" element={<AuthPage />} />
         <Route path="/admin" element={<Dashboard />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

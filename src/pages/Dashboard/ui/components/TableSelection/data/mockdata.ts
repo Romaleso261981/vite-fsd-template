@@ -54,4 +54,81 @@ export const data = [
     email: 'lad@gmail.com',
     balans: 25,
   },
+  {
+    id: '6',
+    avatar:
+      'https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-3.png',
+    name: 'Bill Horsefighter',
+    nickName: 'Igorek',
+    rule: 'USER',
+    phone: '+380689478723',
+    email: 'lad@gmail.com',
+    balans: 25,
+  },
+  {
+    id: '7',
+    avatar:
+      'https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-3.png',
+    name: 'Bill Horsefighter',
+    nickName: 'Igorek',
+    rule: 'USER',
+    phone: '+380689478723',
+    email: 'lad@gmail.com',
+    balans: 25,
+  },
+  {
+    id: '8',
+    avatar:
+      'https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-3.png',
+    name: 'Bill Horsefighter',
+    nickName: 'Igorek',
+    rule: 'USER',
+    phone: '+380689478723',
+    email: 'lad@gmail.com',
+    balans: 25,
+  },
+  {
+    id: '9',
+    avatar:
+      'https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-3.png',
+    name: 'Bill Horsefighter',
+    nickName: 'Igorek',
+    rule: 'USER',
+    phone: '+380689478723',
+    email: 'lad@gmail.com',
+    balans: 25,
+  },
+  {
+    id: '10',
+    avatar:
+      'https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-3.png',
+    name: 'Bill Horsefighter',
+    nickName: 'Igorek',
+    rule: 'USER',
+    phone: '+380689478723',
+    email: 'lad@gmail.com',
+    balans: 25,
+  },
+  {
+    id: '11',
+    avatar:
+      'https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-3.png',
+    name: 'Bill Horsefighter',
+    nickName: 'Igorek',
+    rule: 'USER',
+    phone: '+380689478723',
+    email: 'lad@gmail.com',
+    balans: 25,
+  },
+  {
+    id: '12',
+    avatar:
+      'https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-3.png',
+    name: 'Bill Horsefighter',
+    nickName: 'Igorek',
+    rule: 'USER',
+    phone: '+380689478723',
+    email: 'lad@gmail.com',
+    balans: 25,
+  },
 ];

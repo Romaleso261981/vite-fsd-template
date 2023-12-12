@@ -2,6 +2,7 @@ import { notifications } from '@mantine/notifications';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { RootState } from '../../app/rootReducer';
+import { constans } from '../../shared/constans/constans';
 import { setFirestoreData } from '../../shared/helpers/addDoc';
 import { getFirestoreData } from '../../shared/helpers/getData';
 import { AuthState } from '../user/types';
@@ -10,11 +11,11 @@ export const logIn = createAsyncThunk(
   'auth/signUp',
   async (nickName: string, { rejectWithValue }) => {
     try {
-      const data = await getFirestoreData('user');
+      const data = await getFirestoreData(constans.databasePaths);
       const isNickNameExists = data.some((obj) => obj.nickName === nickName);
 
       if (!isNickNameExists) {
-        setFirestoreData(nickName, 'user');
+        setFirestoreData(nickName, constans.databasePaths);
 
         return nickName;
       }

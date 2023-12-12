@@ -17,7 +17,7 @@ const theme = createTheme({
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <Provider store={store}>
     <MantineProvider theme={theme}>
-      <Notifications position="top-left" containerWidth={400} />
+      <Notifications position="top-center" containerWidth={400} />
       <App />
     </MantineProvider>
   </Provider>,

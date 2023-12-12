@@ -110,8 +110,8 @@ export const Header = () => {
                 </div>
               </HoverCard.Dropdown>
             </HoverCard>
-            <a href="/" className={classes.link}>
-              {t('header.Contacts')}
+            <a href="/admin" className={classes.link}>
+              {t('header.admin')}
             </a>
             <a href="/auth" className={classes.link}>
               {t('header.auth')}

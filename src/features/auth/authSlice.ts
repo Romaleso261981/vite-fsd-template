@@ -13,7 +13,6 @@ export const logIn = createAsyncThunk(
     try {
       const data = await getFirestoreData(DatabasePaths.USERS);
 
-      console.log(data);
       const isNickNameExists = data.some((obj) => obj.nickName === nickName);
 
       if (!isNickNameExists) {

@@ -26,7 +26,7 @@
     "@mantinex/mantine-logo": "^1.0.1",
     "@mui/material": "^5.14.18",
     "@reduxjs/toolkit": "^1.9.7",
-    "@tabler/icons-react": "^2.41.0",
+    "@tabler/icons-react": "^2.44.0",
     "axios": "^1.6.2",
     "embla-carousel-react": "^7.1.0",
     "firebase": "^10.7.0",

@@ -6,6 +6,11 @@ export type UserRequest = {
   message?: string;
   user?: User;
 };
+export type UserReq = {
+  code?: string;
+  message?: string;
+  user?: User;
+};
 export type NewUser = User & UserCredentials;
 
 export type AuthError = {

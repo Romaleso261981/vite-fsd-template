@@ -1,32 +1,24 @@
 import { notifications } from '@mantine/notifications';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { collection, getDocs, query, addDoc, limit } from 'firebase/firestore';
 
 import { RootState } from '../../app/rootReducer';
-import { db } from '../../integations/firebase';
+import { setFirestoreData } from '../../shared/helpers/addDoc';
+import { getFirestoreData } from '../../shared/helpers/getData';
 import { AuthState } from '../user/types';
 
-import { User } from './types';
+enum DatabasePaths {
+  USERS = 'user',
+}
 
 export const logIn = createAsyncThunk(
   'auth/signUp',
   async (nickName: string, { rejectWithValue }) => {
     try {
-      const collectionRef = collection(db, 'users');
-
-      const q = query(collectionRef, limit(20));
-
-      const querySnapshot = await getDocs(q);
-      const data: User[] = [];
-
-      querySnapshot.forEach((doc) => {
-        data.push(doc.data() as User);
-      });
-
+      const data = await getFirestoreData(DatabasePaths.USERS);
       const isNickNameExists = data.some((obj) => obj.nickName === nickName);
 
       if (!isNickNameExists) {
-        addDoc(collectionRef, { nickName });
+        setFirestoreData(nickName, DatabasePaths.USERS);
 
         return nickName;
       }
@@ -36,7 +28,7 @@ export const logIn = createAsyncThunk(
         h: '80',
         message: 'You must enter a unique nickName',
       });
-    } catch (err: any) {
+    } catch (err) {
       return rejectWithValue(err);
     }
   },

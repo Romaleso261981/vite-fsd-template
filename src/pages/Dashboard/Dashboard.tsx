@@ -15,10 +15,9 @@ const Dashboard = () => {
   return (
     <>
       <Header />
-      <Container {...demoProps}>
+      <Container size="xl" {...demoProps}>
         <Flex
           mih={50}
-          bg="rgba(0, 0, 0, .3)"
           gap="md"
           justify="flex-start"
           align="flex-start"

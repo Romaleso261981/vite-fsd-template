@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import AuthPage from '../pages/Auth/Auth';
-import { Dashboard } from '../pages/Dashboard';
+import Dashboard from '../pages/Dashboard/Dashboard';
 import Main from '../pages/Main/Main';
 import { NotFound } from '../pages/NoFound/NoFound';
 

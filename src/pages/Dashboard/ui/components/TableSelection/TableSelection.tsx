@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
-import { Table, Checkbox, ScrollArea, Group, Avatar, Text, rem } from '@mantine/core';
+import { Table, ScrollArea, Group, Avatar, Text, LoadingOverlay } from '@mantine/core';
+import {} from '@tabler/icons-react';
 import cx from 'clsx';
 
 import { data } from './data/mockdata';
@@ -23,12 +24,6 @@ export const TableSelection = () => {
     return (
       <Table.Tr key={item.id} className={cx({ [classes.rowSelected]: selected })}>
         <Table.Td>
-          <Checkbox
-            checked={selection.includes(item.id)}
-            onChange={() => toggleRow(item.id)}
-          />
-        </Table.Td>
-        <Table.Td>
           <Group gap="sm">
             <Avatar size={26} src={item.avatar} radius={26} />
             <Text size="sm" fw={500}>
@@ -36,8 +31,14 @@ export const TableSelection = () => {
             </Text>
           </Group>
         </Table.Td>
-        <Table.Td>{item.email}</Table.Td>
-        <Table.Td>{item.job}</Table.Td>
+        <Table.Td onChange={() => toggleRow(item.id)}>{item.rule}</Table.Td>
+        <Table.Td onChange={() => toggleAll()}>{item.nickName}</Table.Td>
+        <Table.Td onChange={() => toggleAll()}>{item.phone}</Table.Td>
+        <Table.Td onChange={() => toggleAll()}>{item.email}</Table.Td>
+        <Group gap="sm">
+          <LoadingOverlay />
+          <Table.Td onChange={() => toggleAll()}>{item.balans}</Table.Td>
+        </Group>
       </Table.Tr>
     );
   });
@@ -47,16 +48,12 @@ export const TableSelection = () => {
       <Table miw={800} verticalSpacing="sm">
         <Table.Thead>
           <Table.Tr>
-            <Table.Th style={{ width: rem(40) }}>
-              <Checkbox
-                onChange={toggleAll}
-                checked={selection.length === data.length}
-                indeterminate={selection.length > 0 && selection.length !== data.length}
-              />
-            </Table.Th>
-            <Table.Th>User</Table.Th>
-            <Table.Th>Email</Table.Th>
-            <Table.Th>Job</Table.Th>
+            <Table.Th>ФИО</Table.Th>
+            <Table.Th>Роль</Table.Th>
+            <Table.Th>Никнейм</Table.Th>
+            <Table.Th>Телефон</Table.Th>
+            <Table.Th>Почта</Table.Th>
+            <Table.Th>Баланс</Table.Th>
           </Table.Tr>
         </Table.Thead>
         <Table.Tbody>{rows}</Table.Tbody>

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
-import { Center, Tooltip, UnstyledButton, Stack, rem } from '@mantine/core';
-import { MantineLogo } from '@mantinex/mantine-logo';
+import { Center, Tooltip, UnstyledButton, Stack, rem, Burger } from '@mantine/core';
 import { IconHome2, IconLogout, IconSwitchHorizontal } from '@tabler/icons-react';
 
 import { mockdata } from './data/mockdata';
@@ -43,7 +42,7 @@ export const NavbarMinimal = () => {
   return (
     <nav className={classes.navbar}>
       <Center>
-        <MantineLogo type="mark" size={30} />
+        <Burger size={30} />
       </Center>
 
       <div className={classes.navbarMain}>

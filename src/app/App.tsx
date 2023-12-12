@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
+import About from '../pages/About/About';
 import AuthPage from '../pages/Auth/Auth';
 import Dashboard from '../pages/Dashboard/Dashboard';
 import Main from '../pages/Main/Main';
@@ -16,6 +17,7 @@ const App: React.FC = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Main />} />
+        <Route path="/about" element={<About />} />
         <Route path="/auth" element={<AuthPage />} />
         <Route path="/admin" element={<Dashboard />} />
         <Route path="*" element={<NotFound />} />

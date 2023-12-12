@@ -1,5 +1,7 @@
+import { AppShellComponent } from '../../features/components/AppShell/AppShell';
+
 const About = () => {
-  return <div>About</div>;
+  return <AppShellComponent />;
 };
 
 export default About;

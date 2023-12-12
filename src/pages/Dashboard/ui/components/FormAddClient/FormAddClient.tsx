@@ -22,7 +22,7 @@ export const FormAddClient = () => {
         wrap="wrap"
       >
         <Text size="xl">Всего: 18</Text>
-        <Button variant="filled">Button</Button>
+        <Button variant="filled">Добавить клиента</Button>
       </Flex>
       <Flex
         mih={50}

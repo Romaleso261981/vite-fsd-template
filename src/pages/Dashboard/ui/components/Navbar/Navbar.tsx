@@ -13,7 +13,7 @@ interface NavbarLinkProps {
   onClick?(): void;
 }
 
-export const NavbarLink = ({ icon: Icon, label, active, onClick }: NavbarLinkProps) => {
+const NavbarLink = ({ icon: Icon, label, active, onClick }: NavbarLinkProps) => {
   return (
     <Tooltip label={label} position="right" transitionProps={{ duration: 0 }}>
       <UnstyledButton

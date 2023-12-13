@@ -40,7 +40,7 @@ export const NavbarMinimal = () => {
   ));
 
   return (
-    <nav className={classes.navbar}>
+    <>
       <Center>
         <Burger size={30} />
       </Center>
@@ -55,6 +55,6 @@ export const NavbarMinimal = () => {
         <NavbarLink icon={IconSwitchHorizontal} label="Change account" />
         <NavbarLink icon={IconLogout} label="Logout" />
       </Stack>
-    </nav>
+    </>
   );
 };

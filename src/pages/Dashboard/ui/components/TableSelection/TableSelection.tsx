@@ -48,7 +48,9 @@ export const TableSelection = () => {
       <Table miw={800} verticalSpacing="sm">
         <Table.Thead>
           <Table.Tr>
-            <Table.Th>ФИО</Table.Th>
+            <Group gap="sm" align="center">
+              <Table.Th>ФИО</Table.Th>
+            </Group>
             <Table.Th>Роль</Table.Th>
             <Table.Th>Никнейм</Table.Th>
             <Table.Th>Телефон</Table.Th>

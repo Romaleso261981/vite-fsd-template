@@ -4,7 +4,14 @@ import s from './Search.module.css';
 
 export const Search = () => {
   return (
-    <Flex mih={50} gap="md" justify="center" align="center" direction="row" wrap="wrap">
+    <Flex
+      mih={50}
+      gap="sm"
+      justify="flex-start"
+      align="center"
+      direction="row"
+      wrap="wrap"
+    >
       <Input placeholder="example" className={s.input} />
       {/* <FileInput size="xs" placeholder="Input placeholder" /> */}
       <Button variant="filled">Сбросить</Button>

@@ -24,8 +24,9 @@ import { useTranslation } from 'react-i18next';
 
 import { mockdata } from './data/mockdata';
 import classes from './HeaderMegaMenu.module.css';
-import ColorThemeToggler from './ui/components/ColorThemeToggler';
+// import ColorThemeToggler from './ui/components/ColorThemeToggler';
 import { LanguagePicker } from './ui/components/LanguageSwitcher2/LanguageSwitcher';
+import { ThemeSwitcher } from './ui/components/ThemeSwitcher/ThemeSwitcher';
 
 export const Header = () => {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
@@ -118,7 +119,8 @@ export const Header = () => {
             </a>
           </Group>
           <Group align="flex-start" justify="center">
-            <ColorThemeToggler />
+            {/* <ColorThemeToggler /> */}
+            <ThemeSwitcher />
             <LanguagePicker />
           </Group>
 

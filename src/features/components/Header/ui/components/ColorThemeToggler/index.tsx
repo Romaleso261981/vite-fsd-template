@@ -3,7 +3,7 @@ import { MdOutlineDarkMode, MdOutlineLightMode } from 'react-icons/md';
 
 import classes from './ColorThemeToggler.module.css';
 
-const ColorThemeToggler = () => {
+export const ColorThemeToggler = () => {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
 
   return (
@@ -20,5 +20,3 @@ const ColorThemeToggler = () => {
     </Group>
   );
 };
-
-export default ColorThemeToggler;

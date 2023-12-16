@@ -10,7 +10,8 @@
     "Auth": "Auth",
     "Contacts": "Contacts",
     "ViewAll": "View all",
-    "ourWorks": "Our Works"
+    "ourWorks": "Our Works",
+    "admin": "Admin"
   },
   "authForm":{
     "SendSMS":"SendSMS",

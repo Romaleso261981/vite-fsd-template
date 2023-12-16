@@ -4,17 +4,15 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/rootReducer';
 import { setFirestoreData } from '../../shared/helpers/addDoc';
 import { getFirestoreData } from '../../shared/helpers/getData';
+import { DatabasePaths } from '../../shared/types/enums';
 import { AuthState } from '../user/types';
-
-enum DatabasePaths {
-  USERS = 'user',
-}
 
 export const logIn = createAsyncThunk(
   'auth/signUp',
   async (nickName: string, { rejectWithValue }) => {
     try {
       const data = await getFirestoreData(DatabasePaths.USERS);
+
       const isNickNameExists = data.some((obj) => obj.nickName === nickName);
 
       if (!isNickNameExists) {

@@ -9,7 +9,8 @@
     "LogOut": "Вихід",
     "Contacts": "Контакти",
     "ViewAll": "Показати все",
-    "ourWorks": "Наші роботи"
+    "ourWorks": "Наші роботи",
+    "admin": "Адмін"
   },
   "authForm":{
     "SendSMS":"Відправити SMS",

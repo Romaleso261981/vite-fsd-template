@@ -24,8 +24,11 @@ import { useTranslation } from 'react-i18next';
 
 import { mockdata } from './data/mockdata';
 import classes from './HeaderMegaMenu.module.css';
-import ColorThemeToggler from './ui/components/ColorThemeToggler';
-import { LanguagePicker } from './ui/components/LanguageSwitcher2/LanguageSwitcher';
+// import ColorThemeToggler from './ui/components/ColorThemeToggler';
+// import { LanguagePicker } from './ui/components/LanguageSwitcher2/LanguageSwitcher';
+import { ColorSwitch } from './ui/components/ColorSwitch/ColorSwitch';
+import LanguagePicker from './ui/components/LanguagePicker/LanguagePicker';
+// import { ThemeSwitcher } from './ui/components/ThemeSwitcher/ThemeSwitcher';
 
 export const Header = () => {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
@@ -110,16 +113,18 @@ export const Header = () => {
                 </div>
               </HoverCard.Dropdown>
             </HoverCard>
-            <a href="/" className={classes.link}>
-              {t('header.Contacts')}
+            <a href="/admin" className={classes.link}>
+              {t('header.admin')}
             </a>
             <a href="/auth" className={classes.link}>
               {t('header.auth')}
             </a>
           </Group>
           <Group align="flex-start" justify="center">
-            <ColorThemeToggler />
-            <LanguagePicker />
+            {/* <ColorThemeToggler /> */}
+            {/* <ThemeSwitcher /> */}
+            <ColorSwitch />
+            <LanguagePicker type="expanded" />
           </Group>
 
           <Burger opened={drawerOpened} onClick={toggleDrawer} hiddenFrom="sm" />

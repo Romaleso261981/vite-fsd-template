@@ -1,24 +1,63 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Suspense, lazy } from 'react';
 
-import AuthPage from '../pages/Auth/Auth';
-import Main from '../pages/Main/Main';
-import { NotFound } from '../pages/NoFound/NoFound';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-import { useAppSelector } from './store';
+import RootLayout from '../features/components/RootLayout/RootLayout';
+
+const Main = lazy(() => import('../pages/Main/Main'));
+const Dashboard = lazy(() => import('../pages/Dashboard/Dashboard'));
+const NotFound = lazy(() => import('../pages/Dashboard/Dashboard'));
+const Admin = lazy(() => import('../pages/Admin/Admin'));
+const AuthPage = lazy(() => import('../pages/Auth/Auth'));
 
 const App: React.FC = () => {
-  const { setIsRegistered } = useAppSelector((state) => state.auth);
+  const router = createBrowserRouter([
+    {
+      path: '/',
+      element: <RootLayout />,
+      errorElement: (
+        <Suspense fallback={<h1>Loading......</h1>}>
+          <NotFound />
+        </Suspense>
+      ),
+      children: [
+        {
+          index: true,
+          element: (
+            <Suspense fallback={<h1>Loading......</h1>}>
+              <Main />
+            </Suspense>
+          ),
+        },
+        {
+          path: 'dashboard',
+          element: (
+            <Suspense fallback={<h1>Loading......</h1>}>
+              <Dashboard />
+            </Suspense>
+          ),
+        },
+        {
+          path: 'admin',
+          element: (
+            <Suspense fallback={<h1>Loading......</h1>}>
+              <Admin />
+            </Suspense>
+          ),
+        },
+        {
+          path: 'auth',
+          element: (
+            <Suspense fallback={<h1>Loading......</h1>}>
+              <AuthPage />
+            </Suspense>
+          ),
+        },
+      ],
+    },
+  ]);
 
-  if (!setIsRegistered) return <AuthPage />;
-
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
-  );
+  return <RouterProvider router={router} />;
 };
 
 export default App;

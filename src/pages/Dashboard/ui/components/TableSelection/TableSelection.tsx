@@ -9,6 +9,7 @@ import classes from './TableSelection.module.css';
 
 export const TableSelection = () => {
   const [selection, setSelection] = useState(['1']);
+  const [sortDirection, setSortDirection] = useState(true);
   const toggleRow = (id: string) =>
     setSelection((current) =>
       current.includes(id) ? current.filter((item) => item !== id) : [...current, id],
@@ -43,19 +44,71 @@ export const TableSelection = () => {
     );
   });
 
+  const sortedField = 'columnName1';
+  const toggleArow = (value: string) => {
+    console.log(value);
+    setSortDirection(!sortDirection);
+  };
+
   return (
     <ScrollArea>
       <Table miw={800} verticalSpacing="sm">
         <Table.Thead>
           <Table.Tr>
-            <Group gap="sm" align="center">
+            <Group
+              align="center"
+              onClick={() => {
+                toggleArow('ФИО');
+              }}
+            >
               <Table.Th>ФИО</Table.Th>
+              {sortedField === 'columnName1' && (sortDirection ? '↑' : '↓')}
             </Group>
-            <Table.Th>Роль</Table.Th>
-            <Table.Th>Никнейм</Table.Th>
-            <Table.Th>Телефон</Table.Th>
-            <Table.Th>Почта</Table.Th>
-            <Table.Th>Баланс</Table.Th>
+            <Group
+              align="center"
+              onClick={() => {
+                toggleArow('Роль');
+              }}
+            >
+              <Table.Th>Роль</Table.Th>
+              {sortedField === 'columnName1' && (sortDirection ? '↑' : '↓')}
+            </Group>
+            <Group
+              align="center"
+              onClick={() => {
+                toggleArow('Никнейм');
+              }}
+            >
+              <Table.Th>Никнейм</Table.Th>
+              {sortedField === 'columnName1' && (sortDirection ? '↑' : '↓')}
+            </Group>
+            <Group
+              align="center"
+              onClick={() => {
+                toggleArow('Телефон');
+              }}
+            >
+              <Table.Th>Телефон</Table.Th>
+              {sortedField === 'columnName1' && (sortDirection ? '↑' : '↓')}
+            </Group>
+            <Group
+              align="center"
+              onClick={() => {
+                toggleArow('Почта');
+              }}
+            >
+              <Table.Th>Почта</Table.Th>
+              {sortedField === 'columnName1' && (sortDirection ? '↑' : '↓')}
+            </Group>
+            <Group
+              align="center"
+              onClick={() => {
+                toggleArow('Баланс');
+              }}
+            >
+              <Table.Th>Баланс</Table.Th>
+              {sortedField === 'columnName1' && (sortDirection ? '↑' : '↓')}
+            </Group>
           </Table.Tr>
         </Table.Thead>
         <Table.Tbody>{rows}</Table.Tbody>

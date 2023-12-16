@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 
+import { Avatar, Group, LoadingOverlay, Table, Text } from '@mantine/core';
+
+// import classes from './SortableTable.module.css';
+
 interface TableProps {
   data: any[]; // Ваші дані для відображення в таблиці
 }
@@ -30,30 +34,54 @@ export const SortableTable: React.FC<TableProps> = ({ data }) => {
     return aValue < bValue ? 1 : -1;
   });
 
+  const rows = sortedData.map((item) => {
+    return (
+      <Table.Tr key={item.id}>
+        <Table.Td>
+          <Group gap="md">
+            <Avatar size={26} src={item.avatar} radius={26} />
+            <Text size="sm" fw={500}>
+              {item.name}
+            </Text>
+          </Group>
+        </Table.Td>
+        <Table.Td>{item.rule}</Table.Td>
+        <Table.Td>{item.nickName}</Table.Td>
+        <Table.Td>{item.phone}</Table.Td>
+        <Table.Td>{item.email}</Table.Td>
+        <Group gap="sm">
+          <LoadingOverlay />
+          <Table.Td>{item.balans}</Table.Td>
+        </Group>
+      </Table.Tr>
+    );
+  });
+
   return (
     <table>
       <thead>
         <tr>
-          <th onClick={() => handleSort('columnName1')}>
-            q {sortedField === 'columnName1' && (sortDirection === 'asc' ? '↑' : '↓')}
+          <th onClick={() => handleSort('ФИО')}>
+            ФИО {sortedField === 'ФИО' && (sortDirection === 'asc' ? '↑' : '↓')}
           </th>
-          <th onClick={() => handleSort('columnName2')}>
-            {' '}
-            {sortedField === 'columnName2' && (sortDirection === 'asc' ? '↑' : '↓')}
+          <th onClick={() => handleSort('Роль')}>
+            Роль {sortedField === 'Роль' && (sortDirection === 'asc' ? '↑' : '↓')}
           </th>
-          {/* Додайте інші колонки за необхідністю */}
+          <th onClick={() => handleSort('Никнейм')}>
+            Никнейм {sortedField === 'Никнейм' && (sortDirection === 'asc' ? '↑' : '↓')}
+          </th>
+          <th onClick={() => handleSort('Телефон')}>
+            Телефон {sortedField === 'Телефон' && (sortDirection === 'asc' ? '↑' : '↓')}
+          </th>
+          <th onClick={() => handleSort('Почта')}>
+            Почта {sortedField === 'Почта' && (sortDirection === 'asc' ? '↑' : '↓')}
+          </th>
+          <th onClick={() => handleSort('Баланс')}>
+            Баланс {sortedField === 'Баланс' && (sortDirection === 'asc' ? '↑' : '↓')}
+          </th>
         </tr>
       </thead>
-      <tbody>
-        {sortedData.map((item, index) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <tr key={index}>
-            <td>{item.columnName1}</td>
-            <td>{item.columnName2}</td>
-            {/* Додайте інші комірки за необхідністю */}
-          </tr>
-        ))}
-      </tbody>
+      <tbody>{rows}</tbody>
     </table>
   );
 };

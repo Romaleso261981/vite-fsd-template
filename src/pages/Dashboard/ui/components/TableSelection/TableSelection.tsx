@@ -9,8 +9,19 @@ import classes from './TableSelection.module.css';
 
 export const TableSelection = () => {
   const [selection, setSelection] = useState(['1']);
-  const [sortDirection, setSortDirection] = useState(true);
-  const [sortFild, setSortFild] = useState<string>('ФИО');
+  const [sortedField, setSortedField] = useState<string>('');
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
+
+  const handleSort = (field: string) => {
+    if (field === sortedField) {
+      // Змінюємо напрямок сортування при кліку на ту ж колонку
+      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+    } else {
+      // Змінюємо поле сортування та встановлюємо напрямок за замовчуванням
+      setSortedField(field);
+      setSortDirection('asc');
+    }
+  };
   const toggleRow = (id: string) =>
     setSelection((current) =>
       current.includes(id) ? current.filter((item) => item !== id) : [...current, id],
@@ -45,70 +56,29 @@ export const TableSelection = () => {
     );
   });
 
-  const handleSort = (value: string) => {
-    setSortFild(value);
-    setSortDirection((prev) => !prev);
-  };
-
   return (
     <ScrollArea>
       <Table miw={800} verticalSpacing="sm">
         <Table.Thead>
-          <Table.Tr className={classes.TableHeader}>
-            <Group
-              align="center"
-              onClick={() => {
-                handleSort('ФИО');
-              }}
-            >
-              <Table.Th>ФИО</Table.Th>
-              {sortFild === 'ФИО' && (sortDirection ? '↑' : '↓')}
-            </Group>
-            <Group
-              align="center"
-              onClick={() => {
-                handleSort('Роль');
-              }}
-            >
-              <Table.Th>Роль</Table.Th>
-              {sortFild === 'Роль' && (sortDirection ? '↑' : '↓')}
-            </Group>
-            <Group
-              align="center"
-              onClick={() => {
-                handleSort('Никнейм');
-              }}
-            >
-              <Table.Th>Никнейм</Table.Th>
-              {sortFild === 'Никнейм' && (sortDirection ? '↑' : '↓')}
-            </Group>
-            <Group
-              align="center"
-              onClick={() => {
-                handleSort('Телефон');
-              }}
-            >
-              <Table.Th>Телефон</Table.Th>
-              {sortFild === 'Телефон' && (sortDirection ? '↑' : '↓')}
-            </Group>
-            <Group
-              align="center"
-              onClick={() => {
-                handleSort('Почта');
-              }}
-            >
-              <Table.Th>Почта</Table.Th>
-              {sortFild === 'Почта' && (sortDirection ? '↑' : '↓')}
-            </Group>
-            <Group
-              align="center"
-              onClick={() => {
-                handleSort('Баланс');
-              }}
-            >
-              <Table.Th>Баланс</Table.Th>
-              {sortFild === 'Баланс' && (sortDirection ? '↑' : '↓')}
-            </Group>
+          <Table.Tr>
+            <Table.Th onClick={() => handleSort('ФИО')}>
+              ФИО {sortedField === 'ФИО' && (sortDirection === 'asc' ? '↑' : '↓')}
+            </Table.Th>
+            <Table.Th onClick={() => handleSort('Роль')}>
+              Роль {sortedField === 'Роль' && (sortDirection === 'asc' ? '↑' : '↓')}
+            </Table.Th>
+            <Table.Th onClick={() => handleSort('Никнейм')}>
+              Никнейм {sortedField === 'Никнейм' && (sortDirection === 'asc' ? '↑' : '↓')}
+            </Table.Th>
+            <Table.Th onClick={() => handleSort('Телефон')}>
+              Телефон {sortedField === 'Телефон' && (sortDirection === 'asc' ? '↑' : '↓')}
+            </Table.Th>
+            <Table.Th onClick={() => handleSort('Почта')}>
+              Почта {sortedField === 'Почта' && (sortDirection === 'asc' ? '↑' : '↓')}
+            </Table.Th>
+            <Table.Th onClick={() => handleSort('Баланс')}>
+              Баланс {sortedField === 'Баланс' && (sortDirection === 'asc' ? '↑' : '↓')}
+            </Table.Th>
           </Table.Tr>
         </Table.Thead>
         <Table.Tbody>{rows}</Table.Tbody>

@@ -54,7 +54,7 @@ export const TableSelection = () => {
     <ScrollArea>
       <Table miw={800} verticalSpacing="sm">
         <Table.Thead>
-          <Table.Tr>
+          <Table.Tr className={classes.TableHeader}>
             <Group
               align="center"
               onClick={() => {

@@ -9,19 +9,46 @@ import classes from './TableSelection.module.css';
 
 export const TableSelection = () => {
   const [selection, setSelection] = useState(['1']);
-  const [sortedField, setSortedField] = useState<string>('');
+  const [sortedField, setSortedField] = useState<SortedField>('id');
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
 
-  const handleSort = (field: string) => {
+  const handleSort = (field: SortedField) => {
     if (field === sortedField) {
-      // Змінюємо напрямок сортування при кліку на ту ж колонку
       setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
     } else {
-      // Змінюємо поле сортування та встановлюємо напрямок за замовчуванням
       setSortedField(field);
       setSortDirection('asc');
     }
   };
+
+  type MyData = {
+    id: string;
+    avatar: string;
+    name: string;
+    nickName: string;
+    rule: string;
+    phone: string;
+    email: string;
+    balans: number;
+  };
+
+  type SortedField = keyof MyData;
+
+  // Ваша функція сортування
+  const sortData = (data: MyData[], field: SortedField, direction: 'asc' | 'desc') => {
+    return [...data].sort((a, b) => {
+      const aValue = a[field];
+      const bValue = b[field];
+
+      if (direction === 'asc') {
+        return aValue > bValue ? 1 : -1;
+      }
+
+      return aValue < bValue ? 1 : -1;
+    });
+  };
+
+  const sortedData = sortData(data, sortedField, sortDirection);
   const toggleRow = (id: string) =>
     setSelection((current) =>
       current.includes(id) ? current.filter((item) => item !== id) : [...current, id],
@@ -31,7 +58,7 @@ export const TableSelection = () => {
       current.length === data.length ? [] : data.map((item) => item.id),
     );
 
-  const rows = data.map((item) => {
+  const rows = sortedData.map((item: MyData) => {
     const selected = selection.includes(item.id);
 
     return (
@@ -61,23 +88,24 @@ export const TableSelection = () => {
       <Table miw={800} verticalSpacing="sm">
         <Table.Thead>
           <Table.Tr>
-            <Table.Th onClick={() => handleSort('ФИО')}>
-              ФИО {sortedField === 'ФИО' && (sortDirection === 'asc' ? '↑' : '↓')}
+            <Table.Th onClick={() => handleSort('name')}>
+              ФИО {sortedField === 'name' && (sortDirection === 'asc' ? '↑' : '↓')}
             </Table.Th>
-            <Table.Th onClick={() => handleSort('Роль')}>
-              Роль {sortedField === 'Роль' && (sortDirection === 'asc' ? '↑' : '↓')}
+            <Table.Th onClick={() => handleSort('rule')}>
+              Роль {sortedField === 'rule' && (sortDirection === 'asc' ? '↑' : '↓')}
             </Table.Th>
-            <Table.Th onClick={() => handleSort('Никнейм')}>
-              Никнейм {sortedField === 'Никнейм' && (sortDirection === 'asc' ? '↑' : '↓')}
+            <Table.Th onClick={() => handleSort('nickName')}>
+              Никнейм{' '}
+              {sortedField === 'nickName' && (sortDirection === 'asc' ? '↑' : '↓')}
             </Table.Th>
-            <Table.Th onClick={() => handleSort('Телефон')}>
-              Телефон {sortedField === 'Телефон' && (sortDirection === 'asc' ? '↑' : '↓')}
+            <Table.Th onClick={() => handleSort('phone')}>
+              Телефон {sortedField === 'phone' && (sortDirection === 'asc' ? '↑' : '↓')}
             </Table.Th>
-            <Table.Th onClick={() => handleSort('Почта')}>
-              Почта {sortedField === 'Почта' && (sortDirection === 'asc' ? '↑' : '↓')}
+            <Table.Th onClick={() => handleSort('email')}>
+              Почта {sortedField === 'email' && (sortDirection === 'asc' ? '↑' : '↓')}
             </Table.Th>
-            <Table.Th onClick={() => handleSort('Баланс')}>
-              Баланс {sortedField === 'Баланс' && (sortDirection === 'asc' ? '↑' : '↓')}
+            <Table.Th onClick={() => handleSort('balans')}>
+              Баланс {sortedField === 'balans' && (sortDirection === 'asc' ? '↑' : '↓')}
             </Table.Th>
           </Table.Tr>
         </Table.Thead>

@@ -8,7 +8,7 @@ export const data = [
     rule: 'USER',
     phone: '+380689478723',
     email: 'lad@gmail.com',
-    balans: 25,
+    balans: 250,
   },
   {
     id: '2',
@@ -19,7 +19,7 @@ export const data = [
     rule: 'USER',
     phone: '+380689478723',
     email: 'lad@gmail.com',
-    balans: 25,
+    balans: 215,
   },
   {
     id: '3',
@@ -30,7 +30,7 @@ export const data = [
     rule: 'USER',
     phone: '+380689478723',
     email: 'lad@gmail.com',
-    balans: 25,
+    balans: 125,
   },
   {
     id: '4',
@@ -41,7 +41,7 @@ export const data = [
     rule: 'USER',
     phone: '+380689478723',
     email: 'lad@gmail.com',
-    balans: 25,
+    balans: 1225,
   },
   {
     id: '5',
@@ -52,7 +52,7 @@ export const data = [
     rule: 'USER',
     phone: '+380689478723',
     email: 'lad@gmail.com',
-    balans: 25,
+    balans: 2500,
   },
   {
     id: '6',
@@ -63,7 +63,7 @@ export const data = [
     rule: 'USER',
     phone: '+380689478723',
     email: 'lad@gmail.com',
-    balans: 25,
+    balans: 2.5,
   },
   {
     id: '7',
@@ -74,7 +74,7 @@ export const data = [
     rule: 'USER',
     phone: '+380689478723',
     email: 'lad@gmail.com',
-    balans: 25,
+    balans: 100,
   },
   {
     id: '8',
@@ -85,7 +85,7 @@ export const data = [
     rule: 'USER',
     phone: '+380689478723',
     email: 'lad@gmail.com',
-    balans: 25,
+    balans: 7958,
   },
   {
     id: '9',
@@ -96,7 +96,7 @@ export const data = [
     rule: 'USER',
     phone: '+380689478723',
     email: 'lad@gmail.com',
-    balans: 25,
+    balans: 25054841,
   },
   {
     id: '10',
@@ -107,7 +107,7 @@ export const data = [
     rule: 'USER',
     phone: '+380689478723',
     email: 'lad@gmail.com',
-    balans: 25,
+    balans: 216516515,
   },
   {
     id: '11',
@@ -118,7 +118,7 @@ export const data = [
     rule: 'USER',
     phone: '+380689478723',
     email: 'lad@gmail.com',
-    balans: 25,
+    balans: 2255,
   },
   {
     id: '12',
@@ -129,6 +129,6 @@ export const data = [
     rule: 'USER',
     phone: '+380689478723',
     email: 'lad@gmail.com',
-    balans: 25,
+    balans: 0.25,
   },
 ];

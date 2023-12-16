@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
 import { Table, ScrollArea, Group, Avatar, Text, LoadingOverlay } from '@mantine/core';
-import {} from '@tabler/icons-react';
 import cx from 'clsx';
 
 import { data } from './data/mockdata';

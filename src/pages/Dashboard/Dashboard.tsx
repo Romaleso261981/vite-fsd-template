@@ -1,5 +1,6 @@
 import { Container, Flex } from '@mantine/core';
 
+import { FormAddClient } from './ui/components/FormAddClient/FormAddClient';
 import { NavbarMinimal } from './ui/components/Navbar/Navbar';
 import { Search } from './ui/components/Search/Search';
 

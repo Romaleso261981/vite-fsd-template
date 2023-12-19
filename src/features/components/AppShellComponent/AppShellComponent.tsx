@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-
 import { AppShell, Burger } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 

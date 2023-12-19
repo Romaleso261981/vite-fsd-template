@@ -1,8 +1,10 @@
 /* eslint-disable no-nested-ternary */
+import { FC } from 'react';
+
 import { ActionIcon, Group, Menu, Tooltip, useMantineColorScheme } from '@mantine/core';
 import { IconCircleHalf2, IconMoonStars, IconSunHigh } from '@tabler/icons-react';
 
-export const ColorSwitch = () => {
+export const ColorSwitch: FC = () => {
   const ICON_SIZE = 20;
   const { setColorScheme, colorScheme } = useMantineColorScheme();
 

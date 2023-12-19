@@ -2,6 +2,7 @@ import { Container, Flex } from '@mantine/core';
 
 import { NavbarMinimal } from './ui/components/Navbar/Navbar';
 import { Search } from './ui/components/Search/Search';
+import { TableSelection } from './ui/components/TableSelection/TableSelection';
 
 const Dashboard = () => {
   const demoProps = {
@@ -28,6 +29,7 @@ const Dashboard = () => {
           wrap="wrap"
         >
           <Search />
+          <TableSelection userData={[]} />
         </Flex>
       </Flex>
     </Container>

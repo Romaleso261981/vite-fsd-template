@@ -32,6 +32,7 @@ export const AuthenticationTitle = () => {
   const [inputLoading, setInputLoading] = useState(false);
   const [currentStep, setCurrentStep] = useState(LoginSteps.EnterPhone);
 
+
   const dispach: AppDispatch = useDispatch();
 
   function handleSubmit(value: string) {
@@ -127,6 +128,7 @@ export const AuthenticationTitle = () => {
             handleSubmit={handleSubmit}
           />
         );
+
       default:
         return <NotFound />;
     }

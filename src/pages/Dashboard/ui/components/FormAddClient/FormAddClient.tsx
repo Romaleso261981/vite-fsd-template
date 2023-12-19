@@ -1,8 +1,16 @@
 import { Button, Flex, Input, Text, Title } from '@mantine/core';
 
+import { UserData } from '../../../../../shared/types/Types';
+
 import s from './FormAddClient.module.css';
 
-export const FormAddClient = () => {
+type Props = {
+  userData: UserData[];
+};
+
+export const FormAddClient = (props: Props) => {
+  const { userData } = props;
+
   return (
     <Flex
       mih={50}
@@ -21,7 +29,7 @@ export const FormAddClient = () => {
         direction="row"
         wrap="wrap"
       >
-        <Text size="xl">Всего: 18</Text>
+        <Text size="xl">{`Всего: ${userData.length}`}</Text>
         <Button variant="filled">Добавить клиента</Button>
       </Flex>
       <Flex

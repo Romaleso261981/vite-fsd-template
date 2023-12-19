@@ -1,12 +1,7 @@
 import { Container, Flex } from '@mantine/core';
 
-import { Footer } from '../../features/components/Footer/Footer';
-import { Header } from '../../features/components/Header';
-
-import { FormAddClient } from './ui/components/FormAddClient/FormAddClient';
 import { NavbarMinimal } from './ui/components/Navbar/Navbar';
 import { Search } from './ui/components/Search/Search';
-import { TableSelection } from './ui/components/TableSelection/TableSelection';
 
 const Dashboard = () => {
   const demoProps = {
@@ -15,8 +10,6 @@ const Dashboard = () => {
 
   return (
     <Container size="xl" {...demoProps}>
-      <Header />
-
       <Flex
         mih={50}
         gap="md"
@@ -34,12 +27,9 @@ const Dashboard = () => {
           direction="column"
           wrap="wrap"
         >
-          <FormAddClient />
           <Search />
-          <TableSelection />
         </Flex>
       </Flex>
-      <Footer />
     </Container>
   );
 };

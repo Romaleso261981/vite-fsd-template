@@ -6,8 +6,13 @@ import { UserData } from '../types/Types';
 export const setFirestoreData = (nickName: string, path: string) => {
   const userData: UserData = {
     nickName,
-    balans: '10',
-    LastName: 'Lesyo',
+    id: '',
+    balans: 10,
+    avatar: '',
+    name: '',
+    rule: '',
+    phone: '',
+    email: '',
   };
   const collectionRef = collection(db, path);
 

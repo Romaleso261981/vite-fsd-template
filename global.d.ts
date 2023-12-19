@@ -1,5 +1,4 @@
-type ExtendedWindow = Window &
-  typeof globalThis & {
-    recaptchaVerifier?: any
-    confirmationResult?: any
-  };
+type ExtendedWindow = Window & {
+  recaptchaVerifier?: any;
+  confirmationResult?: any;
+};

@@ -19,7 +19,7 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
   },
   "include": ["src","src/app/App.tsx", "vite.config.ts", "global.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]

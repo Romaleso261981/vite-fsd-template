@@ -10,11 +10,8 @@ import { UserData } from '../../shared/types/Types';
 type UserParams = {
   [key: string]: string | undefined;
 };
-type Props = {
-  id: string;
-};
 
-export const UserDetail: React.FC<Props> = () => {
+export const UserDetail: React.FC = () => {
   const { id } = useParams<UserParams>();
   const [user, setUser] = useState<UserData>();
   const getUserData = async () => {

@@ -27,7 +27,6 @@ import classes from './HeaderMegaMenu.module.css';
 import { ColorSwitch } from './ui/components/ColorSwitch/ColorSwitch';
 import LanguagePicker from './ui/components/LanguagePicker/LanguagePicker';
 
-
 export const Header = () => {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
@@ -113,7 +112,6 @@ export const Header = () => {
             </HoverCard>
             <a href="/admin" className={classes.link}>
               {t('header.admin')}
-
             </a>
             <a href="/auth" className={classes.link}>
               {t('header.auth')}
@@ -122,7 +120,6 @@ export const Header = () => {
           <Group align="flex-start" justify="center">
             <ColorSwitch />
             <LanguagePicker type="collapsed" />
-
           </Group>
 
           <Burger opened={drawerOpened} onClick={toggleDrawer} hiddenFrom="sm" />

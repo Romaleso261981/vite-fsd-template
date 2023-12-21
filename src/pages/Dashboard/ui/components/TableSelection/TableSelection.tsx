@@ -1,9 +1,12 @@
 import { useState } from 'react';
 
 import { Table, ScrollArea, Group, Avatar, Text, LoadingOverlay } from '@mantine/core';
+import { useNavigate } from 'react-router-dom';
 
 import { Direction, UserDataEnum } from '../../../../../shared/types/enums';
 import { SortedField, UserData } from '../../../../../shared/types/Types';
+
+import styles from './TableSelection.module.css';
 
 type Props = {
   userData: UserData[];
@@ -11,7 +14,7 @@ type Props = {
 
 export const TableSelection = (props: Props) => {
   const { userData = [] } = props;
-
+  const navigate = useNavigate();
   const [sortedField, setSortedField] = useState<SortedField>(UserDataEnum.ID);
   const [sortDirection, setSortDirection] = useState<Direction.ASC | Direction.DESC>(
     Direction.ASC,
@@ -45,8 +48,12 @@ export const TableSelection = (props: Props) => {
 
   const sortedData = sortData(userData, sortedField, sortDirection);
   const rows = sortedData.map((item: UserData) => {
+    const handleNavigate = () => {
+      navigate(`${item.id}`);
+    };
+
     return (
-      <Table.Tr key={item.id}>
+      <Table.Tr key={item.id} onClick={handleNavigate} className={styles.item}>
         <Table.Td>{item.id}</Table.Td>
         <Table.Td>
           <Group gap="sm">

@@ -8,13 +8,11 @@ import { DatabasePaths } from '../../shared/types/enums';
 import { UserData } from '../../shared/types/Types';
 import { AuthState } from '../user/types';
 
-
 export const logIn = createAsyncThunk(
   'auth/signUp',
   async (nickName: string, { rejectWithValue }) => {
     try {
       const data = await getFirestoreData<UserData>(DatabasePaths.USERS, 20);
-
 
       const isNickNameExists = data.some((obj) => obj.nickName === nickName);
 

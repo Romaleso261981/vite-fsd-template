@@ -22,7 +22,6 @@ const Admin = () => {
     }
   };
 
-  console.log('useEfect');
   useEffect(() => {
     getData();
   }, []);

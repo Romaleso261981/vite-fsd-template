@@ -4,6 +4,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import { Spiner } from '../features/components/Loader';
 import RootLayout from '../features/components/RootLayout/RootLayout';
+import { UserDetail } from '../pages/UserDetail/UserDetail';
 
 const Main = lazy(() => import('../pages/Main/Main'));
 const Dashboard = lazy(() => import('../pages/Dashboard/Dashboard'));
@@ -43,6 +44,14 @@ const App: React.FC = () => {
           element: (
             <Suspense fallback={<Spiner />}>
               <Admin />
+            </Suspense>
+          ),
+        },
+        {
+          path: 'admin/:id',
+          element: (
+            <Suspense fallback={<Spiner />}>
+              <UserDetail />
             </Suspense>
           ),
         },

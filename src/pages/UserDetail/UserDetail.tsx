@@ -10,28 +10,26 @@ import { UserData } from '../../shared/types/Types';
 type UserParams = {
   [key: string]: string | undefined;
 };
-interface Props {
+type Props = {
   id: string;
-}
+};
 
 export const UserDetail: React.FC<Props> = () => {
   const { id } = useParams<UserParams>();
-  const [users, setUsers] = useState<UserData[]>([]);
   const [user, setUser] = useState<UserData>();
   const getUserData = async () => {
-    const usersData = await getFirestoreData<UserData>(DatabasePaths.USERS, 1, 'id', id);
-
-    console.log('usersData', usersData);
-
-    setUsers(usersData);
-    if (users.length > 0) {
-      setUser(users[0]);
-    }
+    getFirestoreData<UserData>(DatabasePaths.USERS, 1, 'id', id)
+      .then((data) => {
+        if (data) {
+          setUser(data[0]);
+        }
+      })
+      .catch((err) => console.log(`error ${err}`));
   };
 
-  console.log('user', users[0]);
   useEffect(() => {
     getUserData();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 

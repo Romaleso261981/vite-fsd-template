@@ -19,7 +19,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <MantineProvider theme={theme}>
       <Notifications position="top-center" containerWidth={400} />
 
-
       <App />
     </MantineProvider>
   </Provider>,

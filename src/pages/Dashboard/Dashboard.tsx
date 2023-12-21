@@ -34,7 +34,6 @@ const Dashboard = () => {
       </Flex>
     </Container>
   );
-
 };
 
 export default Dashboard;

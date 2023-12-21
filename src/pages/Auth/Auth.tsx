@@ -5,7 +5,6 @@ const AuthPage = () => {
   return (
     <section className={classes.container}>
       <AuthenticationTitle />
-
     </section>
   );
 };

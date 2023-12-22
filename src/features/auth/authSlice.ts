@@ -17,7 +17,8 @@ export const logIn = createAsyncThunk(
       const isNickNameExists = data.some((obj) => obj.nickName === nickName);
 
       if (!isNickNameExists) {
-        setFirestoreData(nickName, DatabasePaths.USERS);
+        setFirestoreData({ nickName }, DatabasePaths.USERS);
+        localStorage.setItem('nickName', nickName);
 
         return nickName;
       }
@@ -34,9 +35,10 @@ export const logIn = createAsyncThunk(
 );
 
 const initialState: AuthState = {
-  nickName: '',
+  nickName: null,
   loading: false,
   setIsRegistered: false,
+  user: null,
 };
 
 export const authSlice = createSlice({
@@ -58,7 +60,7 @@ export const authSlice = createSlice({
   },
 });
 
-export const selectAuth = (state: RootState) => state.auth;
+export const selectNickame = (state: RootState) => state.auth.nickName;
 export const selectProfile = (state: RootState) => state.auth;
 
 export default authSlice.reducer;

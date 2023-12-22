@@ -17,3 +17,20 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 
 export const db = getFirestore(app);
+
+// async function readDataFromFirestore() {
+//   const collectionRef = collection(db, 'users'); // Замініть 'ім\'я-колекції' на реальне ім'я вашої колекції
+
+//   try {
+//     const querySnapshot = await getDocs(collectionRef);
+
+//     querySnapshot.forEach((doc) => {
+//       const data = doc.data();
+//     });
+//   } catch (e) {
+//     console.error('Помилка при отриманні даних з Firestore:', e);
+//   }
+// }
+
+// // Виклик функції для читання даних
+// readDataFromFirestore();

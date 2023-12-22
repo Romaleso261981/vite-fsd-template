@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import { Center, Tooltip, UnstyledButton, Stack, rem, Burger } from '@mantine/core';
 import { IconHome2, IconLogout, IconSwitchHorizontal } from '@tabler/icons-react';
+import { useNavigate } from 'react-router-dom';
 
 import { mockdata } from './data/mockdata';
 import classes from './NavbarMinimal.module.css';
@@ -29,6 +30,12 @@ const NavbarLink = ({ icon: Icon, label, active, onClick }: NavbarLinkProps) => 
 
 export const NavbarMinimal = () => {
   const [active, setActive] = useState(2);
+  const navigate = useNavigate();
+  const logOut = () => {
+    console.log('logOut');
+    localStorage.removeItem('nickName');
+    navigate('/auth');
+  };
 
   const links = mockdata.map((link, index) => (
     <NavbarLink
@@ -53,7 +60,7 @@ export const NavbarMinimal = () => {
 
       <Stack justify="center" gap={0}>
         <NavbarLink icon={IconSwitchHorizontal} label="Change account" />
-        <NavbarLink icon={IconLogout} label="Logout" />
+        <NavbarLink icon={IconLogout} label="Logout" onClick={logOut} />
       </Stack>
     </>
   );

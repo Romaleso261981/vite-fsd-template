@@ -19,7 +19,7 @@ export const userSlice = createSlice({
   extraReducers: () => {},
 });
 
-export const useSelectUser = (state: RootState) => state.auth;
+export const useSelectUser = (state: RootState) => state.auth.user;
 export const { setAppUser } = userSlice.actions;
 
 export default userSlice.reducer;

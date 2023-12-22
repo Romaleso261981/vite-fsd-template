@@ -13,12 +13,10 @@ const Admin = lazy(() => import('../pages/Admin/Admin'));
 const AuthPage = lazy(() => import('../pages/Auth/Auth'));
 
 const isAdmin = true;
-// const user = {
-//   id: '54545455',
-// };
-const user = null;
 
 const App: React.FC = () => {
+  const user = localStorage.getItem('nickName');
+
   if (!user) {
     return (
       <Suspense fallback={<Spiner />}>

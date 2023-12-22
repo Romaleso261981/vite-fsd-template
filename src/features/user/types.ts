@@ -29,7 +29,8 @@ export type UserState = {
   user: null | {} | undefined;
 };
 export type AuthState = {
-  nickName: string;
+  user: null | {} | undefined;
+  nickName: string | null;
   loading: boolean;
   setIsRegistered: boolean;
 };

@@ -7,8 +7,8 @@ export const removeUser = async (userId: string) => {
 
   try {
     await deleteDoc(docRef);
-    console.log(`Документ з ID ${userId} успішно видалено.`);
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.error('Помилка при видаленні документа з Firestore:', e);
   }
 };

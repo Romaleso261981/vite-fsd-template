@@ -66,7 +66,6 @@ export const authSlice = createSlice({
     builder.addCase(logIn.fulfilled, (state, { payload }) => {
       state.setIsRegistered = payload !== undefined;
       state.loading = false;
-      console.log(payload);
       state.user = payload;
     });
     builder.addCase(logIn.rejected, (state) => {

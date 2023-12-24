@@ -1,0 +1,27 @@
+{
+  "header": {
+    "home": "Home",
+    "contact": "Contact",
+    "auth": "Auth",
+    "features": "Features",
+    "learn": "Learn",
+    "Login": "Login",
+    "LogOut": "Log out",
+    "Auth": "Auth",
+    "Contacts": "Contacts",
+    "ViewAll": "View all",
+    "ourWorks": "Our Works",
+    "admin": "Admin"
+  },
+  "authForm":{
+    "SendSMS":"SendSMS",
+    "VerifyNumber":"Verify Number!",
+    "CreateAccount":"Create account",
+    "SendSMSAgain":"56 Send SMS again",
+    "Enter":"Enter",
+    "enterNikName":"Enter your nik Name"
+  },
+  "footer":{
+    "AllReserved":"© 2023 mantine.dev. All rights reserved."
+  }
+}

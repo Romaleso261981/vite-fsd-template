@@ -1,0 +1,22 @@
+.commentWrapper {
+display: flex;
+flex-direction: row;
+flex-wrap: wrap;
+justify-content: flex-start;
+column-gap: 20px;
+ }
+.comment {
+	padding: var(--mantine-spacing-lg) var(--mantine-spacing-xl);
+	margin-top: 30px;
+	width: 400px;
+ }
+ 
+ .body {
+	padding-left: rem(54px);
+	padding-top: var(--mantine-spacing-sm);
+	font-size: var(--mantine-font-size-sm);
+ }
+ 
+ .content > p:last-child {
+	margin-bottom: 0;
+ }

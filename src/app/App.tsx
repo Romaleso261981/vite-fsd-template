@@ -1,61 +1,48 @@
-import React, { useState } from 'react';
+import { Suspense, lazy, useEffect, useState } from 'react';
 
-import {
-  // createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from 'firebase/auth';
+import { Route, Routes } from 'react-router-dom';
 
-import viteLogo from '../../public/vite.svg';
-import reactLogo from '../assets/react.svg';
-import './App.css';
-import { auth } from '../shared/firebase';
+import { Spiner } from '../features/components/Loader';
+import RootLayout from '../features/components/RootLayout/RootLayout';
+import { User } from '../features/user/types';
+import { UserDetail } from '../pages/UserDetail/UserDetail';
+import { getUser } from '../shared/helpers/getUser';
+
+const Main = lazy(() => import('../pages/Main/Main'));
+const NotFound = lazy(() => import('../pages/NoFound/NoFound'));
+const Admin = lazy(() => import('../pages/Admin/Admin'));
+const AuthPage = lazy(() => import('../pages/Auth/Auth'));
 
 const App: React.FC = () => {
-  const [count, setCount] = useState(0);
-  const email = 'ladg@gmail.com';
-  const password = 'leso261981';
+  const [showAdminBoard, setShowAdminBoard] = useState<boolean>(false);
+  const [user, setUser] = useState<User | null>(null);
 
-  // createUserWithEmailAndPassword(auth, email, password)
-  //   .then((userCredential) => {
-  //     const { user } = userCredential;
+  useEffect(() => {
+    const user = getUser();
 
-  //     console.log('user', user);
-  //   })
-  //   .catch((error) => {
-  //     console.log('errorMessage', error);
-  //   });
-
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      const { user } = userCredential;
-
-      console.log(user);
-    })
-    .catch((error) => {
-      console.log('errorMessage', error);
-    });
+    if (user) {
+      if (user.roles === undefined) {
+        setUser(user);
+        setShowAdminBoard(user.rule === 'admin');
+      }
+    }
+  }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button type="submit" onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          user email <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
-    </>
+    <Suspense fallback={<Spiner />}>
+      <Routes>
+        <Route path="/" element={<RootLayout />}>
+          <Route index element={user ? <Main /> : <AuthPage />} />
+          <Route path="auth" element={<AuthPage />} />
+          <Route
+            path="admin"
+            element={showAdminBoard ? <Admin /> : <h1>Ви немаєте права доступу</h1>}
+          />
+          <Route path="admin/:id" element={<UserDetail />} />
+        </Route>
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Suspense>
   );
 };
 

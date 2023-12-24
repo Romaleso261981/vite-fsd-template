@@ -9,11 +9,11 @@ import {
 } from '@tabler/icons-react';
 
 export const mockdata = [
-  { icon: IconHome2, label: 'Home' },
-  { icon: IconGauge, label: 'Dashboard' },
-  { icon: IconDeviceDesktopAnalytics, label: 'Analytics' },
-  { icon: IconCalendarStats, label: 'Releases' },
-  { icon: IconUser, label: 'Account' },
-  { icon: IconFingerprint, label: 'Security' },
-  { icon: IconSettings, label: 'Settings' },
+  { icon: IconHome2, label: 'Home', path: '/' },
+  { icon: IconGauge, label: 'Dashboard', path: '/' },
+  { icon: IconDeviceDesktopAnalytics, label: 'Analytics', path: '/' },
+  { icon: IconCalendarStats, label: 'Releases', path: '/' },
+  { icon: IconUser, label: 'Account', path: '/' },
+  { icon: IconFingerprint, label: 'Security', path: '/' },
+  { icon: IconSettings, label: 'Settings', path: '/' },
 ];

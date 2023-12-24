@@ -1,13 +1,14 @@
-import s from './Loader.module.css';
+import { Flex, Loader } from '@mantine/core';
 
-interface Props {}
-
-// eslint-disable-next-line no-empty-pattern
-export const Loader = ({}: Props) => {
+export const Spiner = () => {
   return (
-    <div className={s.ldsRipple}>
-      <div />
-      <div />
-    </div>
+    <Flex justify="center" align="center">
+      <Loader
+        styles={{ root: { color: 'black', margin: 'auto' } }}
+        type="oval"
+        color="blue"
+        size="xl"
+      />
+    </Flex>
   );
 };

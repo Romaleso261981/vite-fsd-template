@@ -2,50 +2,31 @@ import { useState } from 'react';
 
 import { Group, Image, Menu, UnstyledButton } from '@mantine/core';
 import { IconChevronDown } from '@tabler/icons-react';
+import { useTranslation } from 'react-i18next';
+
+import images from '../LanguageSwitcher2/images';
 
 import classes from './LanguagePicker.module.css';
+import { LanPickerProps, LanguagePickerProps } from './types';
 
 const data = [
-  {
-    label: 'English',
-    image:
-      'https://res.cloudinary.com/ddh7hfzso/image/upload/v1677783783/meal%20mart/english_njrlxm.png',
-  },
-  {
-    label: 'German',
-    image:
-      'https://res.cloudinary.com/ddh7hfzso/image/upload/v1677783783/meal%20mart/german_a90o3b.png',
-  },
-  {
-    label: 'Italian',
-    image:
-      'https://res.cloudinary.com/ddh7hfzso/image/upload/v1677783783/meal%20mart/italian_ruxfnn.png',
-  },
-  {
-    label: 'French',
-    image:
-      'https://res.cloudinary.com/ddh7hfzso/image/upload/v1677783783/meal%20mart/french_yek0eo.png',
-  },
-  {
-    label: 'Polish',
-    image:
-      'https://res.cloudinary.com/ddh7hfzso/image/upload/v1677783783/meal%20mart/polish_wjp2xh.png',
-  },
+  { label: 'En', image: images.english },
+  { label: 'ua', image: images.ukraine2 },
 ];
 
-type LanguagePickerProps = {
-  type: 'collapsed' | 'expanded';
-};
-
 const LanguagePicker = ({ type }: LanguagePickerProps) => {
-  const [opened, setOpened] = useState(false);
   const [selected, setSelected] = useState(data[0]);
+  const { i18n } = useTranslation();
 
-  console.log(opened);
+  const changeLanguage = (item: LanPickerProps) => {
+    i18n.changeLanguage(item.label);
+    setSelected(item);
+  };
+
   const items = data.map((item) => (
     <Menu.Item
       leftSection={<Image src={item.image} width={18} height={18} alt="flag" />}
-      onClick={() => setSelected(item)}
+      onClick={() => changeLanguage(item)}
       key={item.label}
     >
       {item.label}
@@ -53,13 +34,7 @@ const LanguagePicker = ({ type }: LanguagePickerProps) => {
   ));
 
   return (
-    <Menu
-      onOpen={() => setOpened(true)}
-      onClose={() => setOpened(false)}
-      radius="sm"
-      withinPortal
-      width={200}
-    >
+    <Menu radius="sm" withinPortal width={200}>
       <Menu.Target>
         <UnstyledButton className={classes.control}>
           <Group gap="xs">

@@ -1,9 +1,13 @@
 export type UserData = {
-  LastName?: string;
+  id: string;
+  avatar: string;
+  name: string;
   nickName: string;
-  balans?: string;
-  email?: string;
-  firsName?: string;
-  phone?: string;
-  rule?: string;
+  rule: string;
+  phone: string;
+  email: string;
+  balans: number;
+  rules?: [string];
 };
+
+export type SortedField = keyof UserData;

@@ -1,21 +1,72 @@
-import { collection, getDocs, limit, query } from 'firebase/firestore';
+import {
+  DocumentData,
+  QueryDocumentSnapshot,
+  collection,
+  getDocs,
+  limit,
+  orderBy,
+  query,
+  where,
+} from 'firebase/firestore';
 
-import { User } from '../../features/auth/types';
 import { db } from '../../integations/firebase';
 
-type DatabasePaths = string;
-
-export const getFirestoreData = async (path: DatabasePaths): Promise<User[]> => {
+export const getFirestoreData = async <T>(
+  path: string,
+  queryLimit: number,
+  filterField?: string,
+  filterValue?: any,
+  orderByField?: string,
+  orderDirection?: 'asc' | 'desc',
+): Promise<T[]> => {
   const collectionRef = collection(db, path);
+  let q = query(collectionRef, limit(queryLimit));
 
-  const q = query(collectionRef, limit(20));
+  if (filterField && filterValue) {
+    q = query(collectionRef, where(filterField, '==', filterValue), limit(queryLimit));
+  }
+
+  if (orderByField) {
+    q = query(
+      collectionRef,
+      orderBy(orderByField, orderDirection || 'asc'),
+      limit(queryLimit),
+    );
+  }
 
   const querySnapshot = await getDocs(q);
-  const data: User[] = [];
+  const data: T[] = [];
 
-  querySnapshot.forEach((doc) => {
-    data.push(doc.data() as User);
+  querySnapshot.forEach((doc: QueryDocumentSnapshot<DocumentData>) => {
+    data.push({ ...(doc.data() as T), id: doc.id });
   });
 
   return data;
+};
+export const getFirestoreRef = async (
+  path: string,
+  queryLimit: number,
+  filterField?: string,
+  filterValue?: any,
+  orderByField?: string,
+  orderDirection?: 'asc' | 'desc',
+) => {
+  const collectionRef = collection(db, path);
+  let q = query(collectionRef, limit(queryLimit));
+
+  if (filterField && filterValue) {
+    q = query(collectionRef, where(filterField, '==', filterValue), limit(queryLimit));
+  }
+
+  if (orderByField) {
+    q = query(
+      collectionRef,
+      orderBy(orderByField, orderDirection || 'asc'),
+      limit(queryLimit),
+    );
+  }
+
+  const querySnapshot = await getDocs(q);
+
+  return querySnapshot;
 };

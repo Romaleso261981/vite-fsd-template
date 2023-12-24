@@ -1,6 +1,5 @@
 import { Container, Flex } from '@mantine/core';
 
-import { FormAddClient } from './ui/components/FormAddClient/FormAddClient';
 import { NavbarMinimal } from './ui/components/Navbar/Navbar';
 import { Search } from './ui/components/Search/Search';
 import { TableSelection } from './ui/components/TableSelection/TableSelection';
@@ -29,9 +28,8 @@ const Dashboard = () => {
           direction="column"
           wrap="wrap"
         >
-          <FormAddClient />
           <Search />
-          <TableSelection />
+          <TableSelection userData={[]} />
         </Flex>
       </Flex>
     </Container>

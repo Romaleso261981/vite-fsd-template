@@ -9,10 +9,9 @@ import { useDispatch } from 'react-redux';
 
 import { AppDispatch } from '../../../../../app/store';
 import { logIn } from '../../../../../features/auth/authSlice';
-import { setAppUser } from '../../../../../features/user/userSlice';
 import { auth } from '../../../../../integations/firebase';
 import { extendedWindow } from '../../../../../shared/extendedWindow';
-import { NotFound } from '../../../../NoFound/NoFound';
+import NotFound from '../../../../NoFound/NoFound';
 
 import EnterNickName from './components/EnterNickName/EnterNickName';
 import EnterOTP from './components/EnterOTP/EnterOTP';
@@ -29,10 +28,8 @@ export const AuthenticationTitle = () => {
   const [ph, setPh] = useState('');
   const [loading, setLoading] = useState(false);
   const [value, setValue] = useState('');
-  // const [userData, setUserData] = useState<UserData>({ nickName: value });
   const [inputLoading, setInputLoading] = useState(false);
-  const [currentStep, setCurrentStep] = useState(LoginSteps.EnterPhone);
-
+  const [currentStep, setCurrentStep] = useState(LoginSteps.EnterNickName);
   const dispach: AppDispatch = useDispatch();
 
   function handleSubmit(value: string) {
@@ -96,7 +93,6 @@ export const AuthenticationTitle = () => {
     extendedWindow.confirmationResult
       .confirm(otp)
       .then(async () => {
-        dispach(setAppUser('roma'));
         notifications.show({
           title: 'Вітаю',
           message: `Ви успішно увійшли за номером ${auth.currentUser?.phoneNumber}`,

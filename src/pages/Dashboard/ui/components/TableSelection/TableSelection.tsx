@@ -1,45 +1,44 @@
 import { useState } from 'react';
 
 import { Table, ScrollArea, Group, Avatar, Text, LoadingOverlay } from '@mantine/core';
-import cx from 'clsx';
+import { useNavigate } from 'react-router-dom';
 
-import { data } from './data/mockdata';
-import classes from './TableSelection.module.css';
+import { Direction, UserDataEnum } from '../../../../../shared/types/enums';
+import { SortedField, UserData } from '../../../../../shared/types/Types';
 
-export const TableSelection = () => {
-  const [selection, setSelection] = useState(['1']);
-  const [sortedField, setSortedField] = useState<SortedField>('id');
-  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
+import styles from './TableSelection.module.css';
+
+type Props = {
+  userData: UserData[];
+};
+
+export const TableSelection = (props: Props) => {
+  const { userData = [] } = props;
+  const navigate = useNavigate();
+  const [sortedField, setSortedField] = useState<SortedField>(UserDataEnum.ID);
+  const [sortDirection, setSortDirection] = useState<Direction.ASC | Direction.DESC>(
+    Direction.ASC,
+  );
 
   const handleSort = (field: SortedField) => {
     if (field === sortedField) {
-      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+      setSortDirection(sortDirection === Direction.ASC ? Direction.DESC : Direction.ASC);
     } else {
       setSortedField(field);
-      setSortDirection('asc');
+      setSortDirection(Direction.ASC);
     }
   };
 
-  type MyData = {
-    id: string;
-    avatar: string;
-    name: string;
-    nickName: string;
-    rule: string;
-    phone: string;
-    email: string;
-    balans: number;
-  };
-
-  type SortedField = keyof MyData;
-
-  // Ваша функція сортування
-  const sortData = (data: MyData[], field: SortedField, direction: 'asc' | 'desc') => {
-    return [...data].sort((a, b) => {
+  const sortData = (
+    userData: UserData[],
+    field: SortedField,
+    direction: Direction.ASC | Direction.DESC,
+  ) => {
+    return [...userData].sort((a, b) => {
       const aValue = a[field];
       const bValue = b[field];
 
-      if (direction === 'asc') {
+      if (direction === Direction.DESC) {
         return aValue > bValue ? 1 : -1;
       }
 
@@ -47,21 +46,14 @@ export const TableSelection = () => {
     });
   };
 
-  const sortedData = sortData(data, sortedField, sortDirection);
-  const toggleRow = (id: string) =>
-    setSelection((current) =>
-      current.includes(id) ? current.filter((item) => item !== id) : [...current, id],
-    );
-  const toggleAll = () =>
-    setSelection((current) =>
-      current.length === data.length ? [] : data.map((item) => item.id),
-    );
-
-  const rows = sortedData.map((item: MyData) => {
-    const selected = selection.includes(item.id);
+  const sortedData = sortData(userData, sortedField, sortDirection);
+  const rows = sortedData.map((item: UserData) => {
+    const handleNavigate = () => {
+      navigate(`${item.id}`);
+    };
 
     return (
-      <Table.Tr key={item.id} className={cx({ [classes.rowSelected]: selected })}>
+      <Table.Tr key={item.id} onClick={handleNavigate} className={styles.item}>
         <Table.Td>
           <Group gap="sm">
             <Avatar size={26} src={item.avatar} radius={26} />
@@ -70,13 +62,13 @@ export const TableSelection = () => {
             </Text>
           </Group>
         </Table.Td>
-        <Table.Td onChange={() => toggleRow(item.id)}>{item.rule}</Table.Td>
-        <Table.Td onChange={() => toggleAll()}>{item.nickName}</Table.Td>
-        <Table.Td onChange={() => toggleAll()}>{item.phone}</Table.Td>
-        <Table.Td onChange={() => toggleAll()}>{item.email}</Table.Td>
+        <Table.Td>{item.rule}</Table.Td>
+        <Table.Td>{item.nickName}</Table.Td>
+        <Table.Td>{item.phone}</Table.Td>
+        <Table.Td>{item.email}</Table.Td>
         <Group gap="sm">
           <LoadingOverlay />
-          <Table.Td onChange={() => toggleAll()}>{item.balans}</Table.Td>
+          <Table.Td>{item.balans}</Table.Td>
         </Group>
       </Table.Tr>
     );
@@ -87,24 +79,35 @@ export const TableSelection = () => {
       <Table miw={800} verticalSpacing="sm">
         <Table.Thead>
           <Table.Tr>
-            <Table.Th onClick={() => handleSort('name')}>
-              ФИО {sortedField === 'name' && (sortDirection === 'asc' ? '↑' : '↓')}
+            <Table.Th onClick={() => handleSort(UserDataEnum.NAME)}>
+              ФИО{' '}
+              {sortedField === UserDataEnum.NAME &&
+                (sortDirection === Direction.ASC ? '↑' : '↓')}
             </Table.Th>
-            <Table.Th onClick={() => handleSort('rule')}>
-              Роль {sortedField === 'rule' && (sortDirection === 'asc' ? '↑' : '↓')}
+            <Table.Th onClick={() => handleSort(UserDataEnum.RULE)}>
+              Роль{' '}
+              {sortedField === UserDataEnum.RULE &&
+                (sortDirection === Direction.ASC ? '↑' : '↓')}
             </Table.Th>
-            <Table.Th onClick={() => handleSort('nickName')}>
+            <Table.Th onClick={() => handleSort(UserDataEnum.NICKNAME)}>
               Никнейм{' '}
-              {sortedField === 'nickName' && (sortDirection === 'asc' ? '↑' : '↓')}
+              {sortedField === UserDataEnum.NICKNAME &&
+                (sortDirection === Direction.ASC ? '↑' : '↓')}
             </Table.Th>
-            <Table.Th onClick={() => handleSort('phone')}>
-              Телефон {sortedField === 'phone' && (sortDirection === 'asc' ? '↑' : '↓')}
+            <Table.Th onClick={() => handleSort(UserDataEnum.PHONE)}>
+              Телефон{' '}
+              {sortedField === UserDataEnum.PHONE &&
+                (sortDirection === Direction.ASC ? '↑' : '↓')}
             </Table.Th>
-            <Table.Th onClick={() => handleSort('email')}>
-              Почта {sortedField === 'email' && (sortDirection === 'asc' ? '↑' : '↓')}
+            <Table.Th onClick={() => handleSort(UserDataEnum.EMAIL)}>
+              Почта{' '}
+              {sortedField === UserDataEnum.EMAIL &&
+                (sortDirection === Direction.ASC ? '↑' : '↓')}
             </Table.Th>
-            <Table.Th onClick={() => handleSort('balans')}>
-              Баланс {sortedField === 'balans' && (sortDirection === 'asc' ? '↑' : '↓')}
+            <Table.Th onClick={() => handleSort(UserDataEnum.BALANS)}>
+              Баланс{' '}
+              {sortedField === UserDataEnum.BALANS &&
+                (sortDirection === Direction.ASC ? '↑' : '↓')}
             </Table.Th>
           </Table.Tr>
         </Table.Thead>

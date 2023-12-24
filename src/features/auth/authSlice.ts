@@ -5,20 +5,33 @@ import { RootState } from '../../app/rootReducer';
 import { setFirestoreData } from '../../shared/helpers/addDoc';
 import { getFirestoreData } from '../../shared/helpers/getData';
 import { DatabasePaths } from '../../shared/types/enums';
-import { AuthState } from '../user/types';
+import { UserData } from '../../shared/types/Types';
+import { AuthState, User } from '../user/types';
 
 export const logIn = createAsyncThunk(
   'auth/signUp',
   async (nickName: string, { rejectWithValue }) => {
     try {
-      const data = await getFirestoreData(DatabasePaths.USERS);
+      const data = await getFirestoreData<UserData>(DatabasePaths.USERS, 20);
 
       const isNickNameExists = data.some((obj) => obj.nickName === nickName);
+      const balans = 156478;
 
       if (!isNickNameExists) {
-        setFirestoreData(nickName, DatabasePaths.USERS);
+        const user: User = {
+          nickName,
+          balans,
+          email: 'example@gmail.com',
+          phone: '0695652588',
+          rule: 'user',
+          avatar:
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRha3ZLzP9ZTL3GBQOJ47Aqt_qxI00So-ciiw&usqp=CAU',
+        };
 
-        return nickName;
+        setFirestoreData(user, DatabasePaths.USERS);
+        localStorage.setItem('user', JSON.stringify(user));
+
+        return user;
       }
       notifications.show({
         bg: 'cyan',
@@ -33,7 +46,8 @@ export const logIn = createAsyncThunk(
 );
 
 const initialState: AuthState = {
-  nickName: '',
+  user: null,
+
   loading: false,
   setIsRegistered: false,
 };
@@ -47,9 +61,9 @@ export const authSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(logIn.fulfilled, (state, { payload }) => {
-      if (typeof payload === 'string') state.nickName = payload;
       state.setIsRegistered = payload !== undefined;
       state.loading = false;
+      state.user = payload;
     });
     builder.addCase(logIn.rejected, (state) => {
       state.loading = false;
@@ -57,7 +71,7 @@ export const authSlice = createSlice({
   },
 });
 
-export const selectAuth = (state: RootState) => state.auth;
+export const useSelectUser = (state: RootState) => state.auth.user;
 export const selectProfile = (state: RootState) => state.auth;
 
 export default authSlice.reducer;

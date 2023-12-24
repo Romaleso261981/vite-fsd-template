@@ -1,6 +1,5 @@
 import { notifications } from '@mantine/notifications';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-// import { useNavigate } from 'react-router-dom';
 
 import { RootState } from '../../app/rootReducer';
 import { setFirestoreData } from '../../shared/helpers/addDoc';
@@ -19,21 +18,18 @@ export const logIn = createAsyncThunk(
       const balans = 156478;
 
       if (!isNickNameExists) {
-        // const navigate = useNavigate();
         const user: User = {
           nickName,
           balans,
           email: 'example@gmail.com',
           phone: '0695652588',
           rule: 'user',
-          rules: ['ROLE_ADMIN'],
           avatar:
             'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRha3ZLzP9ZTL3GBQOJ47Aqt_qxI00So-ciiw&usqp=CAU',
         };
 
         setFirestoreData(user, DatabasePaths.USERS);
         localStorage.setItem('user', JSON.stringify(user));
-        // navigate('/');
 
         return user;
       }

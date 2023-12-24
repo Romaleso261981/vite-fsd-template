@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import { Spiner } from '../features/components/Loader';
 import RootLayout from '../features/components/RootLayout/RootLayout';
+import { User } from '../features/user/types';
 import { UserDetail } from '../pages/UserDetail/UserDetail';
 import { getUser } from '../shared/helpers/getUser';
 
@@ -14,13 +15,15 @@ const AuthPage = lazy(() => import('../pages/Auth/Auth'));
 
 const App: React.FC = () => {
   const [showAdminBoard, setShowAdminBoard] = useState<boolean>(false);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     const user = getUser();
 
     if (user) {
-      if (user.roles !== undefined) {
-        setShowAdminBoard(user.roles.includes('ROLE_ADMIN') ?? false);
+      if (user.roles === undefined) {
+        setUser(user);
+        setShowAdminBoard(user.rule === 'admin');
       }
     }
   }, []);
@@ -29,7 +32,7 @@ const App: React.FC = () => {
     <Suspense fallback={<Spiner />}>
       <Routes>
         <Route path="/" element={<RootLayout />}>
-          <Route index element={<Main />} />
+          <Route index element={user ? <Main /> : <AuthPage />} />
           <Route path="auth" element={<AuthPage />} />
           <Route
             path="admin"

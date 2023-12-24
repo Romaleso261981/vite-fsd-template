@@ -32,7 +32,7 @@ export const NavbarMinimal = () => {
   const [active, setActive] = useState(2);
   const navigate = useNavigate();
   const logOut = () => {
-    localStorage.removeItem('nickName');
+    localStorage.removeItem('user');
     navigate('/auth');
   };
   const goHome = () => {

@@ -43,7 +43,6 @@ export const getFirestoreData = async <T>(
 
   return data;
 };
-
 export const getFirestoreRef = async (
   path: string,
   queryLimit: number,

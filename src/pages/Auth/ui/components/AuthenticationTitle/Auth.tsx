@@ -124,7 +124,6 @@ export const AuthenticationTitle = () => {
             handleSubmit={handleSubmit}
           />
         );
-
       default:
         return <NotFound />;
     }

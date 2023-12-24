@@ -47,6 +47,7 @@ export const logIn = createAsyncThunk(
 
 const initialState: AuthState = {
   user: null,
+
   loading: false,
   setIsRegistered: false,
 };

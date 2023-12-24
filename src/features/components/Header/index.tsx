@@ -25,7 +25,7 @@ import { useTranslation } from 'react-i18next';
 import { mockdata } from './data/mockdata';
 import classes from './HeaderMegaMenu.module.css';
 import { ColorSwitch } from './ui/components/ColorSwitch/ColorSwitch';
-import LanguagePicker from './ui/components/LanguagePicker/LanguagePicker';
+// import LanguagePicker from './ui/components/LanguagePicker/LanguagePicker';
 
 export const Header = () => {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
@@ -119,7 +119,7 @@ export const Header = () => {
           </Group>
           <Group align="flex-start" justify="center">
             <ColorSwitch />
-            <LanguagePicker type="collapsed" />
+            {/* <LanguagePicker type="collapsed" /> */}
           </Group>
 
           <Burger opened={drawerOpened} onClick={toggleDrawer} hiddenFrom="sm" />

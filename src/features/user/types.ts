@@ -35,6 +35,7 @@ export type UserState = {
 };
 export type AuthState = {
   user: null | User | undefined;
+
   loading: boolean;
   setIsRegistered: boolean;
 };

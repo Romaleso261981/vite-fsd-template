@@ -22,6 +22,7 @@ export const UserDetail: React.FC = () => {
           setUser(data[0]);
         }
       })
+      // eslint-disable-next-line no-console
       .catch((err) => console.log(`error ${err}`));
   };
 

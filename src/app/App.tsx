@@ -18,9 +18,7 @@ const App: React.FC = () => {
   useEffect(() => {
     const user = getUser();
 
-    console.log(user);
     if (user) {
-      console.log(user);
       if (user.roles !== undefined) {
         setShowAdminBoard(user.roles.includes('ROLE_ADMIN') ?? false);
       }

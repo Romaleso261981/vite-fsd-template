@@ -8,13 +8,8 @@ import { useSelectUser } from '../features/auth/authSlice';
 export const PrivateRoute = ({ children }: PropsWithChildren) => {
   const user = useSelector(useSelectUser);
 
-  console.log('user', user);
-
   if (user !== null) {
     try {
-      console.log('user === null', user === null);
-      console.log('try !user', !!user);
-
       //     const { nickName, rule } = user;
       //     console.log('!nickName', !nickName);
       //     if (!nickName) {

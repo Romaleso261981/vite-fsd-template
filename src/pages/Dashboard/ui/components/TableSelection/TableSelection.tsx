@@ -29,7 +29,6 @@ export const TableSelection = (props: Props) => {
     }
   };
 
-  console.log(userData);
   const sortData = (
     userData: UserData[],
     field: SortedField,
@@ -80,11 +79,6 @@ export const TableSelection = (props: Props) => {
       <Table miw={800} verticalSpacing="sm">
         <Table.Thead>
           <Table.Tr>
-            {/* <Table.Th onClick={() => handleSort(UserDataEnum.ID)}>
-              ID{' '}
-              {sortedField === UserDataEnum.ID &&
-                (sortDirection === Direction.ASC ? '↑' : '↓')}
-            </Table.Th> */}
             <Table.Th onClick={() => handleSort(UserDataEnum.NAME)}>
               ФИО{' '}
               {sortedField === UserDataEnum.NAME &&

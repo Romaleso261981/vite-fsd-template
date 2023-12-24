@@ -7,6 +7,7 @@ export type UserData = {
   phone: string;
   email: string;
   balans: number;
+  rules?: [string];
 };
 
 export type SortedField = keyof UserData;

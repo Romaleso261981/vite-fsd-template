@@ -36,14 +36,13 @@ export const NavbarMinimal = () => {
     localStorage.removeItem('nickName');
     navigate('/auth');
   };
+  const goHome = () => {
+    setActive(2);
+    navigate('/auth');
+  };
 
   const links = mockdata.map((link, index) => (
-    <NavbarLink
-      {...link}
-      key={link.label}
-      active={index === active}
-      onClick={() => setActive(index)}
-    />
+    <NavbarLink {...link} key={link.label} active={index === active} onClick={goHome} />
   ));
 
   return (

@@ -1,5 +1,6 @@
 export enum DatabasePaths {
   USERS = 'users',
+  ADMIN = 'admin',
 }
 export enum Direction {
   DESC = 'desc',

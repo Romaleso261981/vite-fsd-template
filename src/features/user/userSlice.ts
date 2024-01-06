@@ -1,42 +1,55 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { RootState } from '../../app/rootReducer';
+import { getFirestoreData } from '../../shared/helpers/getData';
+import { hookEditUser } from '../../shared/helpers/hookEditUser';
+import { DatabasePaths } from '../../shared/types/enums';
+import { User, UserState } from '../../shared/types/Types';
 
-import { AuthError, UserCredentials, UserState } from './types';
+const initialState: UserState = {
+  user: null,
+  usersData: [],
+  users: [],
+  loading: false,
+};
 
-export const signUp = createAsyncThunk<void, UserCredentials, { rejectValue: AuthError }>(
-  'auth/signUp',
-  async (newUser, { rejectWithValue }) => {
+export const getData = createAsyncThunk(
+  'user/getData',
+  async (_, { rejectWithValue }) => {
     try {
-      // eslint-disable-next-line no-console
-      console.log(newUser);
-    } catch (err: any) {
-      return rejectWithValue(err);
+      return await getFirestoreData<User>(DatabasePaths.USERS, 20);
+    } catch (error) {
+      return rejectWithValue(error);
     }
   },
 );
 
-const initialState: UserState = {
-  user: null,
-};
+export const editUser = createAsyncThunk(
+  'user/editUser',
+  async (
+    { id, updatedUser }: { id: string; updatedUser: Partial<User> },
+    { rejectWithValue },
+  ) => {
+    try {
+      await hookEditUser({ id, updatedUser });
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
 
 export const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {
-    setAppUser(state, action: PayloadAction<string>) {
-      state.user = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(signUp.fulfilled, (state) => {
-      state.user = undefined;
+    builder.addCase(getData.fulfilled, (state, { payload }) => {
+      state.usersData = payload;
+      state.loading = true;
     });
   },
 });
 
-// Auth selector
-export const useSelectUser = (state: RootState) => state.auth;
-export const { setAppUser } = userSlice.actions;
+export const useSelectData = (state: RootState) => state.user.usersData;
 
 export default userSlice.reducer;

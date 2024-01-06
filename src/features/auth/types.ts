@@ -1,15 +1,16 @@
 export type UserCredentials = {
-  email?: string;
-  password?: string;
   nickName?: string;
 };
-
-export type User = {
-  firstName: string;
-  lastName: string;
-  initials: string;
+export type UserRequest = {
+  code?: string;
+  message?: string;
+  user?: User;
 };
-
+export type UserReq = {
+  code?: string;
+  message?: string;
+  user?: User;
+};
 export type NewUser = User & UserCredentials;
 
 export type AuthError = {
@@ -21,4 +22,9 @@ export type AuthErrors = {
   domain: string;
   message: string;
   reason: string;
+};
+
+export type User = {
+  nickName: string;
+  password: string;
 };

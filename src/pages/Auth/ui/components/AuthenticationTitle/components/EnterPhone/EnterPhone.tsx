@@ -1,7 +1,6 @@
 import { FC } from 'react';
 
 import { Button, Group, Paper, Title } from '@mantine/core';
-import { TwitterButton } from '@mantine/ds';
 import { useTranslation } from 'react-i18next';
 import { CgSpinner } from 'react-icons/cg';
 import PhoneInput from 'react-phone-input-2';
@@ -18,7 +17,6 @@ interface EnterPhoneProps {
 }
 
 const EnterPhone: FC<EnterPhoneProps> = ({ loading, setPh, ph, onSignup }) => {
-  // Translation
   const { t } = useTranslation();
 
   return (
@@ -40,7 +38,7 @@ const EnterPhone: FC<EnterPhoneProps> = ({ loading, setPh, ph, onSignup }) => {
         <Group />
         <Group grow mb="md" mt="xl">
           <GoogleButton radius="sm">Google</GoogleButton>
-          <TwitterButton>Twitter</TwitterButton>
+          <GoogleButton radius="sm">Twiter</GoogleButton>
         </Group>
       </Paper>
       {loading && <CgSpinner size={20} className="mt-1 animate-spin" />}

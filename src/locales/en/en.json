@@ -10,7 +10,8 @@
     "Auth": "Auth",
     "Contacts": "Contacts",
     "ViewAll": "View all",
-    "ourWorks": "Our Works"
+    "ourWorks": "Our Works",
+    "admin": "Admin"
   },
   "authForm":{
     "SendSMS":"SendSMS",
@@ -18,9 +19,15 @@
     "CreateAccount":"Create account",
     "SendSMSAgain":"56 Send SMS again",
     "Enter":"Enter",
-    "enterNikName":"Enter your nik Name"
+    "enterNikName":"Enter your nik Name",
+    "SignIn":"SignIn",
+    "SignUp":"SignUp",
+    "Submit":"Submit"
   },
   "footer":{
     "AllReserved":"© 2023 mantine.dev. All rights reserved."
+  },
+  "AUTH":{
+    "noAccess":"Sorry, you don't have access rights"
   }
 }

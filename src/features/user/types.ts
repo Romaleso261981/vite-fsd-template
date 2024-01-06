@@ -14,8 +14,13 @@ export type UserCredentials = {
 };
 
 export type User = {
-  firstName: string;
-  phoneNumber: string;
+  email?: string;
+  avatar?: string;
+  balans?: number;
+  rule?: string;
+  nickName?: string;
+  phone?: string;
+  roles?: string[];
 };
 
 export type NewUser = User & UserCredentials;
@@ -26,10 +31,11 @@ export type AuthError = {
 };
 
 export type UserState = {
-  user: null | {} | undefined;
+  user: User | null | undefined;
 };
 export type AuthState = {
-  nickName: string;
+  user: null | User | undefined;
+
   loading: boolean;
   setIsRegistered: boolean;
 };

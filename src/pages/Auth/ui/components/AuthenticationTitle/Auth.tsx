@@ -6,15 +6,12 @@ import { notifications } from '@mantine/notifications';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { toast } from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
-// import { useNavigate } from 'react-router-dom';
 
 import { AppDispatch } from '../../../../../app/store';
 import { logIn } from '../../../../../features/auth/authSlice';
-import { setAppUser } from '../../../../../features/user/userSlice';
+import { auth } from '../../../../../integations/firebase';
 import { extendedWindow } from '../../../../../shared/extendedWindow';
-import { auth } from '../../../../../shared/firebase';
-import Main from '../../../../Main/Main';
-import { NotFound } from '../../../../NoFound/NoFound';
+import NotFound from '../../../../NoFound/NoFound';
 
 import EnterNickName from './components/EnterNickName/EnterNickName';
 import EnterOTP from './components/EnterOTP/EnterOTP';
@@ -24,7 +21,6 @@ enum LoginSteps {
   EnterPhone = 'EnterPhone',
   EnterNickName = 'EnterNickName',
   EnterOTP = 'EnterOTP',
-  main = 'main',
 }
 
 export const AuthenticationTitle = () => {
@@ -33,13 +29,11 @@ export const AuthenticationTitle = () => {
   const [loading, setLoading] = useState(false);
   const [value, setValue] = useState('');
   const [inputLoading, setInputLoading] = useState(false);
-  const [currentStep, setCurrentStep] = useState(LoginSteps.EnterPhone);
-
+  const [currentStep, setCurrentStep] = useState(LoginSteps.EnterNickName);
   const dispach: AppDispatch = useDispatch();
-  // const navigate = useNavigate();
 
   function handleSubmit(value: string) {
-    dispach(logIn({ nickName: value }));
+    dispach(logIn(value));
     setValue('');
     setInputLoading(false);
   }
@@ -99,7 +93,6 @@ export const AuthenticationTitle = () => {
     extendedWindow.confirmationResult
       .confirm(otp)
       .then(async () => {
-        dispach(setAppUser('roma'));
         notifications.show({
           title: 'Вітаю',
           message: `Ви успішно увійшли за номером ${auth.currentUser?.phoneNumber}`,
@@ -131,8 +124,6 @@ export const AuthenticationTitle = () => {
             handleSubmit={handleSubmit}
           />
         );
-      case 'main':
-        return <Main />;
       default:
         return <NotFound />;
     }

@@ -2,7 +2,7 @@ import { Title, Text, Button, Container, Group } from '@mantine/core';
 
 import classes from './NotFoundTitle.module.css';
 
-export const NotFound = () => {
+const NotFound = () => {
   return (
     <Container className={classes.root}>
       <div className={classes.label}>404</div>
@@ -19,3 +19,5 @@ export const NotFound = () => {
     </Container>
   );
 };
+
+export default NotFound;

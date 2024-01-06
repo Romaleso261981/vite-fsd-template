@@ -19,7 +19,6 @@ const EnterNickName: FC<EnterNickNameProps> = ({
   inputLoading,
   handleSubmit,
 }) => {
-  // Translation
   const { t } = useTranslation();
 
   return (

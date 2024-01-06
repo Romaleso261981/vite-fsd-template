@@ -1,0 +1,9 @@
+.rowSelected {
+	background-color: var(--mantine-color-blue-light);
+ }
+
+ .TableHeader{
+	display: flex;
+	flex-direction: row;
+	gap: 20;
+ }

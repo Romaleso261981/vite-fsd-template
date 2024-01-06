@@ -1,26 +1,55 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { RootState } from '../../app/rootReducer';
-
-import { User, UserState } from './types';
+import { getFirestoreData } from '../../shared/helpers/getData';
+import { hookEditUser } from '../../shared/helpers/hookEditUser';
+import { DatabasePaths } from '../../shared/types/enums';
+import { User, UserState } from '../../shared/types/Types';
 
 const initialState: UserState = {
   user: null,
+  usersData: [],
+  users: [],
+  loading: false,
 };
+
+export const getData = createAsyncThunk(
+  'user/getData',
+  async (_, { rejectWithValue }) => {
+    try {
+      return await getFirestoreData<User>(DatabasePaths.USERS, 20);
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
+export const editUser = createAsyncThunk(
+  'user/editUser',
+  async (
+    { id, updatedUser }: { id: string; updatedUser: Partial<User> },
+    { rejectWithValue },
+  ) => {
+    try {
+      await hookEditUser({ id, updatedUser });
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
 
 export const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {
-    setAppUser(state, action: PayloadAction<User | null>) {
-      state.user = action.payload;
-    },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(getData.fulfilled, (state, { payload }) => {
+      state.usersData = payload;
+      state.loading = true;
+    });
   },
-  extraReducers: () => {},
 });
 
-export const useSelectUser = (state: RootState) => state.user.user;
-
-export const { setAppUser } = userSlice.actions;
+export const useSelectData = (state: RootState) => state.user.usersData;
 
 export default userSlice.reducer;

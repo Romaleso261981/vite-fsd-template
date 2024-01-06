@@ -1,53 +1,42 @@
-import { useEffect, useState } from 'react';
+import { FC, useEffect } from 'react';
 
-import { AppShell, Burger } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
+import { AppShell, Box, Text } from '@mantine/core';
+import { useTranslation } from 'react-i18next';
 
-import { getFirestoreData } from '../../shared/helpers/getData';
-import { DatabasePaths } from '../../shared/types/enums';
-import { UserData } from '../../shared/types/Types';
-import { FormAddClient } from '../Dashboard/ui/components/FormAddClient/FormAddClient';
-import { NavbarMinimal } from '../Dashboard/ui/components/Navbar/Navbar';
-import { Search } from '../Dashboard/ui/components/Search/Search';
-import { TableSelection } from '../Dashboard/ui/components/TableSelection/TableSelection';
+import { useAppDispatch, useAppSelector } from '../../app/store';
+import { useSelectUserData } from '../../features/auth/authSlice';
+import { getData, useSelectData } from '../../features/user/userSlice';
 
-const Admin = () => {
-  const [opened, { toggle }] = useDisclosure();
-  const [userData, setUserData] = useState<UserData[]>([]);
-  const getData = async () => {
-    const data = await getFirestoreData<UserData>(DatabasePaths.USERS, 20);
+import { FormAddClient } from './ui/components/FormAddClient/FormAddClient';
+import { Search } from './ui/components/Search/Search';
+import { TableSelection } from './ui/components/TableSelection/TableSelection';
 
-    if (data) {
-      setUserData(data as UserData[]);
-    }
-  };
+const Admin: FC = () => {
+  const dataUsers = useAppSelector(useSelectData);
+  const dispach = useAppDispatch();
+  const userData = useAppSelector(useSelectUserData);
+  const { t } = useTranslation();
 
   useEffect(() => {
-    getData();
-  }, []);
+    dispach(getData());
+  }, [dispach]);
+
+  if (userData?.email !== 'ladiginscormag@gmail.com') {
+    return (
+      <Box ta="center">
+        <Text size="lg" ff="monospace">
+          {t('AUTH.noAccess')}
+        </Text>
+      </Box>
+    );
+  }
 
   return (
-    <AppShell
-      header={{ height: 60 }}
-      navbar={{
-        width: 300,
-        breakpoint: 'sm',
-        collapsed: { mobile: !opened },
-      }}
-      padding="md"
-    >
-      <AppShell.Header>
-        <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
-      </AppShell.Header>
-
-      <AppShell.Navbar p={10} w={80}>
-        <NavbarMinimal />
-      </AppShell.Navbar>
-
-      <AppShell.Main pl={15} ml={100}>
-        <FormAddClient userData={userData} />
+    <AppShell header={{ height: 60 }} padding="md">
+      <AppShell.Main pl={15} pr={40} ml={100}>
+        <FormAddClient userData={dataUsers} />
         <Search />
-        <TableSelection userData={userData} />
+        <TableSelection userData={dataUsers} />
       </AppShell.Main>
     </AppShell>
   );

@@ -22,5 +22,8 @@
   },
   "footer":{
     "AllReserved":"© 2023 mantine.dev. Всі права захищені."
+  },
+  "APP":{
+    "noAccess":"Ви немаєте права доступу"
   }
 }

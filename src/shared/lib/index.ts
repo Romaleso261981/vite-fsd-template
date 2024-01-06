@@ -1,1 +1,0 @@
-export { routesLib } from './routes';

@@ -4,8 +4,7 @@ import { Group, Image, Menu, UnstyledButton } from '@mantine/core';
 import { IconChevronDown } from '@tabler/icons-react';
 import { useTranslation } from 'react-i18next';
 
-import images from '../LanguageSwitcher2/images';
-
+import images from './images';
 import classes from './LanguagePicker.module.css';
 import { LanPickerProps, LanguagePickerProps } from './types';
 

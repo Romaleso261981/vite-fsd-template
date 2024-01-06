@@ -2,16 +2,19 @@ export enum DatabasePaths {
   USERS = 'users',
   ADMIN = 'admin',
 }
+export enum RoutersPaths {
+  MAIN = '/',
+  ADMIN = '/admin',
+  AUTH = '/auth',
+  NOFOUND = '*',
+}
 export enum Direction {
   DESC = 'desc',
   ASC = 'asc',
 }
 export enum UserDataEnum {
   ID = 'id',
-  NAME = 'name',
   RULE = 'rule',
-  NICKNAME = 'nickName',
-  PHONE = 'phone',
   EMAIL = 'email',
-  BALANS = 'balans',
+  NAME = 'name',
 }

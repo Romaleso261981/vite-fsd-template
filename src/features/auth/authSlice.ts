@@ -1,55 +1,59 @@
-import { notifications } from '@mantine/notifications';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { signInWithPopup } from 'firebase/auth';
+import { addDoc, collection } from 'firebase/firestore';
 
 import { RootState } from '../../app/rootReducer';
-import { setFirestoreData } from '../../shared/helpers/addDoc';
+import { auth, db, provider } from '../../integations/firebase';
 import { getFirestoreData } from '../../shared/helpers/getData';
 import { DatabasePaths } from '../../shared/types/enums';
-import { UserData } from '../../shared/types/Types';
-import { AuthState, User } from '../user/types';
+import { AuthState, User } from '../../shared/types/Types';
 
-export const logIn = createAsyncThunk(
-  'auth/signUp',
-  async (nickName: string, { rejectWithValue }) => {
-    try {
-      const data = await getFirestoreData<UserData>(DatabasePaths.USERS, 20);
+export const logOut = createAsyncThunk('auth/logOut', async (_, { rejectWithValue }) => {
+  try {
+    return localStorage.removeItem('user');
+  } catch (error) {
+    return rejectWithValue(error);
+  }
+});
 
-      const isNickNameExists = data.some((obj) => obj.nickName === nickName);
-      const balans = 156478;
+export const logIn = createAsyncThunk('auth/logIn', async (_, { rejectWithValue }) => {
+  try {
+    const result = await signInWithPopup(auth, provider);
 
-      if (!isNickNameExists) {
-        const user: User = {
-          nickName,
-          balans,
-          email: 'example@gmail.com',
-          phone: '0695652588',
-          rule: 'user',
-          avatar:
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRha3ZLzP9ZTL3GBQOJ47Aqt_qxI00So-ciiw&usqp=CAU',
-        };
+    const name = result.user.displayName;
+    const { email } = result.user;
+    const profilePic = result.user.photoURL;
+    const data = await getFirestoreData<User>(DatabasePaths.USERS, 20);
+    const isExistUser = data.some((obj) => obj.email === email);
 
-        setFirestoreData(user, DatabasePaths.USERS);
-        localStorage.setItem('user', JSON.stringify(user));
+    if (isExistUser) {
+      const existedUser = data.find((obj) => obj.email === email);
 
-        return user;
-      }
-      notifications.show({
-        bg: 'cyan',
-        w: '450',
-        h: '80',
-        message: 'You must enter a unique nickName',
-      });
-    } catch (err) {
-      return rejectWithValue(err);
+      return existedUser;
     }
-  },
-);
+
+    const collectionRef = collection(db, DatabasePaths.USERS);
+
+    await addDoc(collectionRef, {
+      profilePic,
+      name,
+      email,
+      rule: 'user',
+    });
+
+    const newdata = await getFirestoreData<User>(DatabasePaths.USERS, 20);
+    const newUser = newdata.find((obj) => obj.email === email);
+
+    return newUser;
+  } catch (error) {
+    return rejectWithValue(error);
+  }
+});
 
 const initialState: AuthState = {
-  user: null,
-
+  userData: null,
   loading: false,
-  setIsRegistered: false,
+  isRegistered: false,
 };
 
 export const authSlice = createSlice({
@@ -61,9 +65,16 @@ export const authSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(logIn.fulfilled, (state, { payload }) => {
-      state.setIsRegistered = payload !== undefined;
+      state.userData = payload!;
+      state.isRegistered = true;
+    });
+    builder.addCase(logOut.pending, (state) => {
+      state.userData = null;
+      state.isRegistered = false;
+    });
+    builder.addCase(logOut.fulfilled, (state) => {
+      state.isRegistered = false;
       state.loading = false;
-      state.user = payload;
     });
     builder.addCase(logIn.rejected, (state) => {
       state.loading = false;
@@ -71,7 +82,9 @@ export const authSlice = createSlice({
   },
 });
 
-export const useSelectUser = (state: RootState) => state.auth.user;
+export const useSelectUserData = (state: RootState) => state.auth.userData;
+export const useSelectIsRegistered = (state: RootState) => state.auth.isRegistered;
+
 export const selectProfile = (state: RootState) => state.auth;
 
 export default authSlice.reducer;

@@ -1,13 +1,26 @@
-export type UserData = {
+export type ResDataUser = {
   id: string;
-  avatar: string;
-  name: string;
-  nickName: string;
-  rule: string;
-  phone: string;
-  email: string;
-  balans: number;
-  rules?: [string];
+  editedUser: User | null;
 };
 
-export type SortedField = keyof UserData;
+export type SortedField = keyof User;
+
+export type User = {
+  id: string;
+  email: string;
+  rule: string;
+  name: string;
+  profilePic: string;
+};
+
+export type UserState = {
+  user: User | null | undefined;
+  usersData: User[];
+  users: User[];
+  loading: boolean;
+};
+export type AuthState = {
+  userData: User | null;
+  loading: boolean;
+  isRegistered: boolean;
+};

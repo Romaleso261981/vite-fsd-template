@@ -1,22 +1,25 @@
 import { notifications } from '@mantine/notifications';
-import { DocumentReference, doc } from 'firebase/firestore';
+import { DocumentReference, doc, getDoc } from 'firebase/firestore';
 
 import { db } from '../../integations/firebase';
 import { DatabasePaths } from '../types/enums';
 
 export const getUserRefById = async (userId: string) => {
   try {
-    try {
-      const docRef: DocumentReference = doc(db, DatabasePaths.USERS, userId);
+    const docRef: DocumentReference = doc(db, DatabasePaths.USERS, userId);
+    const docSnapshot = await getDoc(docRef);
 
-      return docRef;
-    } catch (error) {
-      notifications.show({
-        title: 'error',
-        message: `error ${error}`,
-      });
+    if (docSnapshot.exists()) {
+      const userData = docSnapshot.data();
+
+      return userData;
     }
-  } catch (error) {
+
     return null;
+  } catch (error) {
+    notifications.show({
+      title: 'error',
+      message: `error ${error}`,
+    });
   }
 };

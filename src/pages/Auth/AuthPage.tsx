@@ -9,7 +9,7 @@ import { AppDispatch, useAppSelector } from '../../app/store';
 import { logIn, useSelectUserData } from '../../features/auth/authSlice';
 
 import classes from './AuthPage.module.css';
-import { GithubButton } from './ui/components/GithubButton';
+import { GithubButton } from './ui/components/GithubButton/GithubButton';
 import { GoogleButton } from './ui/components/GoogleButton';
 
 type Props = {};
@@ -30,8 +30,6 @@ const AuthPage: FC<Props> = () => {
     dispach(logIn());
   };
 
-  const githubAuth = () => {};
-
   return (
     <Box className={classes.nickNameWrapper} maw={450} mx="auto">
       <Title ta="center" className={classes.title}>
@@ -42,9 +40,7 @@ const AuthPage: FC<Props> = () => {
           <GoogleButton radius="sm" onClick={googleAuth}>
             Google
           </GoogleButton>
-          <GithubButton radius="sm" onClick={githubAuth}>
-            Github
-          </GithubButton>
+          <GithubButton radius="sm">Github</GithubButton>
         </Group>
       </Paper>
     </Box>

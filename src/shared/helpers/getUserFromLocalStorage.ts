@@ -1,6 +1,6 @@
 import { User } from '../../features/user/types';
 
-export function getUser() {
+export function getUserFromLocalStorage() {
   try {
     const userString = localStorage.getItem('user');
 

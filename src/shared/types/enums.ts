@@ -5,6 +5,7 @@ export enum DatabasePaths {
 export enum RoutersPaths {
   MAIN = '/',
   ADMIN = '/admin',
+  USER = '/admin/:id',
   AUTH = '/auth',
   NOFOUND = '*',
 }

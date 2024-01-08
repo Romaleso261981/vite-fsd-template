@@ -7,10 +7,17 @@
 	flex-direction: row;
 	gap: 20;
  }
- .inputAvatar{
-	background-color: #c61c1c;
+ .inputName{
+	margin-top: 20px;
+	width: 230px;
+ }
+ .avatarName{
+	margin-top: 13px;
  }
 
  .item{
 	cursor: pointer;
+ }
+ .mantine-Autocomplete-input{
+	background-color: #c11111;
  }

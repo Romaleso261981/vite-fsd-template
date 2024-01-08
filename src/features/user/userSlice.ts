@@ -27,11 +27,13 @@ export const getData = createAsyncThunk(
 export const editUser = createAsyncThunk(
   'user/editUser',
   async (
-    { id, updatedUser }: { id: string; updatedUser: Partial<User> },
+    { id, updatedUser }: { id: string | undefined; updatedUser: Partial<User> },
     { rejectWithValue },
   ) => {
     try {
-      await hookEditUser({ id, updatedUser });
+      if (id) {
+        await hookEditUser({ id, updatedUser });
+      }
     } catch (error) {
       return rejectWithValue(error);
     }

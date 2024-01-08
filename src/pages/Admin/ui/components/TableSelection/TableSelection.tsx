@@ -9,8 +9,9 @@ import {
   rem,
   Autocomplete,
 } from '@mantine/core';
-import { IconPencil, IconFileCheck } from '@tabler/icons-react';
+import { IconFileCheck, IconDetails } from '@tabler/icons-react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import { AppDispatch } from '../../../../../app/store';
 import { editUser } from '../../../../../features/user/userSlice';
@@ -31,6 +32,8 @@ export const TableSelection: FC<Props> = ({ userData = [] }) => {
   );
   const [editing, setEditing] = useState<string | null>();
   const [users, setUsers] = useState<User[]>(userData);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (userData !== null) {
@@ -67,6 +70,9 @@ export const TableSelection: FC<Props> = ({ userData = [] }) => {
   const handleEdit = (id: any) => {
     setEditing(id);
   };
+  const handleEditUser = (id: any) => {
+    navigate(`/admin/${id}`);
+  };
 
   const handleChange = (id: string, updatedUser: User) => {
     setUsers((prevUsers) =>
@@ -93,7 +99,7 @@ export const TableSelection: FC<Props> = ({ userData = [] }) => {
 
     return (
       <ActionIcon variant="subtle" color="gray">
-        <IconPencil
+        <IconDetails
           onClick={() => handleEdit(id)}
           style={{ width: rem(16), height: rem(16) }}
           stroke={1.5}
@@ -105,7 +111,13 @@ export const TableSelection: FC<Props> = ({ userData = [] }) => {
   const sortedData = sortData(users, sortedField, sortDirection);
   const rows = sortedData.map((item: User) => {
     return (
-      <Table.Tr key={item.id} className={styles.item}>
+      <Table.Tr
+        key={item.id}
+        className={styles.item}
+        onClick={() => {
+          handleEditUser(item.id);
+        }}
+      >
         {editing === item.id ? (
           <Table.Td>
             <Group gap="sm">

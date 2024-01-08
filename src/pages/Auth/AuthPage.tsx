@@ -30,8 +30,6 @@ const AuthPage: FC<Props> = () => {
     dispach(logIn());
   };
 
-  const githubAuth = () => {};
-
   return (
     <Box className={classes.nickNameWrapper} maw={450} mx="auto">
       <Title ta="center" className={classes.title}>
@@ -42,9 +40,7 @@ const AuthPage: FC<Props> = () => {
           <GoogleButton radius="sm" onClick={googleAuth}>
             Google
           </GoogleButton>
-          <GithubButton radius="sm" onClick={githubAuth}>
-            Github
-          </GithubButton>
+          <GithubButton radius="sm">Github</GithubButton>
         </Group>
       </Paper>
     </Box>

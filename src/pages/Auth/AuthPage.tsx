@@ -9,7 +9,7 @@ import { AppDispatch, useAppSelector } from '../../app/store';
 import { logIn, useSelectUserData } from '../../features/auth/authSlice';
 
 import classes from './AuthPage.module.css';
-import { GithubButton } from './ui/components/GithubButton';
+import { GithubButton } from './ui/components/GithubButton/GithubButton';
 import { GoogleButton } from './ui/components/GoogleButton';
 
 type Props = {};

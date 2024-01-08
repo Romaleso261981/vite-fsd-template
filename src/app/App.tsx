@@ -13,6 +13,7 @@ import { useAppSelector } from './store';
 const Main = lazy(() => import('../pages/Main/Main'));
 const NotFound = lazy(() => import('../pages/NoFound/NoFound'));
 const Admin = lazy(() => import('../pages/Admin/Admin'));
+const Userdetails = lazy(() => import('../pages/Userdetails/Userdetails'));
 const NoAccess = lazy(() => import('../features/components/NoAccess/NoAccess'));
 
 const App: React.FC = () => {
@@ -40,8 +41,9 @@ const App: React.FC = () => {
           <Route index element={<Main />} />
           <Route path={RoutersPaths.AUTH} element={<AuthPage />} />
           <Route path={RoutersPaths.ADMIN} element={isAllow ? <Admin /> : <NoAccess />} />
+          <Route path={RoutersPaths.USER} element={<Userdetails />} />
         </Route>
-        <Route path={RoutersPaths.NOFOUND} element={<NotFound />} />
+        <Route path={RoutersPaths.USER} element={<NotFound />} />
       </Routes>
     </Suspense>
   );

@@ -13,6 +13,11 @@ const initialState: UserState = {
   loading: false,
 };
 
+interface UserCredentials {
+  id: string;
+  updatedUser: Partial<User>;
+}
+
 export const getData = createAsyncThunk(
   'user/getData',
   async (_, { rejectWithValue }) => {
@@ -26,10 +31,7 @@ export const getData = createAsyncThunk(
 
 export const editUser = createAsyncThunk(
   'user/editUser',
-  async (
-    { id, updatedUser }: { id: string | undefined; updatedUser: Partial<User> },
-    { rejectWithValue },
-  ) => {
+  async ({ id, updatedUser }: UserCredentials, { rejectWithValue }) => {
     try {
       if (id) {
         await hookEditUser({ id, updatedUser });

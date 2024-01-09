@@ -5,7 +5,7 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useSelectUserData } from '../features/auth/authSlice';
 import { Spiner } from '../features/components/Loader';
 import RootLayout from '../features/components/RootLayout/RootLayout';
-import AuthPage from '../pages/Auth/AuthPage';
+import { isAdmin } from '../shared/helpers/isAdmin';
 import { RoutersPaths } from '../shared/types/enums';
 
 import { useAppSelector } from './store';
@@ -13,6 +13,7 @@ import { useAppSelector } from './store';
 const Main = lazy(() => import('../pages/Main/Main'));
 const NotFound = lazy(() => import('../pages/NoFound/NoFound'));
 const Admin = lazy(() => import('../pages/Admin/Admin'));
+const AuthPage = lazy(() => import('../pages/Auth/AuthPage'));
 const Userdetails = lazy(() => import('../pages/Userdetails/Userdetails'));
 const NoAccess = lazy(() => import('../features/components/NoAccess/NoAccess'));
 
@@ -23,7 +24,7 @@ const App: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (userData?.rule === 'admin') {
+    if (isAdmin(userData)) {
       setIsAllow(true);
     }
   }, [userData]);

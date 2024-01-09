@@ -19,3 +19,8 @@ export enum UserDataEnum {
   EMAIL = 'email',
   NAME = 'name',
 }
+export enum LocalStorageDataEnum {
+  USER = 'user',
+  ISAUTH = 'isAuth',
+  EN = 'en',
+}

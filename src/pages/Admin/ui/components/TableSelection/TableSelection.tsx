@@ -67,10 +67,10 @@ export const TableSelection: FC<Props> = ({ userData = [] }) => {
     });
   };
 
-  const handleEdit = (id: any) => {
+  const handleEdit = (id: string) => {
     setEditing(id);
   };
-  const handleEditUser = (id: any) => {
+  const userDetails = (id: string) => {
     navigate(`/admin/${id}`);
   };
 
@@ -115,7 +115,7 @@ export const TableSelection: FC<Props> = ({ userData = [] }) => {
         key={item.id}
         className={styles.item}
         onClick={() => {
-          handleEditUser(item.id);
+          userDetails(item.id);
         }}
       >
         {editing === item.id ? (

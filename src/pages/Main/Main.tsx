@@ -14,8 +14,6 @@ const Main = () => {
         <FeaturesCard />
         <FeaturesCard />
         <FeaturesCard />
-        <FeaturesCard />
-        <FeaturesCard />
       </div>
     </section>
   );

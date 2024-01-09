@@ -15,40 +15,53 @@ export const logOut = createAsyncThunk('auth/logOut', async (_, { rejectWithValu
     return rejectWithValue(error);
   }
 });
+export const googleLogIn = createAsyncThunk(
+  'auth/googleLogIn',
+  async (_, { rejectWithValue }) => {
+    try {
+      const result = await signInWithPopup(auth, provider);
 
-export const logIn = createAsyncThunk('auth/logIn', async (_, { rejectWithValue }) => {
-  try {
-    const result = await signInWithPopup(auth, provider);
+      const name = result.user.displayName;
+      const { email } = result.user;
+      const profilePic = result.user.photoURL;
+      const data = await getFirestoreData<User>(DatabasePaths.USERS, 20);
+      const isExistUser = data.some((obj) => obj.email === email);
 
-    const name = result.user.displayName;
-    const { email } = result.user;
-    const profilePic = result.user.photoURL;
-    const data = await getFirestoreData<User>(DatabasePaths.USERS, 20);
-    const isExistUser = data.some((obj) => obj.email === email);
+      if (isExistUser) {
+        const existedUser = data.find((obj) => obj.email === email);
 
-    if (isExistUser) {
-      const existedUser = data.find((obj) => obj.email === email);
+        return existedUser;
+      }
 
-      return existedUser;
+      const collectionRef = collection(db, DatabasePaths.USERS);
+
+      await addDoc(collectionRef, {
+        profilePic,
+        name,
+        email,
+        rule: 'user',
+      });
+
+      const newdata = await getFirestoreData<User>(DatabasePaths.USERS, 20);
+      const newUser = newdata.find((obj) => obj.email === email);
+
+      return newUser;
+    } catch (error) {
+      return rejectWithValue(error);
     }
-
-    const collectionRef = collection(db, DatabasePaths.USERS);
-
-    await addDoc(collectionRef, {
-      profilePic,
-      name,
-      email,
-      rule: 'user',
-    });
-
-    const newdata = await getFirestoreData<User>(DatabasePaths.USERS, 20);
-    const newUser = newdata.find((obj) => obj.email === email);
-
-    return newUser;
-  } catch (error) {
-    return rejectWithValue(error);
-  }
-});
+  },
+);
+export const githubLogIn = createAsyncThunk(
+  'auth/githubLogIn',
+  async (_, { rejectWithValue }) => {
+    try {
+      localStorage.setItem('code', 'isAuth');
+      window.location.href = '/';
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
 
 const initialState: AuthState = {
   userData: null,
@@ -61,11 +74,14 @@ export const authSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(logIn.pending, (state) => {
+    builder.addCase(googleLogIn.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(logIn.fulfilled, (state, { payload }) => {
+    builder.addCase(googleLogIn.fulfilled, (state, { payload }) => {
       state.userData = payload!;
+      state.isRegistered = true;
+    });
+    builder.addCase(githubLogIn.fulfilled, (state) => {
       state.isRegistered = true;
     });
     builder.addCase(logOut.pending, (state) => {
@@ -76,7 +92,7 @@ export const authSlice = createSlice({
       state.isRegistered = false;
       state.loading = false;
     });
-    builder.addCase(logIn.rejected, (state) => {
+    builder.addCase(googleLogIn.rejected, (state) => {
       state.loading = false;
     });
   },

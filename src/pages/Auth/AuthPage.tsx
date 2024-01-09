@@ -2,11 +2,10 @@ import { FC, useEffect } from 'react';
 
 import { Box, Group, Paper, Title } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { AppDispatch, useAppSelector } from '../../app/store';
-import { logIn, useSelectUserData } from '../../features/auth/authSlice';
+import { useAppDispatch, useAppSelector } from '../../app/store';
+import { googleLogIn, useSelectUserData } from '../../features/auth/authSlice';
 
 import classes from './AuthPage.module.css';
 import { GithubButton } from './ui/components/GithubButton/GithubButton';
@@ -16,7 +15,7 @@ type Props = {};
 
 const AuthPage: FC<Props> = () => {
   const navigate = useNavigate();
-  const dispach: AppDispatch = useDispatch();
+  const dispach = useAppDispatch();
   const userData = useAppSelector(useSelectUserData);
   const { t } = useTranslation();
 
@@ -27,7 +26,7 @@ const AuthPage: FC<Props> = () => {
   }, [navigate, userData]);
 
   const googleAuth = () => {
-    dispach(logIn());
+    dispach(googleLogIn());
   };
 
   return (

@@ -4,7 +4,8 @@ import { RootState } from '../../app/rootReducer';
 import { getFirestoreData } from '../../shared/helpers/getData';
 import { hookEditUser } from '../../shared/helpers/hookEditUser';
 import { DatabasePaths } from '../../shared/types/enums';
-import { User, UserState } from '../../shared/types/Types';
+
+import { User, UserState } from '@/shared/types/Types';
 
 const initialState: UserState = {
   user: null,
@@ -14,7 +15,7 @@ const initialState: UserState = {
 };
 
 interface UserCredentials {
-  id: string;
+  id: string | undefined;
   updatedUser: Partial<User>;
 }
 

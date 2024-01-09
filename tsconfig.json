@@ -20,7 +20,13 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
+
+    /* Paths (aliases) */
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["*"]
+    }
   },
-  "include": ["src","src/app/App.tsx", "vite.config.ts", "global.d.ts"],
+  "include": ["src", "src/app/App.tsx", "vite.config.ts", "global.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

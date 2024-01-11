@@ -1,33 +1,22 @@
 import { useEffect, useState } from 'react';
 
-import {
-  ActionIcon,
-  Autocomplete,
-  Button,
-  Container,
-  Group,
-  Table,
-  rem,
-} from '@mantine/core';
-import { IconFileCheck, IconEdit } from '@tabler/icons-react';
+import { Button, Container, Group, TextInput } from '@mantine/core';
+import { useForm } from '@mantine/form';
+import { notifications } from '@mantine/notifications';
 import { useNavigate, useParams } from 'react-router-dom';
-
-import { useAppDispatch } from '../../app/store';
-import { editUser } from '../../features/user/userSlice';
-import { getUserRefById } from '../../shared/helpers/getUserById';
-import { User } from '../../shared/types/Types';
 
 import styles from './Userdetails.module.css';
 
+import { useAppDispatch } from '@/app/store';
+import { editUser } from '@/features/user/userSlice';
+import { getUserRefById } from '@/shared/helpers/getUserById';
+import { User } from '@/shared/types/Types';
+
 const Userdetails = () => {
-  const [user, setUser] = useState<User>();
-  const [editing, setEditing] = useState<boolean>(false);
+  const [user, setUser] = useState<Partial<User> | null>(null);
   const { id } = useParams();
   const navigate = useNavigate();
   const dispach = useAppDispatch();
-  const goBack = () => {
-    navigate('/admin');
-  };
 
   const getUser = async (id: string) => {
     if (id) {
@@ -43,115 +32,85 @@ const Userdetails = () => {
     getUser(id!);
   }, [id]);
 
-  const handleChange = (updatedUser: User) => {
-    setUser((prevUser) => ({ ...prevUser, ...updatedUser }));
-  };
+  const form = useForm({
+    initialValues: {
+      email: '',
+      rule: '',
+      name: '',
+      termsOfService: false,
+    },
 
-  const handleEdit = () => {
-    setEditing(true);
-  };
+    validate: {
+      email: (value) => (/^\S+@\S+$/.test(value!) ? null : 'Invalid email'),
+    },
+  });
 
-  const handleSave = (updatedUser: User) => {
-    dispach(editUser({ id, updatedUser }));
-    setEditing(false);
-  };
-
-  const getActionButton = (user: User) => {
-    if (editing) {
-      return (
-        <ActionIcon variant="subtle" color="gray">
-          <IconFileCheck
-            onClick={() => handleSave(user)}
-            style={{ width: rem(16), height: rem(16) }}
-            stroke={1.5}
-          />
-        </ActionIcon>
-      );
+  useEffect(() => {
+    if (user) {
+      form.setValues({
+        name: user.name,
+        email: user.email,
+        rule: user.rule,
+      });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
-    return (
-      <ActionIcon variant="subtle" color="gray">
-        <IconEdit
-          onClick={() => handleEdit()}
-          style={{ width: rem(16), height: rem(16) }}
-          stroke={1.5}
-        />
-      </ActionIcon>
-    );
+  const handleSave = () => {
+    const updatedUser: Partial<User> = {
+      ...form.values,
+    };
+
+    setUser(updatedUser);
+    if (id) {
+      dispach(editUser({ id, user: updatedUser }));
+      notifications.show({
+        title: 'success',
+        message: 'Ви успішно змінили данні',
+      });
+    }
   };
 
   return (
     <Container>
-      <Button
-        variant="gradient"
-        mb={50}
-        onClick={goBack}
-        gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
-      >
-        Go Admin
-      </Button>
-      <Table.ScrollContainer minWidth={800}>
-        <Table verticalSpacing="sm">
-          <Table.Thead>
-            <Table.Tr>
-              <Table.Th>User</Table.Th>
-              <Table.Th>Email</Table.Th>
-              <Table.Th>Rule</Table.Th>
-              <Table.Th />
-            </Table.Tr>
-          </Table.Thead>
-          <Table.Tbody>
-            <Table.Tr key={user?.id}>
-              {editing ? (
-                <Table.Td>
-                  <Autocomplete
-                    type="text"
-                    value={user?.name}
-                    onChange={(value) => handleChange({ name: value } as User)}
-                  />
-                </Table.Td>
-              ) : (
-                <Table.Td>
-                  <Autocomplete value={user?.name} />
-                </Table.Td>
-              )}
-              {editing ? (
-                <Table.Td>
-                  <Autocomplete
-                    type="text"
-                    value={user?.email}
-                    className={styles.Input}
-                    onChange={(value) => handleChange({ email: value } as User)}
-                  />
-                </Table.Td>
-              ) : (
-                <Table.Td>
-                  <Autocomplete value={user?.email} />
-                </Table.Td>
-              )}
-              {editing ? (
-                <Table.Td>
-                  <Autocomplete
-                    type="text"
-                    value={user?.rule}
-                    className={styles.Input}
-                    onChange={(value) => handleChange({ rule: value } as User)}
-                  />
-                </Table.Td>
-              ) : (
-                <Table.Td>
-                  <Autocomplete value={user?.rule} />
-                </Table.Td>
-              )}
-              <Table.Td>
-                <Group gap={0} justify="flex-end">
-                  {getActionButton(user!)}
-                </Group>
-              </Table.Td>
-            </Table.Tr>
-          </Table.Tbody>
-        </Table>
-      </Table.ScrollContainer>
+      <form className={styles.formWrapper}>
+        <TextInput
+          className={styles.input}
+          label="Name"
+          placeholder="your@email.com"
+          {...form.getInputProps('name')}
+        />
+        <TextInput
+          className={styles.input}
+          label="Email"
+          placeholder="your@email.com"
+          {...form.getInputProps('email')}
+        />
+        <TextInput
+          className={styles.input}
+          label="Rule"
+          placeholder="your@email.com"
+          {...form.getInputProps('rule')}
+        />
+        <Group gap="xl" grow>
+          <Button
+            fullWidth
+            variant="gradient"
+            onClick={handleSave}
+            gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
+          >
+            Save
+          </Button>
+          <Button
+            fullWidth
+            variant="gradient"
+            onClick={() => navigate('/admin')}
+            gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
+          >
+            Go Back
+          </Button>
+        </Group>
+      </form>
     </Container>
   );
 };

@@ -13,6 +13,11 @@ const initialState: UserState = {
   loading: false,
 };
 
+interface UserCredentials {
+  id: string;
+  user: Partial<User>;
+}
+
 export const getData = createAsyncThunk(
   'user/getData',
   async (_, { rejectWithValue }) => {
@@ -26,13 +31,10 @@ export const getData = createAsyncThunk(
 
 export const editUser = createAsyncThunk(
   'user/editUser',
-  async (
-    { id, updatedUser }: { id: string | undefined; updatedUser: Partial<User> },
-    { rejectWithValue },
-  ) => {
+  async ({ id, user }: UserCredentials, { rejectWithValue }) => {
     try {
       if (id) {
-        await hookEditUser({ id, updatedUser });
+        await hookEditUser({ id, user });
       }
     } catch (error) {
       return rejectWithValue(error);
@@ -45,13 +47,17 @@ export const userSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    builder.addCase(getData.pending, (state) => {
+      state.loading = true;
+    });
     builder.addCase(getData.fulfilled, (state, { payload }) => {
       state.usersData = payload;
-      state.loading = true;
+      state.loading = false;
     });
   },
 });
 
 export const useSelectData = (state: RootState) => state.user.usersData;
+export const useSelectLoading = (state: RootState) => state.user.loading;
 
 export default userSlice.reducer;

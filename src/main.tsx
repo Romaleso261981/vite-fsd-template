@@ -20,8 +20,8 @@ const theme = createTheme({
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <Provider store={store}>
     <MantineProvider theme={theme}>
-      <Notifications position="top-center" containerWidth={400} />
       <ModalsProvider>
+        <Notifications position="top-center" containerWidth={400} />
         <BrowserRouter>
           <App />
         </BrowserRouter>

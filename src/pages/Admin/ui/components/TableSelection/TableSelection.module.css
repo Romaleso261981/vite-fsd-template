@@ -1,13 +1,43 @@
-.rowSelected {
-	background-color: var(--mantine-color-blue-light);
- }
+.item {
+  cursor: pointer;
+}
 
- .TableHeader{
-	display: flex;
-	flex-direction: row;
-	gap: 20;
- }
+.formWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  cursor: pointer;
+}
+.input {
+  margin-bottom: 20px;
+  width: 100%;
+  margin-right: 30px;
+  cursor: pointer;
+}
+.mantine-TextInput-input{
+	border: none;
+	border-radius: 50%;
+}
+.inputNumber {
+  margin-bottom: 20px;
+  width: 40px;
+}
+.inputRule {
+  width: 5vw;
+}
+.inputMail {
+  width: 20vw;
+}
+.inputName {
+  width: 20vw;
+}
 
- .item{
-	cursor: pointer;
- }
+.titleNickName{
+  margin-left: 9vw;
+}
+.titleEmail{
+  margin-left: 21vw;
+}
+.titleRule{
+  margin-left: 23vw;
+}

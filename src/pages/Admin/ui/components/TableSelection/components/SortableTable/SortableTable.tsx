@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { FC, useState } from 'react';
 
 import { Avatar, Group, LoadingOverlay, Table, Text } from '@mantine/core';
 
@@ -8,7 +8,7 @@ interface TableProps {
   data: any[]; // Ваші дані для відображення в таблиці
 }
 
-export const SortableTable: React.FC<TableProps> = ({ data }) => {
+export const SortableTable: FC<TableProps> = ({ data }) => {
   const [sortedField, setSortedField] = useState<string>('');
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
 

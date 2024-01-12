@@ -13,20 +13,24 @@ import { db } from '../../integations/firebase';
 
 export const getFirestoreData = async <T>(
   path: string,
-  queryLimit: number,
+  queryLimit?: number,
   filterField?: string,
   filterValue?: any,
   orderByField?: string,
   orderDirection?: 'asc' | 'desc',
 ): Promise<T[]> => {
   const collectionRef = collection(db, path);
-  let q = query(collectionRef, limit(queryLimit));
+  let q = query(collectionRef);
 
-  if (filterField && filterValue) {
+  if (queryLimit) {
+    q = query(collectionRef, limit(queryLimit));
+  }
+
+  if (filterField && filterValue && queryLimit) {
     q = query(collectionRef, where(filterField, '==', filterValue), limit(queryLimit));
   }
 
-  if (orderByField) {
+  if (orderByField && queryLimit) {
     q = query(
       collectionRef,
       orderBy(orderByField, orderDirection || 'asc'),
@@ -43,6 +47,7 @@ export const getFirestoreData = async <T>(
 
   return data;
 };
+
 export const getFirestoreRef = async (
   path: string,
   queryLimit: number,

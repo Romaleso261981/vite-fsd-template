@@ -2,20 +2,19 @@ import { useEffect, useState } from 'react';
 
 import { Button, Container, Group, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { notifications } from '@mantine/notifications';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import styles from './Userdetails.module.css';
 
 import { useAppDispatch } from '@/app/store';
 import { editUser } from '@/features/user/userSlice';
 import { getUserRefById } from '@/shared/helpers/getUserById';
+import { hadleError } from '@/shared/helpers/hadleError';
 import { User } from '@/shared/types/Types';
 
 const Userdetails = () => {
   const [user, setUser] = useState<Partial<User> | null>(null);
   const { id } = useParams();
-  const navigate = useNavigate();
   const dispach = useAppDispatch();
 
   const getUser = async (id: string) => {
@@ -64,7 +63,7 @@ const Userdetails = () => {
     setUser(updatedUser);
     if (id) {
       dispach(editUser({ id, user: updatedUser }));
-      notifications.show({
+      hadleError({
         title: 'success',
         message: 'Ви успішно змінили данні',
       });
@@ -73,42 +72,32 @@ const Userdetails = () => {
 
   return (
     <Container>
-      <form className={styles.formWrapper}>
+      <form className={styles.formWrapper} onSubmit={handleSave}>
         <TextInput
           className={styles.input}
           label="Name"
-          placeholder="your@email.com"
           {...form.getInputProps('name')}
         />
         <TextInput
           className={styles.input}
           label="Email"
-          placeholder="your@email.com"
           {...form.getInputProps('email')}
         />
         <TextInput
           className={styles.input}
           label="Rule"
-          placeholder="your@email.com"
           {...form.getInputProps('rule')}
         />
         <Group gap="xl" grow>
           <Button
-            fullWidth
+            type="submit"
             variant="gradient"
-            onClick={handleSave}
+            miw={100}
             gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
           >
             Save
           </Button>
-          <Button
-            fullWidth
-            variant="gradient"
-            onClick={() => navigate('/admin')}
-            gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
-          >
-            Go Back
-          </Button>
+          <Link to="/admin">Go Back</Link>
         </Group>
       </form>
     </Container>

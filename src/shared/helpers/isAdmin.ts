@@ -1,6 +1,9 @@
-import { User } from '../types/Types';
+import { useAppSelector } from '@/app/store';
+import { useSelectUserData } from '@/features/auth/authSlice';
 
-export const isAdmin = (data: User | null) => {
+export const useAdminCheck = () => {
+  const data = useAppSelector(useSelectUserData);
+
   if (data) {
     return data?.rule === 'admin';
   }

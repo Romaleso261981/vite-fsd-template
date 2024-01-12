@@ -1,35 +1,27 @@
 import { Button, ButtonProps } from '@mantine/core';
 import { GithubIcon } from '@mantinex/dev-icons';
 
-import { useAppDispatch } from '../../../../../app/store';
-import { githubLogIn } from '../../../../../features/auth/authSlice';
+// import { useAppDispatch } from '../../../../../app/store';
+// import { githubLogIn } from '../../../../../features/auth/authSlice';
 
 import classes from './GithubButton.module.css';
 
-export const GithubButton = (
-  props: ButtonProps & React.ComponentPropsWithoutRef<'button'>,
-) => {
-  const dispach = useAppDispatch();
-  // const clientId = import.meta.env.VITE_clientId;
-  // const githubAuthBaseUrl = import.meta.env.VITE_githubAuthBaseUrl;
+export const GithubButton = (props: ButtonProps) => {
+  // const dispatch = useAppDispatch();
 
-  // const scope = 'user';
-  // const githubAuthUrl = `${githubAuthBaseUrl}?client_id=${clientId}&scope=${scope}`;
+  const githubAuth = () => {
+    const { VITE_REDIRECT_URI, VITE_GITHUB_AUTH_BASE_URI, VITE_GITHUB_CLIENT_ID } =
+      import.meta.env;
 
-  async function redirectToGitHubAuth() {
-    // window.location.href = githubAuthUrl;
-    // const urlParams = new URLSearchParams(window.location.search);
-    // const code = urlParams.get('code');
-
-    // if (!code) {
-    //   dispach(githubLogIn());
-    // }
-    dispach(githubLogIn());
-  }
+    window.location.assign(
+      `${VITE_GITHUB_AUTH_BASE_URI}?client_id=${VITE_GITHUB_CLIENT_ID}&redirect_uri=${VITE_REDIRECT_URI}&scope=user`,
+    );
+    // dispatch(githubLogIn());
+  };
 
   return (
     <Button
-      onClick={() => redirectToGitHubAuth()}
+      onClick={githubAuth}
       {...props}
       leftSection={<GithubIcon style={{ width: '1rem', height: '1rem' }} />}
       className={classes.githubButton}

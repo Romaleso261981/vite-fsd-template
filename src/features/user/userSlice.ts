@@ -22,7 +22,7 @@ export const getData = createAsyncThunk(
   'user/getData',
   async (_, { rejectWithValue }) => {
     try {
-      return await getFirestoreData<User>(DatabasePaths.USERS, 20);
+      return await getFirestoreData<User>(DatabasePaths.USERS);
     } catch (error) {
       return rejectWithValue(error);
     }

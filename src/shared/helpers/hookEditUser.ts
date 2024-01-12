@@ -1,8 +1,9 @@
-import { notifications } from '@mantine/notifications';
 import { doc, updateDoc } from 'firebase/firestore';
 
 import { db } from '../../integations/firebase';
 import { User } from '../types/Types';
+
+import { hadleError } from './hadleError';
 
 export const hookEditUser = async ({ id, user }: { id: string; user: Partial<User> }) => {
   try {
@@ -14,8 +15,8 @@ export const hookEditUser = async ({ id, user }: { id: string; user: Partial<Use
 
     await updateDoc(docRef, user);
   } catch (error) {
-    return notifications.show({
-      message: `${error}`,
+    return hadleError({
+      message: `error ${error}`,
     });
   }
 };

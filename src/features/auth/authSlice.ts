@@ -2,19 +2,25 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { signInWithPopup } from 'firebase/auth';
 import { addDoc, collection } from 'firebase/firestore';
 
-import { RootState } from '../../app/rootReducer';
-import { auth, db, provider } from '../../integations/firebase';
-import { getFirestoreData } from '../../shared/helpers/getData';
-import { DatabasePaths } from '../../shared/types/enums';
-import { AuthState, User } from '../../shared/types/Types';
+import { RootState } from '@/app/rootReducer';
+import { auth, db, provider } from '@/integations/firebase';
+import { getFirestoreData } from '@/shared/helpers/getData';
+import {
+  getLocalStorage,
+  removeLocalStorage,
+  setLocalStorage,
+} from '@/shared/helpers/useLocalStorage';
+import { DatabasePaths } from '@/shared/types/enums';
+import { AuthState, User } from '@/shared/types/Types';
 
 export const logOut = createAsyncThunk('auth/logOut', async (_, { rejectWithValue }) => {
   try {
-    return localStorage.removeItem('user');
+    removeLocalStorage('user');
   } catch (error) {
     return rejectWithValue(error);
   }
 });
+
 export const googleLogIn = createAsyncThunk(
   'auth/googleLogIn',
   async (_, { rejectWithValue }) => {
@@ -24,13 +30,13 @@ export const googleLogIn = createAsyncThunk(
       const name = result.user.displayName;
       const { email } = result.user;
       const profilePic = result.user.photoURL;
-      const data = await getFirestoreData<User>(DatabasePaths.USERS, 20);
+      const data = await getFirestoreData<User>(DatabasePaths.USERS);
       const isExistUser = data.some((obj) => obj.email === email);
 
       if (isExistUser) {
         const existedUser = data.find((obj) => obj.email === email);
 
-        localStorage.setItem('user', JSON.stringify(existedUser));
+        setLocalStorage('user', JSON.stringify(existedUser));
 
         return existedUser;
       }
@@ -47,7 +53,7 @@ export const googleLogIn = createAsyncThunk(
       const newdata = await getFirestoreData<User>(DatabasePaths.USERS, 20);
       const newUser = newdata.find((obj) => obj.email === email);
 
-      localStorage.setItem('user', JSON.stringify(newUser));
+      setLocalStorage('user', JSON.stringify(newUser));
 
       return newUser;
     } catch (error) {
@@ -55,22 +61,32 @@ export const googleLogIn = createAsyncThunk(
     }
   },
 );
+
 export const githubLogIn = createAsyncThunk(
   'auth/githubLogIn',
   async (_, { rejectWithValue }) => {
     try {
-      localStorage.setItem('code', 'isAuth');
-      window.location.href = '/';
+      const response = {
+        id: '',
+        email: '',
+        rule: '',
+        name: '',
+        profilePic: '',
+      } as User;
+
+      return response;
     } catch (error) {
       return rejectWithValue(error);
     }
   },
 );
+
 export const currentUser = createAsyncThunk(
   'user/currentUser',
   async (_, { rejectWithValue }) => {
     try {
-      const localStorageUser = localStorage.getItem('user');
+      const localStorageUser = getLocalStorage('user');
+
       let user = null;
 
       if (localStorageUser) {
@@ -99,15 +115,16 @@ export const authSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(googleLogIn.fulfilled, (state, { payload }) => {
-      state.userData = payload!;
+      state.userData = payload ?? null;
       state.isRegistered = true;
     });
     builder.addCase(currentUser.fulfilled, (state, { payload }) => {
-      state.userData = payload!;
+      state.userData = payload ?? null;
       state.isRegistered = true;
     });
-    builder.addCase(githubLogIn.fulfilled, (state) => {
+    builder.addCase(githubLogIn.fulfilled, (state, { payload }) => {
       state.isRegistered = true;
+      state.userData = payload ?? null;
     });
     builder.addCase(logOut.pending, (state) => {
       state.userData = null;

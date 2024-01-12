@@ -1,8 +1,8 @@
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 
 import { Box, Group, Paper, Title } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../app/store';
 import { googleLogIn, useSelectUserData } from '../../features/auth/authSlice';
@@ -14,16 +14,13 @@ import { GoogleButton } from './ui/components/GoogleButton';
 type Props = {};
 
 const AuthPage: FC<Props> = () => {
-  const navigate = useNavigate();
   const dispach = useAppDispatch();
   const userData = useAppSelector(useSelectUserData);
   const { t } = useTranslation();
 
-  useEffect(() => {
-    if (userData !== null) {
-      navigate('/');
-    }
-  }, [navigate, userData]);
+  if (userData !== null) {
+    return <Navigate to="/" />;
+  }
 
   const googleAuth = () => {
     dispach(googleLogIn());

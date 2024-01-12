@@ -1,24 +1,20 @@
-import { notifications } from '@mantine/notifications';
-import { DocumentReference, doc, getDoc } from 'firebase/firestore';
-
-import { db } from '../../integations/firebase';
 import { DatabasePaths } from '../types/enums';
+import { User } from '../types/Types';
+
+import { getFirestoreData } from './getData';
+import { hadleError } from './hadleError';
 
 export const getUserRefById = async (userId: string) => {
   try {
-    const docRef: DocumentReference = doc(db, DatabasePaths.USERS, userId);
-    const docSnapshot = await getDoc(docRef);
+    const userData = await getFirestoreData<User>(DatabasePaths.USERS, 1, userId);
 
-    if (docSnapshot.exists()) {
-      const userData = docSnapshot.data();
-
-      return userData;
+    if (userData) {
+      return userData[0];
     }
 
     return null;
   } catch (error) {
-    notifications.show({
-      title: 'error',
+    hadleError({
       message: `error ${error}`,
     });
   }

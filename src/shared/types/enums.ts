@@ -5,6 +5,7 @@ export enum DatabasePaths {
 export enum RoutersPaths {
   MAIN = '/',
   ADMIN = '/admin',
+  USERBYID = '/admin/:id',
   AUTH = '/auth',
   NOFOUND = '*',
 }
@@ -17,4 +18,9 @@ export enum UserDataEnum {
   RULE = 'rule',
   EMAIL = 'email',
   NAME = 'name',
+}
+export enum LocalStorageDataEnum {
+  USER = 'user',
+  ISAUTH = 'isAuth',
+  EN = 'en',
 }

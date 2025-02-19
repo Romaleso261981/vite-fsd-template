@@ -1,37 +1,38 @@
-import { Suspense, lazy, useEffect, useState } from 'react';
+import { FC, Suspense, lazy, useEffect, useState } from 'react';
 
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
-import { useSelectUserData } from '../features/auth/authSlice';
+import { currentUser } from '../features/auth/authSlice';
 import { Spiner } from '../features/components/Loader';
 import RootLayout from '../features/components/RootLayout/RootLayout';
-import AuthPage from '../pages/Auth/AuthPage';
+import { useAdminCheck } from '../shared/helpers/isAdmin';
 import { RoutersPaths } from '../shared/types/enums';
 
-import { useAppSelector } from './store';
+import { useAppDispatch } from './store';
 
 const Main = lazy(() => import('../pages/Main/Main'));
 const NotFound = lazy(() => import('../pages/NoFound/NoFound'));
 const Admin = lazy(() => import('../pages/Admin/Admin'));
+const AuthPage = lazy(() => import('../pages/Auth/AuthPage'));
+const Userdetails = lazy(() => import('../pages/Userdetails/Userdetails'));
 const NoAccess = lazy(() => import('../features/components/NoAccess/NoAccess'));
 
-const App: React.FC = () => {
+const App: FC = () => {
   const [isAllow, setIsAllow] = useState(false);
-  const userData = useAppSelector(useSelectUserData);
 
-  const navigate = useNavigate();
+  const dispach = useAppDispatch();
 
   useEffect(() => {
-    if (userData?.rule === 'admin') {
+    dispach(currentUser());
+  }, [dispach]);
+
+  const isAdmin = useAdminCheck();
+
+  useEffect(() => {
+    if (isAdmin) {
       setIsAllow(true);
     }
-  }, [userData]);
-
-  useEffect(() => {
-    if (userData === null) {
-      navigate('/auth');
-    }
-  }, [navigate, userData]);
+  }, [isAdmin]);
 
   return (
     <Suspense fallback={<Spiner />}>
@@ -40,6 +41,7 @@ const App: React.FC = () => {
           <Route index element={<Main />} />
           <Route path={RoutersPaths.AUTH} element={<AuthPage />} />
           <Route path={RoutersPaths.ADMIN} element={isAllow ? <Admin /> : <NoAccess />} />
+          <Route path={RoutersPaths.USERBYID} element={<Userdetails />} />
         </Route>
         <Route path={RoutersPaths.NOFOUND} element={<NotFound />} />
       </Routes>

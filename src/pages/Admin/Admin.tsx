@@ -7,9 +7,9 @@ import { useAppDispatch, useAppSelector } from '../../app/store';
 import { useSelectUserData } from '../../features/auth/authSlice';
 import { getData, useSelectData } from '../../features/user/userSlice';
 
-import { FormAddClient } from './ui/components/FormAddClient/FormAddClient';
-import { Search } from './ui/components/Search/Search';
-import { TableSelection } from './ui/components/TableSelection/TableSelection';
+import { FormAddClient } from './ui/components/FormAddClient';
+import { Search } from './ui/components/Search';
+import { TableSelection } from './ui/components/TableSelection';
 
 const Admin: FC = () => {
   const dataUsers = useAppSelector(useSelectData);
@@ -21,7 +21,7 @@ const Admin: FC = () => {
     dispach(getData());
   }, [dispach]);
 
-  if (userData?.email !== 'ladiginscormag@gmail.com') {
+  if (userData?.rule !== 'admin') {
     return (
       <Box ta="center">
         <Text size="lg" ff="monospace">

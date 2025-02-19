@@ -1,0 +1,17 @@
+.input {
+box-shadow: inset;
+width: 30%;
+ }
+.formWrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 30px;
+}
+.buttonGroop {
+	display: flex;
+	flex-direction: row;
+	gap: 30px;
+	background-color: #c53535;
+}

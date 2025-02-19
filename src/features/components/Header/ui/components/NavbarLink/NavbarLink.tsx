@@ -35,6 +35,7 @@ export const Navbar = () => {
 
   const hendlelogOut = () => {
     dispach(logOut());
+    localStorage.removeItem('code');
     navigate('/auth');
   };
   const hendlelogin = () => {

@@ -10,7 +10,9 @@ import { RoutersPaths } from '../shared/types/enums';
 
 import { useAppDispatch } from './store';
 
-const Main = lazy(() => import('../pages/Main/Main'));
+import ConditionList from '@/features/components/ConditionList/ConditionList';
+
+// const Main = lazy(() => import('../pages/Main/Main'));
 const NotFound = lazy(() => import('../pages/NoFound/NoFound'));
 const Admin = lazy(() => import('../pages/Admin/Admin'));
 const AuthPage = lazy(() => import('../pages/Auth/AuthPage'));
@@ -38,7 +40,8 @@ const App: FC = () => {
     <Suspense fallback={<Spiner />}>
       <Routes>
         <Route path={RoutersPaths.MAIN} element={<RootLayout />}>
-          <Route index element={<Main />} />
+          {/* <Route index element={<Main />} /> */}
+          <Route index element={<ConditionList />} />
           <Route path={RoutersPaths.AUTH} element={<AuthPage />} />
           <Route path={RoutersPaths.ADMIN} element={isAllow ? <Admin /> : <NoAccess />} />
           <Route path={RoutersPaths.USERBYID} element={<Userdetails />} />
